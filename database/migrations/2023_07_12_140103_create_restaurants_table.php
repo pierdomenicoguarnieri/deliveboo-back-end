@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
+            $table->string('email');
             $table->double('rating', 2, 1)->nullable();
             $table->string('address');
             $table->string('piva', 11);

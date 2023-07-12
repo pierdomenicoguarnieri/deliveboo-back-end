@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use App\Models\Restaurant;
+use App\Models\Dish;
 use Faker\Generator as Faker;
 
 class RestaurantsTableSeeder extends Seeder
@@ -23,6 +24,8 @@ class RestaurantsTableSeeder extends Seeder
 
             $new_restaurant = new Restaurant();
 
+            $new_restaurant->dish_id = Dish::inRandomOrder()->first()->id;
+
             $new_restaurant->name = $restaurant['name'];
             $new_restaurant->slug = Str::slug($restaurant['name'], '-');
             $new_restaurant->piva = $faker->numberBetween(10000000000, 99999999999);
@@ -32,7 +35,8 @@ class RestaurantsTableSeeder extends Seeder
             $new_restaurant->image_path = $restaurant['image-path'];
             $new_restaurant->image_name = $restaurant['image-name'];
             $new_restaurant->rating = $faker->randomFloat(1, 1, 5);
-            //$new_restaurant->save();
+            //dump($new_restaurant);
+            $new_restaurant->save();
         }
     }
 }
