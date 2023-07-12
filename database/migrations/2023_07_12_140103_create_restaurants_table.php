@@ -21,6 +21,7 @@ return new class extends Migration
             $table->double('rating', 2, 1)->nullable();
             $table->string('address');
             $table->string('piva', 11);
+            $table->string('email', 50);
             $table->string('telephone_number');
             $table->string('image_path')->nullable();
             $table->string('image_name')->nullable();
