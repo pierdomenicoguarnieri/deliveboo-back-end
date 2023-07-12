@@ -12,6 +12,10 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function resturant(){
+      return $this->belongsTo(Resturant::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
