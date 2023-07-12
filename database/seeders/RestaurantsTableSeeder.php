@@ -25,14 +25,14 @@ class RestaurantsTableSeeder extends Seeder
 
             $new_restaurant->name = $restaurant['name'];
             $new_restaurant->slug = Str::slug($restaurant['name'], '-');
-            $new_restaurant->name = $faker->numberBetween(10000000000, 99999999999);
+            $new_restaurant->piva = $faker->numberBetween(10000000000, 99999999999);
             $new_restaurant->email = $restaurant['email'];
             $new_restaurant->telephone_number = $restaurant['telephone-number'];
-            $new_restaurant->name = $restaurant['address'];
+            $new_restaurant->address = $restaurant['address'];
             $new_restaurant->image_path = $restaurant['image-path'];
             $new_restaurant->image_name = $restaurant['image-name'];
-            $new_restaurant->name = $faker->randomFloat(1, 0, 5);
-            $new_restaurant->save();
+            $new_restaurant->rating = $faker->randomFloat(1, 1, 5);
+            //$new_restaurant->save();
         }
     }
 }
