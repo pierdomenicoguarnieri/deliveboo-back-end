@@ -17,12 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
-            $table->double('rating', 2, 1);
+            $table->double('rating', 2, 1)->nullable();
             $table->string('address');
             $table->string('piva', 11);
             $table->string('telephone_number');
-            $table->string('image_path');
-            $table->string('image_name');
+            $table->string('image_path')->nullable();
+            $table->string('image_name')->nullable();
             $table->timestamps();
         });
     }
