@@ -22,7 +22,6 @@
 <body>
   <div id="app">
 
-    @if (Auth::user()->resturant_id != null)
       <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
           <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
@@ -70,8 +69,6 @@
                   </a>
 
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a>
-                    <a class="dropdown-item" href="{{ url('profile') }}">{{ __('Profile') }}</a>
                     <a class="dropdown-item" href="{{ route('logout') }}"
                       onclick="event.preventDefault();
                       document.getElementById('logout-form').submit();">
@@ -88,7 +85,6 @@
           </div>
         </div>
       </nav>
-    @endif
 
 
     <main class="">

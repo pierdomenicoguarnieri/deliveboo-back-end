@@ -54,12 +54,13 @@
 
       <div class="mb-3">
         <label for="telephone_number" class="form-label">Restaurant Telephone Number</label>
-        <input type="text" id="phone" placeholder="1234567890" pattern="[0-9]{3}[0-9]{2}[0-9]{4}" class="form-control @error('telephone_number') is-invalid @enderror" name="telephone_number" id="telephone_number" value="{{ old('telephone_number') }}">
+        <input type="text" id="phone" placeholder="1234567890" pattern="[0-9]{10}" class="form-control @error('telephone_number') is-invalid @enderror" name="telephone_number" id="telephone_number" value="{{ old('telephone_number') }}">
         @error('telephone_number')
           <span class="text-danger">{{$message}}</span>
         @enderror
-r">
-cess">Crea</button>
+      </div>
+
+        <button type="submit" class="btn btn-success">Crea</button>
     </form>
   </div>
 @endsection

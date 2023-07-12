@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RestaurantRequest;
 use App\Models\Restaurant;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -44,12 +45,14 @@ class RestaurantController extends Controller
       $form_data['slug'] = Restaurant::generateSlug($form_data['name']);
       $form_data['image_path'] = "";
       $form_data['image_name'] = "";
-      $form_data['rating'] = "";
+      $form_data['rating'] = 0;
 
       $new_restaurant->fill($form_data);
       $new_restaurant->save();
       $new_restaurant_id = Restaurant::where('slug', $new_restaurant->slug)->first();
-      Auth::user()->restaurant_id = $new_restaurant_id->id;
+      $update_user = User::find(Auth::user()->id);
+      $update_user->restaurant_id = $new_restaurant_id->id;
+      $update_user->update();
       return redirect()->route('admin.home');
     }
 
