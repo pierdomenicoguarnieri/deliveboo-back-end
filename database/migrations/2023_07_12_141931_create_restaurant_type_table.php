@@ -13,11 +13,17 @@ return new class extends Migration
    */
   public function up()
   {
-    Schema::table('users', function (Blueprint $table) {
-      $table->unsignedBigInteger('restaurant_id')->after('id');
+    Schema::create('restaurant_type', function (Blueprint $table) {
+      $table->unsignedBigInteger('restaurant_id');
       $table->foreign('restaurant_id')
         ->references('id')
         ->on('restaurants')
+        ->cascadeOnDelete();
+
+      $table->unsignedBigInteger('type_id');
+      $table->foreign('type_id')
+        ->references('id')
+        ->on('types')
         ->cascadeOnDelete();
     });
   }
@@ -29,9 +35,6 @@ return new class extends Migration
    */
   public function down()
   {
-    Schema::table('users', function (Blueprint $table) {
-      $table->dropForeign(['restaurant_id']);
-      $table->dropColumn('restaurant_id');
-    });
+    Schema::dropIfExists('restaurant_type');
   }
 };
