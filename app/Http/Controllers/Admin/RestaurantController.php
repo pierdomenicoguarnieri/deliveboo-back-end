@@ -43,9 +43,6 @@ class RestaurantController extends Controller
       $new_restaurant = new Restaurant();
 
       $form_data['slug'] = Restaurant::generateSlug($form_data['name']);
-      $form_data['image_path'] = "";
-      $form_data['image_name'] = "";
-      $form_data['rating'] = 0;
 
       $new_restaurant->fill($form_data);
       $new_restaurant->save();
