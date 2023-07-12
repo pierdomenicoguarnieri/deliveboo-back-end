@@ -35,7 +35,6 @@ class RestaurantsTableSeeder extends Seeder
             $new_restaurant->image_path = $restaurant['image-path'];
             $new_restaurant->image_name = $restaurant['image-name'];
             $new_restaurant->rating = $faker->randomFloat(1, 1, 5);
-            dump($new_restaurant);
             $new_restaurant->save();
         }
     }

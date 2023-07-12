@@ -29,8 +29,7 @@ class DishesTableSeeder extends Seeder
             $new_dish->is_gluten_free = $dish['is_gluten_free'];
             $new_dish->is_lactose_free = $dish['is_lactose_free'];
             $new_dish->type = $dish['type'];
-            // $new_dish->save();
-            dump($new_dish);
+            $new_dish->save();
         }
     }
 }
