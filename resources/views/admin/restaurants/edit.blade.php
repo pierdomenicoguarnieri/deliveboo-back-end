@@ -4,8 +4,9 @@
 
 
   <div class="container py-5">
-    <h1>Registra un nuovo ristorante!</h1>
+    <h1>Modifica il tuo ristorante!</h1>
 
+    
     @if($errors->any())
 
       <div class="alert alert-danger" role="alert">
@@ -19,39 +20,33 @@
     @endif
 
     <form 
-      action="{{route('admin.restaurants.store')}}" 
+      action="{{route('admin.restaurants.update', $restaurant)}}" 
       method="POST" 
-      class="mt-5"
+      class="mt-5" 
       enctype="multipart/form-data"
     >
       @csrf
+      @method('PUT')
 
       <div class="mb-3">
-        <label for="name" class="form-label">Name (*)</label>
-        <input 
-          type="text" 
-          class="form-control @error('name') is-invalid @enderror" 
-          name="name" 
-          placeholder="Nome ristorante"
-          id="name" 
-          value="{{ old('name') }}"
-        >
+        <label for="name" class="form-label">Restaurant Name</label>
+        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name', $restaurant->name) }}">
         @error('name')
           <span class="text-danger">{{$message}}</span>
         @enderror
       </div>
 
       <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email ristorante" name="email" id="email" value="{{ old('email') }}">
+        <label for="email" class="form-label">Restaurant Email</label>
+        <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{ old('email', $restaurant->email) }}">
         @error('email')
           <span class="text-danger">{{$message}}</span>
         @enderror
       </div>
 
       <div class="mb-3">
-        <label for="address" class="form-label">Address</label>
-        <input type="text" class="form-control @error('address') is-invalid @enderror" placeholder="Restaurant address" name="address" id="address" value="{{ old('address') }}">
+        <label for="address" class="form-label">Restaurant Address</label>
+        <input type="text" class="form-control @error('address') is-invalid @enderror" name="address" id="address" value="{{ old('address', $restaurant->address) }}">
         @error('address')
           <span class="text-danger">{{$message}}</span>
         @enderror
@@ -59,22 +54,22 @@
 
       <div class="mb-3">
         <label for="piva" class="form-label">P. IVA</label>
-        <input type="number" class="form-control @error('piva') is-invalid @enderror" placeholder="P. Iva" name="piva" id="piva" value="{{ old('piva') }}">
+        <input type="number" class="form-control @error('piva') is-invalid @enderror" name="piva" id="piva" value="{{ old('piva', $restaurant->piva) }}">
         @error('piva')
           <span class="text-danger">{{$message}}</span>
         @enderror
       </div>
 
       <div class="mb-3">
-        <label for="telephone_number" class="form-label">Telephone Number</label>
-        <input type="text" id="phone" placeholder="1234567890" pattern="[0-9]{10}" class="form-control @error('telephone_number') is-invalid @enderror" name="telephone_number" id="telephone_number" value="{{ old('telephone_number') }}">
+        <label for="telephone_number" class="form-label">Restaurant Telephone Number</label>
+        <input type="text" id="phone" placeholder="1234567890" pattern="[0-9]{10}" class="form-control @error('telephone_number') is-invalid @enderror" name="telephone_number" id="telephone_number" value="{{ old('telephone_number', $restaurant->telephone_number) }}">
         @error('telephone_number')
           <span class="text-danger">{{$message}}</span>
         @enderror
       </div>
 
       <div class="mb-3">
-          <label for="image" class="form-label">Immagine</label>
+          <label for="image_path" class="form-label">Immagine</label>
           <input
               type="file"
               class="form-control"
@@ -82,20 +77,17 @@
               name="image_path"
               onchange="showImage(event)"
           >
-          <img id="default-image" width="150px" src="{{ asset('storage/' . $restaurant?->image_path) }}" onerror="this.src='/img/noimage.jpg'" class="pt-2">
-          <div>
-              <input type="radio" name="noImage" onchange="removeImage()"> <label for="">No image</label>
-          </div>
+
+          <img id="default-image" width="150px" src="{{ asset('storage/' . $restaurant->image_path) }}" alt="" onerror="this.src='/img/noimage.jpg'" class="pt-2">
       </div>
 
       <div class="form-check d-flex flex-column">
         
         @foreach ($types as $type)
-          <div>
-            <label class="form-check-label" for="type_id">{{$type->name}}</label>
-            <input class="form-check-input" type="checkbox" value="{{$type->id}}" @if($type->id == old('type_id')) checked @endif id="type_id" name="type_id[]">
-          </div>
-
+        <div>
+          <input class="form-check-input" type="checkbox" value="{{$type->id}}" @if($type->id == old('type_id', $restaurant->type?->id)) checked @endif id="type_id" name="type_id[]">
+          <label class="form-check-label" for="type_id">{{$type->name}}</label>
+        </div>
             
         @endforeach
 
@@ -105,9 +97,8 @@
         
       </div>
 
-      </div>
+      <button type="submit" class="btn btn-success">Modifica</button>
 
-        <button type="submit" class="btn btn-success">Crea</button>
     </form>
   </div>
 

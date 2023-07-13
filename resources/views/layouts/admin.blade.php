@@ -82,10 +82,15 @@
                       document.getElementById('logout-form').submit();">
                       {{ __('Logout') }}
                     </a>
-
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                       @csrf
                     </form>
+                    @if (Auth::user()->restaurant_id != null)
+                      <a class="dropdown-item" href="{{ route('admin.restaurants.show', $restaurant) }}">
+                        <span>Visualizza profilo</span>
+                      </a>
+                    @endif
+
                   </div>
                 </li>
               @endguest
