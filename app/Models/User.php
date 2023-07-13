@@ -13,7 +13,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     public function resturant(){
-      return $this->belongsTo(Restaurant::class);
+        return $this->hasOne(Restaurant::class);
     }
 
     /**
