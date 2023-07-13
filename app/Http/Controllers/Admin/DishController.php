@@ -26,7 +26,7 @@ class DishController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.dishes.create_edit');
     }
 
     /**
