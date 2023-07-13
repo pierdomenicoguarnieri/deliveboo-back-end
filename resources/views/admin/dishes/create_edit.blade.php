@@ -2,6 +2,7 @@
 
 @section('content')
   <div class="container">
+
     <form
       action="{{ $route }}"
       method="POST"
@@ -9,7 +10,7 @@
     >
       @csrf
       @method($method)
-      
+
       <div class="mb-3">
         <label for="name" class="form-label">Name</label>
         <input

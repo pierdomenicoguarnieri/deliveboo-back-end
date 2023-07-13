@@ -91,7 +91,7 @@ class DishController extends Controller
         $form_data['is_frozen']       = $request->has('is_frozen'); 
         $form_data['is_gluten_free']  = $request->has('is_gluten_free'); 
         $form_data['is_lactose_free'] = $request->has('is_lactose_free'); 
-        
+
         $dish->update($form_data);
         return redirect()->route('admin.dishes.show', $dish);
     }
@@ -102,8 +102,9 @@ class DishController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Dish $dish)
     {
-        //
+        $dish->delete();
+        return redirect()->route('admin.dishes.index')->with('deleted','Dish deleted');
     }
 }
