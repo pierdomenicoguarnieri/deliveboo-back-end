@@ -22,10 +22,6 @@ class RestaurantController extends Controller
     public function index()
     {
         $restaurant = Restaurant::find(Auth::user()->restaurant_id);
-        //$restaurant = Restaurant::where( $restaurant_from_user['id'], 'id');
-        //dump($restaurant_from_user['id']);
-        //dump($restaurant);
-        //dump(Auth::user());
 
         return view('admin.restaurants.index', compact('restaurant'));
     }
@@ -58,11 +54,17 @@ class RestaurantController extends Controller
 
             $form_data['image_name'] = $request->file('image_path')->getClientOriginalName();
             $form_data['image_path'] = Storage::put('uploads/', $form_data['image_path']);
-
         }
 
         $new_restaurant->fill($form_data);
         $new_restaurant->save();
+
+
+
+        if(array_key_exists('type_id', $form_data)){
+            $new_restaurant->types()->attach($form_data['type_id']);
+        }
+        
 
         $new_restaurant_id = Restaurant::where('slug', $new_restaurant->slug)->first();
         $update_user = User::find(Auth::user()->id);
@@ -70,7 +72,7 @@ class RestaurantController extends Controller
         $update_user->update();
 
 
-        return redirect()->route('admin.home', compact('new_restaurant'));
+        return redirect()->route('admin.restaurants.index', $new_restaurant);
     }
 
     /**
@@ -79,8 +81,13 @@ class RestaurantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Restaurant $restaurant)
+    public function show($id)
     {
+        $restaurant = Restaurant::find(Auth::user()->restaurant_id);
+
+        if(!$restaurant){
+            abort('404');
+        }
 
         return view('admin.restaurants.show', compact('restaurant'));
     }
@@ -122,8 +129,8 @@ class RestaurantController extends Controller
                     Storage::disk('public')->delete($restaurant->image_path);
             }
 
-                $form_data['image_name'] = $request->file('image_path')->getClientOriginalName();
-                $form_data['image_path'] = Storage::put('uploads/',$form_data['image_path']);
+            $form_data['image_name'] = $request->file('image_path')->getClientOriginalName();
+            $form_data['image_path'] = Storage::put('uploads/', $form_data['image_path']);
         }
 
         if(array_key_exists('noimage', $form_data) && $restaurant->image_path) {
@@ -134,6 +141,14 @@ class RestaurantController extends Controller
 
         $restaurant->update($form_data);
 
+        
+
+        if(array_key_exists('type_id', $form_data)){
+            $restaurant->types()->sync($form_data['type_id']);
+        }else{
+            $restaurant->types()->detach();
+        }
+
         return view('admin.restaurants.show', compact('restaurant'));
     }
 
@@ -143,8 +158,14 @@ class RestaurantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Restaurant $restaurant)
     {
-        //
+        if($restaurant->image_path){
+            Storage::disk('public')->delete($restaurant->image_path);
+        }
+
+        $restaurant->delete();
+
+        return redirect()->route('/')->with('deleted', "Il tuo ristorante: \" $restaurant->name \" è stato eliminato con successo!");
     }
 }

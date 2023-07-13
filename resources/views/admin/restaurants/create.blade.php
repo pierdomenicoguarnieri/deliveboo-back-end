@@ -78,14 +78,33 @@
           <input
               type="file"
               class="form-control"
-              id="image"
-              name="image"
+              id="image_path"
+              name="image_path"
               onchange="showImage(event)"
-              >
+          >
           <img id="default-image" width="150px" src="{{ asset('storage/' . $restaurant?->image_path) }}" onerror="this.src='/img/noimage.jpg'" class="pt-2">
           <div>
               <input type="radio" name="noImage" onchange="removeImage()"> <label for="">No image</label>
           </div>
+      </div>
+
+      <div class="form-check d-flex flex-column">
+        
+        @foreach ($types as $type)
+          <div>
+            <label class="form-check-label" for="type_id">{{$type->name}}</label>
+            <input class="form-check-input" type="checkbox" value="{{$type->id}}" @if($type->id == old('type_id')) checked @endif id="type_id" name="type_id[]">
+          </div>
+
+            
+        @endforeach
+
+        @error('type_id')
+            <p class="text-danger py-1">{{$message}}</p>
+        @enderror
+        
+      </div>
+
       </div>
 
         <button type="submit" class="btn btn-success">Crea</button>

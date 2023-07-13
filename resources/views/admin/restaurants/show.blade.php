@@ -13,30 +13,29 @@
 
       <p><strong>Indirizzo: </strong>{{$restaurant->address}}</p>
 
-      <div>
-        <img src="{{$restaurant->image_path}}" alt="">
+      <div class="card-img-top d-block">
+          <img src="{{ asset('storage/' . $restaurant->image_path) }}" alt="{{$restaurant->image_original_name}}" onerror="this.src='/img/noimage.jpg'">
+
       </div>
+      <p>{{$restaurant->image_original_name}}</p>
 
 
     </div>
-    <p>{{$restaurant->image_original_name}}</p>
+      <div class="pt-2">
+          <span>Tipo:</span>
+          @foreach ($restaurant->types as $type)
+            <span class="badge text-bg-warning">{{ $type->name}}</span>
+          @endforeach
 
+      </div>
+    
     <div class="pt-2">
-        <span>Tipo:</span>
-        <span class="badge text-bg-primary">{{$restaurant->type?->name}}</span>
 
     </div>
-
-    <div class="pt-2">
-
-    </div>
-
-
-
-    <p class="pt-2">{!!$restaurant->text!!}</p>
 
     <a class="btn btn-warning nv_edit" href="{{route('admin.restaurants.edit', $restaurant)}}">
-        <i class="fa-solid fa-pen"></i>
+        MODIFICA
     </a>
+
   </div>
 @endsection
