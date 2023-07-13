@@ -39,18 +39,18 @@ class RestaurantController extends Controller
      */
     public function store(RestaurantRequest $request)
     {
-      $form_data = $request->all();
-      $new_restaurant = new Restaurant();
+        $form_data = $request->all();
+        $new_restaurant = new Restaurant();
 
-      $form_data['slug'] = Restaurant::generateSlug($form_data['name']);
+        $form_data['slug'] = Restaurant::generateSlug($form_data['name']);
 
-      $new_restaurant->fill($form_data);
-      $new_restaurant->save();
-      $new_restaurant_id = Restaurant::where('slug', $new_restaurant->slug)->first();
-      $update_user = User::find(Auth::user()->id);
-      $update_user->restaurant_id = $new_restaurant_id->id;
-      $update_user->update();
-      return redirect()->route('admin.home');
+        $new_restaurant->fill($form_data);
+        $new_restaurant->save();
+        $new_restaurant_id = Restaurant::where('slug', $new_restaurant->slug)->first();
+        $update_user = User::find(Auth::user()->id);
+        $update_user->restaurant_id = $new_restaurant_id->id;
+        $update_user->update();
+        return redirect()->route('admin.home');
     }
 
     /**

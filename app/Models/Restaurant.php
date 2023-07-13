@@ -19,7 +19,7 @@ class Restaurant extends Model
   }
 
   public function dishes(){
-    return $this->belongsToMany(Dish::class);
+    return $this->hasMany(Dish::class);
   }
 
   public static function generateSlug($str){

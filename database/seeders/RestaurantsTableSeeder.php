@@ -20,12 +20,20 @@ class RestaurantsTableSeeder extends Seeder
     {
         $restaurants = config('restaurants');
 
+        $dishes = Dish::all();
+        $array_id = [];
+        foreach($dishes as $dish){
+            array_push($array_id, $dish['id']);
+        }
+
         foreach($restaurants as $restaurant){
 
             $new_restaurant = new Restaurant();
+            
+            //$random_id = $faker->randomNumber(1, count($array_id));
 
-            $new_restaurant->dish_id = Dish::inRandomOrder()->first()->id;
-
+            //$new_restaurant->dish_id->attach($random_id);
+            //dd($new_restaurant);
             $new_restaurant->name = $restaurant['name'];
             $new_restaurant->slug = Str::slug($restaurant['name'], '-');
             $new_restaurant->piva = $faker->numberBetween(10000000000, 99999999999);
