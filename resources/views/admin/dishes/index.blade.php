@@ -23,6 +23,9 @@
               <a href="{{ route('admin.dishes.show', $dish) }}" class="btn btn-primary">
                 <i class="fa-solid fa-binoculars"></i>
               </a>
+              <a href="{{ route('admin.dishes.edit', $dish) }}" class="btn btn-warning">
+                <i class="fa-regular fa-pen-to-square"></i>
+              </a>
             </td>
           </tr>
         @endforeach
