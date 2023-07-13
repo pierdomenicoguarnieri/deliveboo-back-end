@@ -19,6 +19,11 @@
             <td>{{ $dish->name }}</td>
             <td>{{ $dish->visible }}</td>
             <td>{{ $dish->price }} &euro;</td>
+            <td>
+              <a href="{{ route('admin.dishes.show', $dish) }}" class="btn btn-primary">
+                <i class="fa-solid fa-binoculars"></i>
+              </a>
+            </td>
           </tr>
         @endforeach
       </tbody>
