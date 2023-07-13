@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Dish;
+use App\Models\Restaurant;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -20,6 +21,7 @@ class DishesTableSeeder extends Seeder
         foreach ($dishes as $dish) {
             $new_dish = new Dish();
             $new_dish->name = $dish['name'];
+            $new_dish->restaurant_id = Restaurant::inRandomOrder()->first()->id;
             $new_dish->price = $dish['price'];
             $new_dish->visible = $dish['visible'];
             $new_dish->description = $dish['description'];

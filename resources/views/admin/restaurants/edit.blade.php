@@ -26,15 +26,24 @@
       enctype="multipart/form-data"
     >
       @csrf
+
       @method('PUT')
 
       <div class="mb-3">
         <label for="name" class="form-label">Restaurant Name</label>
         <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name', $restaurant->name) }}">
-        @error('name')
-          <span class="text-danger">{{$message}}</span>
-        @enderror
-      </div>
+      @if($errors->any())
+
+        <div class="alert alert-danger" role="alert">
+          <ul>
+            @foreach ($errors->all() as $error)
+              <li>{{$error}}</li>
+            @endforeach
+          </ul>
+        </div>
+
+      @endif
+
 
       <div class="mb-3">
         <label for="email" class="form-label">Restaurant Email</label>
@@ -80,21 +89,18 @@
 
           <img id="default-image" width="150px" src="{{ asset('storage/' . $restaurant->image_path) }}" alt="" onerror="this.src='/img/noimage.jpg'" class="pt-2">
       </div>
-
+      
       <div class="form-check d-flex flex-column">
-        
         @foreach ($types as $type)
-        <div>
-          <input class="form-check-input" type="checkbox" value="{{$type->id}}" @if($type->id == old('type_id', $restaurant->type?->id)) checked @endif id="type_id" name="type_id[]">
-          <label class="form-check-label" for="type_id">{{$type->name}}</label>
-        </div>
-            
+          <div>
+            <input class="form-check-input" type="checkbox" value="{{$type->id}}" @if($type->id == old('type_id', $restaurant->type?->id)) checked @endif id="type_id" name="type_id[]">
+            <label class="form-check-label" for="type_id">{{$type->name}}</label>
+          </div>
         @endforeach
-
+        
         @error('type_id')
             <p class="text-danger py-1">{{$message}}</p>
         @enderror
-        
       </div>
 
       <button type="submit" class="btn btn-success">Modifica</button>

@@ -16,9 +16,10 @@ class RestaurantsTypesTableSeeder extends Seeder
      */
     public function run()
     {
-        $restaurant = Restaurant::inRandomOrder()->first()->id;
-        $type = Type::inRandomOrder()->first()->id;
-
-        dd($restaurant, $type);
+        $restaurants = Restaurant::all();
+        foreach ($restaurants as $restaurant) {
+            $type = Type::inRandomOrder()->limit(rand(1,3))->pluck('id');
+            $restaurant->types()->attach($type);
+        }
     }
 }
