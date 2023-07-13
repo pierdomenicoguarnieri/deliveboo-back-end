@@ -31,16 +31,8 @@
         >
       </div>
 
-      <div class="mb-3">
-        <label for="visible" class="form-label">Visible</label>
-        <input
-          type="text"
-          class="form-control"
-          id="visible"
-          name="visible"
-          placeholder="Visible"
-        >
-      </div>
+      <input type="checkbox" class="btn-check" id="visible" autocomplete="off" name="visible">
+      <label class="btn btn-outline-primary" for="visible">Visible</label>
 
       <div class="mb-3">
         <label for="description" class="form-label">Description</label>
@@ -88,7 +80,7 @@
         <label class="btn btn-outline-primary" for="is_lactose_free">Lactose Free</label>
       </div>
 
-      <button class="btn btn-primary">Submit</button>
+      <button class="btn btn-primary" type="submit">Submit</button>
 
     </form>
   </div>

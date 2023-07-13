@@ -37,8 +37,15 @@ class DishController extends Controller
      */
     public function store(Request $request)
     {
-        $new_dish = $request->all();
-        dd($new_dish);
+        $form_data                    = $request->all();
+        $form_data['visible']         = $request->has('visible'); 
+        $form_data['is_vegan']        = $request->has('is_vegan'); 
+        $form_data['is_frozen']       = $request->has('is_frozen'); 
+        $form_data['is_gluten_free']  = $request->has('is_gluten_free'); 
+        $form_data['is_lactose_free'] = $request->has('is_lactose_free'); 
+
+        $new_dish = Dish::create($form_data);
+        return redirect()->route('admin.dishes.index', $new_dish);
     }
 
     /**
