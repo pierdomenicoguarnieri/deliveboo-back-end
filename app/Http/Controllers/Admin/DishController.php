@@ -64,7 +64,8 @@ class DishController extends Controller
      */
     public function show(Dish $dish)
     {
-        return view('admin.dishes.show', compact('dish'));
+      $restaurant = Restaurant::find(Auth::user()->restaurant_id);
+        return view('admin.dishes.show', compact('dish', 'restaurant'));
     }
 
     /**
