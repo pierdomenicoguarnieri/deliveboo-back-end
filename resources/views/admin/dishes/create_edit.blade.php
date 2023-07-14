@@ -70,7 +70,7 @@
           class="form-control @error('description') is-invalid @endif"
           id="description"
           name="description"
-          rows="3"
+          rows="10"
         >
           {{ old('description', $dish?->description) }}
         </textarea>
@@ -179,7 +179,7 @@
           type="file"
         >
 
-        <img width="150" id="prev-image" src="{{ asset('storage/' . $dish?->image_path) }}" onerror="this.src='/img/noimage.jpg'">
+        <img class="w-25" id="prev-image" src="{{ asset('storage/' . $dish?->image_path) }}" onerror="this.src='/img/noimage.jpg'">
         <div>
           <input type="radio" name="noImage" onchange="removeImage()">
           <label for="noImage">Cancella</label>
@@ -192,11 +192,11 @@
   </div>
 
   <script>
-    // ClassicEditor
-    //   .create( document.querySelector( '#description' ) )
-    //   .catch( error => {
-    //       console.error( error );
-    //   } );
+    ClassicEditor
+      .create( document.querySelector( '#description' ) )
+      .catch( error => {
+          console.error( error );
+      } );
 
     function showImage(event){
       const tagImage = document.getElementById('prev-image');

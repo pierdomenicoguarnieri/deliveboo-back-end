@@ -10,6 +10,8 @@
 
   <title>{{ config('app.name', 'Laravel') }}</title>
 
+  <script src="https://cdn.ckeditor.com/ckeditor5/38.1.1/classic/ckeditor.js"></script>
+
 
   <!-- Fonts -->
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
