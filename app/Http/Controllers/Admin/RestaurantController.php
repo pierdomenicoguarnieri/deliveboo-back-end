@@ -63,12 +63,9 @@ class RestaurantController extends Controller
         $new_restaurant->fill($form_data);
         $new_restaurant->save();
 
-
-
-        if(array_key_exists('type_id', $form_data)){
-            $new_restaurant->types()->attach($form_data['type_id']);
+        if(array_key_exists('types', $form_data)){
+            $new_restaurant->types()->attach($form_data['types']);
         }
-
 
         $new_restaurant_id = Restaurant::where('slug', $new_restaurant->slug)->first();
         $update_user = User::find(Auth::user()->id);
@@ -110,7 +107,7 @@ class RestaurantController extends Controller
         $route  = route('admin.restaurants.update', $restaurant);
         $button = 'Modifica';
 
-        return view('admin.restaurants.create_edit', compact('restaurant', 'types', 'type_id', 'title', 'method', 'route', 'button'));
+        return view('admin.restaurants.create_edit', compact('restaurant', 'types', 'title', 'method', 'route', 'button'));
     }
 
     /**
@@ -148,14 +145,11 @@ class RestaurantController extends Controller
 
         $restaurant->update($form_data);
 
-        if(array_key_exists('type_id', $form_data)){
-            $restaurant->types()->sync($form_data['type_id']);
+        if(array_key_exists('types', $form_data)){
+            $restaurant->types()->sync($form_data['types']);
         }else{
             $restaurant->types()->detach();
         }
-
-
-        //dd($restaurant);
 
         return view('admin.restaurants.show', compact('restaurant'));
     }

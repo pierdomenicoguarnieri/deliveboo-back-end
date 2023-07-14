@@ -124,16 +124,19 @@
 
         @foreach ($types as $type)
           <div>
-            <label class="form-check-label" for="type_id">{{ $type->name }}</label>
+            <label class="form-check-label" for="types{{ $loop->iteration }}">{{ $type->name }}</label>
             <input
               class="form-check-input"
               type="checkbox"
+              id="types{{ $loop->iteration }}"
+              autocomplete="off"
+              name="types[]"
               value="{{ $type->id }}"
-              @if($type->id == old('type_id', $restaurant->type?->id))
-                checked
+              @if (!$errors->any() && $restaurant?->types->contains($type))
+                  checked
+              @elseif ($errors->any() && in_array($type->id, old('types', [])))
+                  checked
               @endif
-              id="type_id"
-              name="type_id[]"
             >
           </div>
         @endforeach
