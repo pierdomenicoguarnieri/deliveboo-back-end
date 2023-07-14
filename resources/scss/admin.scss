@@ -24,3 +24,25 @@ main{
     height: calc(100vh - 80px);
   }
 }
+
+.search_dishes{
+  border: 2px solid grey;
+  border-radius: 15px;
+  overflow: hidden;
+  padding: 0 10px;
+  background-color: white;
+  input, button{
+    border: none;
+  }
+  &:hover button{
+    color: brown;
+  }
+}
+
+img {
+  width: 100%;
+}
+
+.ck-editor__editable_inline {
+  min-height: 300px;
+}

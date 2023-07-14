@@ -9,13 +9,20 @@
 @else
   @section('content')
     <div class="container">
+
+      @if (session('deleted'))
+        <div class="alert alert-success" role="alert">
+          {{ session('deleted') }}
+        </div>
+      @endif
+
       <h2 class="fs-4 text-secondary my-4">
           Attenzione!
       </h2>
       <div class="row justify-content-center">
           <div class="col">
               <div class="card">
-                  <div class="card-header">Attenzione <span class="fw-bold">{{Auth::user()->name}}</span>, Non hai ancora aggiunto un ristorante!</div>
+                  <div class="w-100 p-2">Attenzione <strong>{{Auth::user()->name}}</strong>, non hai ancora aggiunto un ristorante!</div>
 
                   <div class="card-body">
                       @if (session('status'))
@@ -23,9 +30,12 @@
                           {{ session('status') }}
                       </div>
                       @endif
-                      <p>Sei loggato con successo, però sembra che tu non abbia ancora aggiunto un ristorante!</p>
+                      <span class="py-3">Sei loggato con successo, però sembra che tu non abbia ancora aggiunto un ristorante!</span>
+                      <div>
+                        <a href="{{route('admin.restaurants.create')}}" class="btn btn-primary">Aggiungi ora un ristorante!</a>
+                      </div>
 
-                      <a href="{{route('admin.restaurants.create')}}" class="btn btn-success">Aggiungi ora un ristorante!</a>
+
                   </div>
               </div>
           </div>

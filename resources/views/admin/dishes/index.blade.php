@@ -2,6 +2,7 @@
 
 @section('content')
   <div class="container">
+    <h1 class="py-3">Lista Piatti</h1>
 
     @if (session('deleted'))
       <div class="alert alert-success" role="alert">
