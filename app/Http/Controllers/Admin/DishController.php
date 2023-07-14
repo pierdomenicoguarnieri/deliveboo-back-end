@@ -18,10 +18,10 @@ class DishController extends Controller
      */
     public function index()
     {
-      $restaurant = Restaurant::find(Auth::user()->restaurant_id);
+      $restaurant   = Restaurant::find(Auth::user()->restaurant_id);
 
       if(isset($_GET['search'])){
-        $tosearch = $_GET['search'];
+        $tosearch   = $_GET['search'];
         $dishes     = $restaurant->dishes()->where('name', 'like', "%$tosearch%")->get();
       }else{
         $dishes     = $restaurant->dishes()->get();
