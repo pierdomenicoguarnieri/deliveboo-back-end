@@ -3,6 +3,11 @@
 @section('content')
   <div class="container">
     <h2>{{ $dish->name }}</h2>
+    <img
+      src="{{ asset('storage/' . $dish->image_path) }}"
+      alt="{{ $dish->image_name }}"
+      onerror="this.src='/img/noimage.jpg'"
+    >
     <span>Price: {{ $dish->price }}</span>
     <span>Visible: {{ $dish->visible ? 'Yes' : 'No' }}</span>
     <p>Description: {{ $dish->description }}</p>
