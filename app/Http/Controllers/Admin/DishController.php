@@ -7,6 +7,7 @@ use App\Http\Requests\DishRequest;
 use App\Models\Dish;
 use App\Models\Restaurant;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class DishController extends Controller
 {
