@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DishRequest;
 use App\Models\Dish;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class DishController extends Controller
     return view('admin.dishes.create_edit', compact('method', 'route', 'dish', 'restaurant'));
   }
 
-  public function store(Request $request)
+  public function store(DishRequest $request)
   {
     $form_data                    = $request->all();
     $form_data['visible']         = $request->has('visible');
