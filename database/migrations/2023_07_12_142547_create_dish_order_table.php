@@ -26,6 +26,8 @@ return new class extends Migration
         ->references('id')
         ->on('orders')
         ->cascadeOnDelete();
+
+      $table->integer('quantity')->default(1);
     });
   }
 
