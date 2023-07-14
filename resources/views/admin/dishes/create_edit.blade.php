@@ -5,6 +5,16 @@
 
     <h1 class="py-3">{{ $title }}</h1>
 
+    @if ($errors->any())
+      <div class="alert alert-danger" role="alert">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
+
     <form
       action="{{ $route }}"
       method="POST"
@@ -14,27 +24,37 @@
       @method($method)
 
       <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
+        <label for="name" class="form-label">Nome</label>
         <input
           type="text"
-          class="form-control"
+          class="form-control @error('name') is-invalid @endif"
           id="name"
           name="name"
           value="{{ old('name', $dish?->name) }}"
-          placeholder="Insert name"
+          placeholder="Inserisci il nome"
         >
+        @error('name')
+          <div class="alert alert-danger" role="alert">
+	          {{ $message }}
+          </div>
+        @enderror
       </div>
 
       <div class="mb-3">
-        <label for="price" class="form-label">Price</label>
+        <label for="price" class="form-label">Prezzo</label>
         <input
           type="number"
-          class="form-control"
+          class="form-control @error('price') is-invalid @endif"
           id="price"
           name="price"
           value="{{ old('price', $dish?->price) }}"
-          placeholder="Insert price"
+          placeholder="Inserisci il prezzo del piatto"
         >
+        @error('price')
+          <div class="alert alert-danger" role="alert">
+	          {{ $message }}
+          </div>
+        @enderror
       </div>
 
       <input
@@ -44,42 +64,57 @@
           checked
         @endif
       >
-      <label class="btn btn-outline-primary" for="visible">Visible</label>
+      <label class="btn btn-outline-primary" for="visible">Visibile</label>
 
       <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
+        <label for="description" class="form-label">Descrizione</label>
         <textarea
-          class="form-control"
+          class="form-control @error('description') is-invalid @endif"
           id="description"
           name="description"
-          rows="3"
+          rows="10"
         >
           {{ old('description', $dish?->description) }}
         </textarea>
+        @error('description')
+          <div class="alert alert-danger" role="alert">
+	          {{ $message }}
+          </div>
+        @enderror
       </div>
 
       <div class="mb-3">
-        <label for="ingredients" class="form-label">Ingredients</label>
+        <label for="ingredients" class="form-label">Ingredienti</label>
         <input
           type="text"
-          class="form-control"
+          class="form-control @error('ingredients') is-invalid @endif"
           id="ingredients"
           name="ingredients"
           value="{{ old('ingredients', $dish?->ingredients) }}"
-          placeholder="Insert ingredients"
+          placeholder="Inseriscri ingredienti"
         >
+        @error('ingredients')
+          <div class="alert alert-danger" role="alert">
+	          {{ $message }}
+          </div>
+        @enderror
       </div>
 
       <div class="mb-3">
-        <label for="type" class="form-label">Type</label>
+        <label for="type" class="form-label">Tipo</label>
         <input
           type="text"
-          class="form-control"
+          class="form-control @error('type') is-invalid @endif"
           id="type"
           name="type"
           value="{{ old('type', $dish?->type) }}"
-          placeholder="Insert type"
+          placeholder="Inserisci tipo"
         >
+        @error('type')
+          <div class="alert alert-danger" role="alert">
+	          {{ $message }}
+          </div>
+        @enderror
       </div>
 
       <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
@@ -94,7 +129,7 @@
             checked
           @endif
         >
-        <label class="btn btn-outline-primary" for="is_vegan">Vegan</label>
+        <label class="btn btn-outline-primary" for="is_vegan">Vegano</label>
 
         <input
           type="checkbox"
@@ -107,7 +142,7 @@
             checked
           @endif
         >
-        <label class="btn btn-outline-primary" for="is_frozen">Frozen</label>
+        <label class="btn btn-outline-primary" for="is_frozen">Surgelato</label>
 
         <input
           type="checkbox"
@@ -120,7 +155,8 @@
             checked
           @endif
         >
-        <label class="btn btn-outline-primary" for="is_gluten_free">Gluten Free</label>
+
+        <label class="btn btn-outline-primary" for="is_gluten_free">Senza glutine</label>
 
         <input
           type="checkbox"
@@ -133,15 +169,55 @@
             checked
           @endif
         >
-        <label class="btn btn-outline-primary" for="is_lactose_free">Lactose Free</label>
+        <label class="btn btn-outline-primary" for="is_lactose_free">Senza lattosio</label>
       </div>
 
-      <div class="text-center py-3">
-        <button class="btn btn-primary" type="submit">Submit</button>
+      <div class="mb-3">
+        <label for="image" class="form-label">Immagine</label>
+        <input
+          class="form-control mb-3"
+          onchange="showImage(event)"
+          id="image"
+          name='image'
+          type="file"
+        >
+
+        <img
+          class="w-25"
+          id="prev-image"
+          name="prev-image"
+          src="{{ old('prev-image', asset('storage/' . $dish?->image_path)) }}"
+          onerror="this.src='/img/noimage.jpg'"
+        >
+        <div>
+          <input type="radio" name="noImage" onchange="removeImage()">
+          <label for="noImage">Cancella</label>
+        </div>
       </div>
 
-
+      <button class="btn btn-primary" type="submit">Invia</button>
 
     </form>
   </div>
+
+  <script>
+    ClassicEditor
+      .create( document.querySelector( '#description' ) )
+      .catch( error => {
+          console.error( error );
+      } );
+
+    function showImage(event){
+      const tagImage = document.getElementById('prev-image');
+      tagImage.src = URL.createObjectURL(event.target.files[0]);
+    }
+
+    function removeImage(){
+      const imageInput = document.getElementById('image');
+      imageInput.value = '';
+      const tagImage = document.getElementById('prev-image');
+      tagImage.src = '';
+    }
+  </script>
+
 @endsection

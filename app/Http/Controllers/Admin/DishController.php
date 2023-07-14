@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DishRequest;
 use App\Models\Dish;
 use App\Models\Restaurant;
-use App\Models\Type;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class DishController extends Controller
 {
@@ -45,86 +44,84 @@ class DishController extends Controller
         return view('admin.dishes.create_edit', compact('restaurant', 'title', 'method', 'route', 'dish'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+  public function data_bool($request)
+  {
+    $form_data                    = $request->all();
+    $form_data['visible']         = $request->has('visible');
+    $form_data['is_vegan']        = $request->has('is_vegan');
+    $form_data['is_frozen']       = $request->has('is_frozen');
+    $form_data['is_gluten_free']  = $request->has('is_gluten_free');
+    $form_data['is_lactose_free'] = $request->has('is_lactose_free');
+    return $form_data;
+  }
+
+  public function store(DishRequest $request)
+  {
+    $form_data = $this->data_bool($request);
+    if (array_key_exists('image', $form_data))
     {
-        $form_data                    = $request->all();
-        $form_data['visible']         = $request->has('visible');
-        $form_data['is_vegan']        = $request->has('is_vegan');
-        $form_data['is_frozen']       = $request->has('is_frozen');
-        $form_data['is_gluten_free']  = $request->has('is_gluten_free');
-        $form_data['is_lactose_free'] = $request->has('is_lactose_free');
-
-        $restaurant = Restaurant::find(Auth::user()->restaurant_id);
-        $new_dish   = new Dish($form_data);
-        $new_dish->restaurant()->associate($restaurant->id);
-        $new_dish->save();
-
-        //$new_dish = Dish::create($form_data);
-        return redirect()->route('admin.dishes.show', $new_dish);
+      $form_data['image_name'] = $request->file('image')->getClientOriginalName();
+      $form_data['image_path'] = Storage::put('uploads/', $form_data['image']);
     }
+    $restaurant = (new Restaurant())->restaurantUser();
+    $new_dish   = new Dish($form_data);
+    $new_dish->restaurant()->associate($restaurant->id);
+    $new_dish->save();
+    return redirect()->route('admin.dishes.show', $new_dish);
+  }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Dish $dish)
+  public function show(Dish $dish)
+  {
+    $restaurant = (new Restaurant())->restaurantuser();
+    return view('admin.dishes.show', compact('dish', 'restaurant'));
+  }
+
+  public function edit(Dish $dish)
+  {
+    $restaurant = (new Restaurant())->restaurantuser();
+    $method     = 'PUT';
+    $route      = route('admin.dishes.update', $dish);
+    return view('admin.dishes.create_edit', compact('dish', 'method', 'route', 'restaurant'));
+  }
+
+  public function update(DishRequest $request, Dish $dish)
+  {
+    $form_data = $this->data_bool($request);
+    if(array_key_exists('image',$form_data))
     {
-      $restaurant = Restaurant::find(Auth::user()->restaurant_id);
-        return view('admin.dishes.show', compact('dish', 'restaurant'));
+      if($dish->image_path)
+      {
+        Storage::disk('public')->delete($dish->image_path);
+      }
+      $form_data['image_name'] = $request->file('image')->getClientOriginalName();
+      $form_data['image_path'] = Storage::put('uploads/', $form_data['image']);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Dish $dish)
+    if(array_key_exists('noImage', $form_data) && $dish->image_path)
     {
-        $restaurant = Restaurant::find(Auth::user()->restaurant_id);
-        $title  = 'Modifica il piatto';
-        $method = 'PUT';
-        $route  = route('admin.dishes.update', $dish);
-        return view('admin.dishes.create_edit', compact('dish', 'title', 'method', 'route', 'restaurant'));
+      Storage::disk('public')->delete($dish->image_path);
+      $form_data['image_original_name'] = '';
+      $form_data['image_path']          = '';
     }
+    $dish->update($form_data);
+    return redirect()->route('admin.dishes.show', $dish);
+  }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Dish $dish)
-    {
-        $form_data                    = $request->all();
-        $form_data['visible']         = $request->has('visible');
-        $form_data['is_vegan']        = $request->has('is_vegan');
-        $form_data['is_frozen']       = $request->has('is_frozen');
-        $form_data['is_gluten_free']  = $request->has('is_gluten_free');
-        $form_data['is_lactose_free'] = $request->has('is_lactose_free');
-
-        $dish->update($form_data);
-        return redirect()->route('admin.dishes.show', $dish);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Dish $dish)
-    {
-        $dish->delete();
-        return redirect()->route('admin.dishes.index')->with('deleted','Il piatto è stato eliminato con successo!');
-    }
+  public function destroy(Dish $dish)
+  {
+    $dish->delete();
+    return redirect()->route('admin.dishes.index')->with('deleted','Piatto eliminato');
+  }
 }
+
+
+
+
+/***********************************************************************************
+*                     _____                            _____                       *
+*                   //     \\   ||       //\\        //     \\                     *
+*                  //           ||      //  \\      //       \\                    *
+*                 ((            ||     //    \\    ((         ))                   *
+*                  \\           ||    //======\\    \\       //                    *
+*                   \\_____//   ||   //        \\    \\_____//                     *
+*                                                                                  *
+***********************************************************************************/

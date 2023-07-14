@@ -2,7 +2,6 @@
 
 @section('content')
   <div class="container">
-
     <h1 class="py-3">Lista Piatti</h1>
 
     @if (session('deleted'))
@@ -14,19 +13,19 @@
     <table class="table table-hover">
       <thead>
         <tr>
+          <th scope="col">Visibile</th>
           <th scope="col">Id</th>
-          <th scope="col">Name</th>
-          <th scope="col">Visible</th>
-          <th scope="col">Price</th>
-          <th scope="col">Action</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Prezzo</th>
+          <th scope="col">Azioni</th>
         </tr>
       </thead>
       <tbody>
         @foreach ($dishes as $dish)
           <tr>
-            <th scope="row">{{ $dish->id }}</th>
+            <td>{{ $dish->visible ? 'Si' : 'No' }}</td>
+            <td>{{ $dish->id }}</td>
             <td>{{ $dish->name }}</td>
-            <td>{{ $dish->visible }}</td>
             <td>{{ $dish->price }} &euro;</td>
             <td>
               <a href="{{ route('admin.dishes.show', $dish) }}" class="btn btn-primary">

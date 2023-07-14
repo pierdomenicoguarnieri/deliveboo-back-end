@@ -10,6 +10,8 @@
 
   <title>{{ config('app.name', 'Laravel') }}</title>
 
+  <script src="https://cdn.ckeditor.com/ckeditor5/38.1.1/classic/ckeditor.js"></script>
+
 
   <!-- Fonts -->
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -48,11 +50,11 @@
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href=" {{ route('admin.dishes.index') }}">List Dish</a>
+                <a class="nav-link" href=" {{ route('admin.dishes.index') }}">Lista piatti</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href=" {{ route('admin.dishes.create') }}">New Dish</a>
+                <a class="nav-link" href=" {{ route('admin.dishes.create') }}">Nuovo piatto</a>
               </li>
             </ul>
 
