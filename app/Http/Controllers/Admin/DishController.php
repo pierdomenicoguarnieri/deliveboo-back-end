@@ -80,9 +80,10 @@ class DishController extends Controller
   public function edit(Dish $dish)
   {
     $restaurant = (new Restaurant())->restaurantuser();
+    $title      = 'Modifica il piatto: "' . $dish->name . '"';
     $method     = 'PUT';
     $route      = route('admin.dishes.update', $dish);
-    return view('admin.dishes.create_edit', compact('dish', 'method', 'route', 'restaurant'));
+    return view('admin.dishes.create_edit', compact('dish', 'method', 'title','route', 'restaurant'));
   }
 
   public function update(DishRequest $request, Dish $dish)

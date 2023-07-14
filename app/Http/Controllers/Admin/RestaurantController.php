@@ -33,12 +33,13 @@ class RestaurantController extends Controller
      */
     public function create(Restaurant $restaurant)
     {
+        $restaurant = Restaurant::find(Auth::user()->restaurant_id);
         $types = Type::all();
         $title = 'Registra il tuo ristorante!';
         $method = 'POST';
         $route  = route('admin.restaurants.store');
         $button = 'Crea';
-        return view('admin.restaurants.create_edit', compact('restaurant', 'types', 'title', 'method', 'route', 'button'));
+        return view('admin.restaurants.create_edit', compact('restaurant', 'types', 'title', 'method', 'route', 'button', 'restaurant'));
     }
 
     /**
@@ -115,7 +116,7 @@ class RestaurantController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $i
-,     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function update(RestaurantRequest $request, Restaurant $restaurant)
     {

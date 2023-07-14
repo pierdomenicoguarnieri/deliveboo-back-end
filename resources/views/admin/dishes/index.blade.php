@@ -12,7 +12,7 @@
 
     <a class="btn btn-success mb-4" href="{{route('admin.dishes.create')}}" title="Aggiungi un piatto"><span class="me-2 d-none d-md-inline">Aggiungi un piatto</span><i class="fa-solid fa-plus"></i></a>
 
-    <div class="table-container rounded-3 overflow-hidden py-5 bg-white border border-1">
+    <div class="table-container rounded-3 py-5 bg-white border border-1">
       <table class="table table-hover m-0 w-100">
         <thead>
           <tr>
@@ -37,29 +37,23 @@
                 <a href="{{ route('admin.dishes.edit', $dish) }}" class="btn btn-warning d-none d-md-inline-block">
                   <i class="fa-solid fa-pencil"></i>
                 </a>
-                <form
-                  action="{{ route('admin.dishes.destroy', $dish) }}"
-                  method="POST"
-                  class="d-inline"
-                  onsubmit="return confirm('Confirm deletion?')"
-                >
-                  @csrf
-                  @method('DELETE')
-
-                  <button class="btn btn-danger d-none d-md-inline-block">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-
-                </form>
+                <div class="d-none d-md-inline-block">
+                  @include('admin.partials.form-delete',[
+                    'title' => 'Eliminazione Piatto',
+                    'id' => $dish->id,
+                    'message' => "Confermi l'eliminazione del tuo piatto: $dish->name ?",
+                    'route' => route('admin.restaurants.destroy', $dish),
+                    'mobile' => false
+                  ])
+                </div>
 
                 <div class="dropdown d-md-none">
-                  <button class="btn btn--outline-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <button class="btn btn--outline-secondary position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fa-solid fa-ellipsis"></i>
                   </button>
                   <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="{{ route('admin.dishes.show', $dish) }}">Mostra</a></li>
                     <li><a class="dropdown-item" href="{{ route('admin.dishes.edit', $dish) }}">Modifica</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
                   </ul>
                 </div>
               </td>
