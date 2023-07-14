@@ -17,11 +17,28 @@
     <span>Gluten Free: {{ $dish->is_gluten_free ? 'Si' : 'No' }}</span>
     <span>Lactose Free: {{ $dish->is_lactose_free ? 'Si' : 'No' }}</span>
     <span>Type: {{ $dish->type }}</span>
+
     <a
       href="{{ route('admin.dishes.index') }}"
       class="btn btn-primary"
     >
       <i class="fa-solid fa-arrow-rotate-left"></i>
     </a>
+    <a href="{{ route('admin.dishes.edit', $dish) }}" class="btn btn-warning">
+      <i class="fa-regular fa-pen-to-square"></i>
+    </a>
+    <form
+      action="{{ route('admin.dishes.destroy', $dish) }}"
+      method="POST"
+      class="d-inline"
+      onsubmit="return confirm('Confirm deletion?')"
+    >
+      @csrf
+      @method('DELETE')
+
+      <button class="btn btn-danger">
+        <i class="fa-solid fa-trash"></i>
+      </button>
+    </form>
   </div>
 @endsection
