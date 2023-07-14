@@ -22,9 +22,9 @@ class DishController extends Controller
   public function create()
   {
     $restaurant = Restaurant::find(Auth::user()->restaurant_id);
-    $method = 'POST';
-    $route  = route('admin.dishes.store');
-    $dish   = null;
+    $method     = 'POST';
+    $route      = route('admin.dishes.store');
+    $dish       = null;
     return view('admin.dishes.create_edit', compact('method', 'route', 'dish', 'restaurant'));
   }
 
@@ -60,8 +60,8 @@ class DishController extends Controller
   public function edit(Dish $dish)
   {
     $restaurant = Restaurant::find(Auth::user()->restaurant_id);
-    $method = 'PUT';
-    $route  = route('admin.dishes.update', $dish);
+    $method     = 'PUT';
+    $route      = route('admin.dishes.update', $dish);
     return view('admin.dishes.create_edit', compact('dish', 'method', 'route', 'restaurant'));
   }
 
@@ -103,3 +103,13 @@ class DishController extends Controller
     return redirect()->route('admin.dishes.index')->with('deleted','Dish deleted');
   }
 }
+
+/**********************************************************************************
+*                      _____                            _____                     *
+*                    //     \\   ||       //\\        //     \\                   *
+*                   //           ||      //  \\      //       \\                  *
+*                  ((            ||     //    \\    ((         ))                 *
+*                   \\           ||    //======\\    \\       //                  *
+*                    \\_____//   ||   //        \\    \\_____//                   *
+*                                                                                 *
+***********************************************************************************/
