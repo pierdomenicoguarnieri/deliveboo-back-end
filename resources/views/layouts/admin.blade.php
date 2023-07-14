@@ -49,11 +49,11 @@
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href=" {{ route('admin.dishes.index') }}">List Dish</a>
+                <a class="nav-link" href=" {{ route('admin.dishes.index') }}">Lista piatti</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href=" {{ route('admin.dishes.create') }}">New Dish</a>
+                <a class="nav-link" href=" {{ route('admin.dishes.create') }}">Nuovo piatto</a>
               </li>
             </ul>
 

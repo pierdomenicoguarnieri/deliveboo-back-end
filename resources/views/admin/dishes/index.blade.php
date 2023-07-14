@@ -12,17 +12,17 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">Visible</th>
+          <th scope="col">Visibile</th>
           <th scope="col">Id</th>
-          <th scope="col">Name</th>
-          <th scope="col">Price</th>
-          <th scope="col">Action</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Prezzo</th>
+          <th scope="col">Azioni</th>
         </tr>
       </thead>
       <tbody>
         @foreach ($dishes as $dish)
           <tr>
-            <td>{{ $dish->visible ? 'Yes' : 'No' }}</td>
+            <td>{{ $dish->visible ? 'Si' : 'No' }}</td>
             <td>{{ $dish->id }}</td>
             <td>{{ $dish->name }}</td>
             <td>{{ $dish->price }} &euro;</td>

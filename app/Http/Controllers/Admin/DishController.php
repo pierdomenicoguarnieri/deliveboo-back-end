@@ -8,13 +8,14 @@ use App\Models\Dish;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class DishController extends Controller
 {
   public function index()
   {
     $restaurant = Restaurant::find(Auth::user()->restaurant_id);
-    $dishes = Dish::where('restaurant_id', $restaurant->id)->get();
+    $dishes = $restaurant->dishes()->get();
     return view('admin.dishes.index', compact('dishes', 'restaurant'));
   }
 
@@ -36,7 +37,17 @@ class DishController extends Controller
     $form_data['is_gluten_free']  = $request->has('is_gluten_free');
     $form_data['is_lactose_free'] = $request->has('is_lactose_free');
 
-    $new_dish = Dish::create($form_data);
+    if (array_key_exists('image', $form_data))
+    {
+      $form_data['image_name'] = $request->file('image')->getClientOriginalName();
+      $form_data['image_path'] = Storage::put('uploads', $form_data['image']);
+    }
+
+    $restaurant = Restaurant::find(Auth::user()->restaurant_id);
+    $new_dish   = new Dish($form_data);
+    $new_dish->restaurant()->associate($restaurant->id);
+    $new_dish->save();
+
     return redirect()->route('admin.dishes.show', $new_dish);
   }
 
@@ -62,6 +73,25 @@ class DishController extends Controller
     $form_data['is_frozen']       = $request->has('is_frozen');
     $form_data['is_gluten_free']  = $request->has('is_gluten_free');
     $form_data['is_lactose_free'] = $request->has('is_lactose_free');
+
+    if(array_key_exists('image',$form_data))
+    {
+
+      if($dish->image_path)
+      {
+        Storage::disk('public')->delete($dish->image_path);
+      }
+
+      $form_data['image_name'] = $request->file('image')->getClientOriginalName();
+      $form_data['image_path'] = Storage::put('uploads', $form_data['image']);
+    }
+
+    // if(array_key_exists('noImage', $form_data) && $dish->image_path)
+    // {
+    //     Storage::disk('public')->delete($dish->image_path);
+    //     $form_data['image_original_name'] = '';
+    //     $form_data['image_path'] = '';
+    // }
 
     $dish->update($form_data);
     return redirect()->route('admin.dishes.show', $dish);

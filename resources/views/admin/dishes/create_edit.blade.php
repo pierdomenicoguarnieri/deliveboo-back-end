@@ -169,8 +169,46 @@
         <label class="btn btn-outline-primary" for="is_lactose_free">Senza lattosio</label>
       </div>
 
+      <div class="mb-3">
+        <label for="image" class="form-label">Immagine</label>
+        <input
+          class="form-control mb-3"
+          onchange="showImage(event)"
+          id="image"
+          name='image'
+          type="file"
+        >
+
+        <img width="150" id="prev-image" src="{{ asset('storage/' . $dish?->image_path) }}" onerror="this.src='/img/noimage.jpg'">
+        <div>
+          <input type="radio" name="noImage" onchange="removeImage()">
+          <label for="noImage">Cancella</label>
+        </div>
+      </div>
+
       <button class="btn btn-primary" type="submit">Invia</button>
 
     </form>
   </div>
+
+  <script>
+    // ClassicEditor
+    //   .create( document.querySelector( '#description' ) )
+    //   .catch( error => {
+    //       console.error( error );
+    //   } );
+
+    function showImage(event){
+      const tagImage = document.getElementById('prev-image');
+      tagImage.src = URL.createObjectURL(event.target.files[0]);
+    }
+
+    function removeImage(){
+      const imageInput = document.getElementById('image');
+      imageInput.value = '';
+      const tagImage = document.getElementById('prev-image');
+      tagImage.src = '';
+    }
+  </script>
+
 @endsection
