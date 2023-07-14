@@ -179,7 +179,13 @@
           type="file"
         >
 
-        <img class="w-25" id="prev-image" src="{{ asset('storage/' . $dish?->image_path) }}" onerror="this.src='/img/noimage.jpg'">
+        <img
+          class="w-25"
+          id="prev-image"
+          name="prev-image"
+          src="{{ old('prev-image', asset('storage/' . $dish?->image_path)) }}"
+          onerror="this.src='/img/noimage.jpg'"
+        >
         <div>
           <input type="radio" name="noImage" onchange="removeImage()">
           <label for="noImage">Cancella</label>
