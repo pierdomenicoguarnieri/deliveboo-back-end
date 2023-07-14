@@ -12,7 +12,6 @@ class DishesTableSeeder extends Seeder
   public function run()
   {
     $dishes = config('dishes');
-
     foreach ($dishes as $dish) {
       $new_dish                  = new Dish();
       $new_dish->name            = $dish['name'];
