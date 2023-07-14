@@ -54,7 +54,7 @@ class DishController extends Controller
     return view('admin.dishes.create_edit', compact('dish', 'method', 'route', 'restaurant'));
   }
 
-  public function update(Request $request, Dish $dish)
+  public function update(DishRequest $request, Dish $dish)
   {
     $form_data                    = $request->all();
     $form_data['visible']         = $request->has('visible');

@@ -3,6 +3,16 @@
 @section('content')
   <div class="container">
 
+    @if ($errors->any())
+      <div class="alert alert-danger" role="alert">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
+
     <form
       action="{{ $route }}"
       method="POST"
@@ -12,27 +22,37 @@
       @method($method)
 
       <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
+        <label for="name" class="form-label">Nome</label>
         <input
           type="text"
-          class="form-control"
+          class="form-control @error('name') is-invalid @endif"
           id="name"
           name="name"
           value="{{ old('name', $dish?->name) }}"
-          placeholder="Insert name"
+          placeholder="Inserisci il nome"
         >
+        @error('name')
+          <div class="alert alert-danger" role="alert">
+	          {{ $message }}
+          </div>
+        @enderror
       </div>
 
       <div class="mb-3">
-        <label for="price" class="form-label">Price</label>
+        <label for="price" class="form-label">Prezzo</label>
         <input
           type="number"
-          class="form-control"
+          class="form-control @error('price') is-invalid @endif"
           id="price"
           name="price"
           value="{{ old('price', $dish?->price) }}"
-          placeholder="Insert price"
+          placeholder="Inserisci il prezzo del piatto"
         >
+        @error('price')
+          <div class="alert alert-danger" role="alert">
+	          {{ $message }}
+          </div>
+        @enderror
       </div>
 
       <input
@@ -42,42 +62,57 @@
           checked
         @endif
       >
-      <label class="btn btn-outline-primary" for="visible">Visible</label>
+      <label class="btn btn-outline-primary" for="visible">Visibile</label>
 
       <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
+        <label for="description" class="form-label">Descrizione</label>
         <textarea
-          class="form-control"
+          class="form-control @error('description') is-invalid @endif"
           id="description"
           name="description"
           rows="3"
         >
           {{ old('description', $dish?->description) }}
         </textarea>
+        @error('description')
+          <div class="alert alert-danger" role="alert">
+	          {{ $message }}
+          </div>
+        @enderror
       </div>
 
       <div class="mb-3">
-        <label for="ingredients" class="form-label">Ingredients</label>
+        <label for="ingredients" class="form-label">Ingredienti</label>
         <input
           type="text"
-          class="form-control"
+          class="form-control @error('ingredients') is-invalid @endif"
           id="ingredients"
           name="ingredients"
           value="{{ old('ingredients', $dish?->ingredients) }}"
-          placeholder="Insert ingredients"
+          placeholder="Inseriscri ingredienti"
         >
+        @error('ingredients')
+          <div class="alert alert-danger" role="alert">
+	          {{ $message }}
+          </div>
+        @enderror
       </div>
 
       <div class="mb-3">
-        <label for="type" class="form-label">Type</label>
+        <label for="type" class="form-label">Tipo</label>
         <input
           type="text"
-          class="form-control"
+          class="form-control @error('type') is-invalid @endif"
           id="type"
           name="type"
           value="{{ old('type', $dish?->type) }}"
-          placeholder="Insert type"
+          placeholder="Inserisci tipo"
         >
+        @error('type')
+          <div class="alert alert-danger" role="alert">
+	          {{ $message }}
+          </div>
+        @enderror
       </div>
 
       <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
@@ -92,8 +127,8 @@
             checked
           @endif
         >
-        <label class="btn btn-outline-primary" for="is_vegan">Vegan</label>
-      
+        <label class="btn btn-outline-primary" for="is_vegan">Vegano</label>
+
         <input
           type="checkbox"
           class="btn-check"
@@ -105,8 +140,8 @@
             checked
           @endif
         >
-        <label class="btn btn-outline-primary" for="is_frozen">Frozen</label>
-      
+        <label class="btn btn-outline-primary" for="is_frozen">Surgelato</label>
+
         <input
           type="checkbox"
           class="btn-check"
@@ -118,8 +153,8 @@
             checked
           @endif
         >
-        <label class="btn btn-outline-primary" for="is_gluten_free">Gluten Free</label>
-      
+        <label class="btn btn-outline-primary" for="is_gluten_free">Senza glutine</label>
+
         <input
           type="checkbox"
           class="btn-check"
@@ -131,10 +166,10 @@
             checked
           @endif
         >
-        <label class="btn btn-outline-primary" for="is_lactose_free">Lactose Free</label>
+        <label class="btn btn-outline-primary" for="is_lactose_free">Senza lattosio</label>
       </div>
 
-      <button class="btn btn-primary" type="submit">Submit</button>
+      <button class="btn btn-primary" type="submit">Invia</button>
 
     </form>
   </div>
