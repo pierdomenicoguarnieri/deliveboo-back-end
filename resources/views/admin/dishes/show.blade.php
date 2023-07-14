@@ -9,13 +9,13 @@
       onerror="this.src='/img/noimage.jpg'"
     >
     <span>Price: {{ $dish->price }}</span>
-    <span>Visible: {{ $dish->visible ? 'Yes' : 'No' }}</span>
+    <span>Visible: {{ $dish->visible ? 'Si' : 'No' }}</span>
     <p>Description: {{ $dish->description }}</p>
     <p>Ingredients: {{ $dish->ingredients }}</p>
-    <span>Vegan: {{ $dish->is_vegan ? 'Yes' : 'No' }}</span>
-    <span>Frozen: {{ $dish->is_frozen ? 'Yes' : 'No' }}</span>
-    <span>Gluten Free: {{ $dish->is_gluten_free ? 'Yes' : 'No' }}</span>
-    <span>Lactose Free: {{ $dish->is_lactose_free ? 'Yes' : 'No' }}</span>
+    <span>Vegan: {{ $dish->is_vegan ? 'Si' : 'No' }}</span>
+    <span>Frozen: {{ $dish->is_frozen ? 'Si' : 'No' }}</span>
+    <span>Gluten Free: {{ $dish->is_gluten_free ? 'Si' : 'No' }}</span>
+    <span>Lactose Free: {{ $dish->is_lactose_free ? 'Si' : 'No' }}</span>
     <span>Type: {{ $dish->type }}</span>
     <a
       href="{{ route('admin.dishes.index') }}"
