@@ -69,6 +69,17 @@
                   </li>
                 @endif
               @else
+                <li class="nav-item">
+                    <form
+                        action="{{route('admin.dishes.index')}}"
+                        class="d-flex me-5 search_dishes"
+                        method="GET"
+                    >
+                        <input type="text" name="search" placeholder="Cerca piatto">
+                        <button class="p-1"><i class="fa-solid fa-magnifying-glass ps-2"></i></button>
+                    </form>
+                </li>
+
                 <li class="nav-item dropdown">
                   <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

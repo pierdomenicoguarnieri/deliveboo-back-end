@@ -7,3 +7,17 @@ span {
 p {
   margin: 0;
 }
+
+.search_dishes{
+  border: 2px solid grey;
+  border-radius: 15px;
+  overflow: hidden;
+  padding: 0 10px;
+  background-color: white;
+  input, button{
+    border: none;
+  }
+  &:hover button{
+    color: brown;
+  }
+}

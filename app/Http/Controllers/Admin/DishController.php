@@ -19,8 +19,15 @@ class DishController extends Controller
     public function index()
     {
       $restaurant = Restaurant::find(Auth::user()->restaurant_id);
-        $dishes = Dish::all();
-        return view('admin.dishes.index', compact('dishes', 'restaurant'));
+
+      if(isset($_GET['search'])){
+        $tosearch = $_GET['search'];
+        $dishes     = $restaurant->dishes()->where('name', 'like', "%$tosearch%")->get();
+      }else{
+        $dishes     = $restaurant->dishes()->get();
+      }
+
+      return view('admin.dishes.index', compact('dishes', 'restaurant'));
     }
 
     /**
@@ -31,10 +38,10 @@ class DishController extends Controller
     public function create()
     {
         $restaurant = Restaurant::find(Auth::user()->restaurant_id);
-        $title = 'Crea un nuovo piatto';
-        $method = 'POST';
-        $route  = route('admin.dishes.store');
-        $dish   = null;
+        $title      = 'Crea un nuovo piatto';
+        $method     = 'POST';
+        $route      = route('admin.dishes.store');
+        $dish       = null;
         return view('admin.dishes.create_edit', compact('restaurant', 'title', 'method', 'route', 'dish'));
     }
 
@@ -53,7 +60,12 @@ class DishController extends Controller
         $form_data['is_gluten_free']  = $request->has('is_gluten_free');
         $form_data['is_lactose_free'] = $request->has('is_lactose_free');
 
-        $new_dish = Dish::create($form_data);
+        $restaurant = Restaurant::find(Auth::user()->restaurant_id);
+        $new_dish   = new Dish($form_data);
+        $new_dish->restaurant()->associate($restaurant->id);
+        $new_dish->save();
+
+        //$new_dish = Dish::create($form_data);
         return redirect()->route('admin.dishes.show', $new_dish);
     }
 
@@ -78,7 +90,7 @@ class DishController extends Controller
     public function edit(Dish $dish)
     {
         $restaurant = Restaurant::find(Auth::user()->restaurant_id);
-        $title = 'Modifica il piatto';
+        $title  = 'Modifica il piatto';
         $method = 'PUT';
         $route  = route('admin.dishes.update', $dish);
         return view('admin.dishes.create_edit', compact('dish', 'title', 'method', 'route', 'restaurant'));
