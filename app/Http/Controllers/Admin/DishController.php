@@ -10,9 +10,39 @@ use Illuminate\Support\Facades\Storage;
 
 class DishController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+      $restaurant   = Restaurant::find(Auth::user()->restaurant_id);
 
+      if(isset($_GET['search'])){
+        $tosearch   = $_GET['search'];
+        $dishes     = $restaurant->dishes()->where('name', 'like', "%$tosearch%")->get();
+      }else{
+        $dishes     = $restaurant->dishes()->get();
+      }
 
+      return view('admin.dishes.index', compact('dishes', 'restaurant'));
+    }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $restaurant = Restaurant::find(Auth::user()->restaurant_id);
+        $title      = 'Crea un nuovo piatto';
+        $method     = 'POST';
+        $route      = route('admin.dishes.store');
+        $dish       = null;
+        return view('admin.dishes.create_edit', compact('restaurant', 'title', 'method', 'route', 'dish'));
+    }
 
   public function data_bool($request)
   {
@@ -24,31 +54,6 @@ class DishController extends Controller
     $form_data['is_lactose_free'] = $request->has('is_lactose_free');
     return $form_data;
   }
-
-
-
-
-  public function index()
-  {
-    $restaurant = (new Restaurant())   ->restaurantUser();
-    $dishes     = $restaurant->dishes()->get();
-    return view('admin.dishes.index', compact('dishes', 'restaurant'));
-  }
-
-
-
-
-  public function create()
-  {
-    $restaurant = (new Restaurant())->restaurantUser();
-    $method     = 'POST';
-    $route      = route('admin.dishes.store');
-    $dish       = null;
-    return view('admin.dishes.create_edit', compact('method', 'route', 'dish', 'restaurant'));
-  }
-
-
-
 
   public function store(DishRequest $request)
   {
@@ -65,17 +70,11 @@ class DishController extends Controller
     return redirect()->route('admin.dishes.show', $new_dish);
   }
 
-
-
-
   public function show(Dish $dish)
   {
     $restaurant = (new Restaurant())->restaurantuser();
     return view('admin.dishes.show', compact('dish', 'restaurant'));
   }
-
-
-
 
   public function edit(Dish $dish)
   {
@@ -84,9 +83,6 @@ class DishController extends Controller
     $route      = route('admin.dishes.update', $dish);
     return view('admin.dishes.create_edit', compact('dish', 'method', 'route', 'restaurant'));
   }
-
-
-
 
   public function update(DishRequest $request, Dish $dish)
   {
@@ -109,9 +105,6 @@ class DishController extends Controller
     $dish->update($form_data);
     return redirect()->route('admin.dishes.show', $dish);
   }
-
-
-
 
   public function destroy(Dish $dish)
   {

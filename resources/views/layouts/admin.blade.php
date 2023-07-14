@@ -31,7 +31,6 @@
         <div class="container">
           <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
             DELIVEBOO
-            {{-- config('app.name', 'Laravel') --}}
           </a>
 
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -43,7 +42,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
               <li class="nav-item">
-                <a class="nav-link" href="{{ url('/') }}">{{ __('Home') }}</a>
+                <a class="nav-link" href="{{ route('home') }}">Vai al sito</a>
               </li>
 
               <li class="nav-item">
@@ -72,6 +71,17 @@
                   </li>
                 @endif
               @else
+                <li class="nav-item">
+                    <form
+                        action="{{route('admin.dishes.index')}}"
+                        class="d-flex me-5 search_dishes"
+                        method="GET"
+                    >
+                        <input type="text" name="search" placeholder="Cerca piatto">
+                        <button class="p-1"><i class="fa-solid fa-magnifying-glass ps-2"></i></button>
+                    </form>
+                </li>
+
                 <li class="nav-item dropdown">
                   <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -82,6 +92,7 @@
                     <a class="dropdown-item" href="{{ route('logout') }}"
                       onclick="event.preventDefault();
                       document.getElementById('logout-form').submit();">
+                      <i class="fa-solid fa-arrow-right-from-bracket pe-2"></i>
                       {{ __('Logout') }}
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -89,7 +100,8 @@
                     </form>
                     @if (Auth::user()->restaurant_id != null)
                       <a class="dropdown-item" href="{{ route('admin.restaurants.show', $restaurant) }}">
-                        <span>Visualizza profilo</span>
+                        <i class="fa-regular fa-user pe-2"></i>
+                        Profilo ristorante
                       </a>
                     @endif
 

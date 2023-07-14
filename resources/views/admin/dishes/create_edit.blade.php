@@ -1,7 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
-  <div class="container">
+  <div class="container pb-5">
+
+    <h1 class="py-3">{{ $title }}</h1>
 
     @if ($errors->any())
       <div class="alert alert-danger" role="alert">
@@ -153,6 +155,7 @@
             checked
           @endif
         >
+
         <label class="btn btn-outline-primary" for="is_gluten_free">Senza glutine</label>
 
         <input

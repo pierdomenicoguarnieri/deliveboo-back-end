@@ -34,7 +34,11 @@ class RestaurantController extends Controller
     public function create(Restaurant $restaurant)
     {
         $types = Type::all();
-        return view('admin.restaurants.create', compact('restaurant', 'types'));
+        $title = 'Registra il tuo ristorante!';
+        $method = 'POST';
+        $route  = route('admin.restaurants.store');
+        $button = 'Crea';
+        return view('admin.restaurants.create_edit', compact('restaurant', 'types', 'title', 'method', 'route', 'button'));
     }
 
     /**
@@ -59,18 +63,14 @@ class RestaurantController extends Controller
         $new_restaurant->fill($form_data);
         $new_restaurant->save();
 
-
-
-        if(array_key_exists('type_id', $form_data)){
-            $new_restaurant->types()->attach($form_data['type_id']);
+        if(array_key_exists('types', $form_data)){
+            $new_restaurant->types()->attach($form_data['types']);
         }
-        
 
         $new_restaurant_id = Restaurant::where('slug', $new_restaurant->slug)->first();
         $update_user = User::find(Auth::user()->id);
         $update_user->restaurant_id = $new_restaurant_id->id;
         $update_user->update();
-
 
         return redirect()->route('admin.restaurants.index', $new_restaurant);
     }
@@ -102,16 +102,20 @@ class RestaurantController extends Controller
     {
         $restaurant = Restaurant::find(Auth::user()->restaurant_id);
         $types = Type::all();
+        $title = 'Modifica il tuo ristorante!';
+        $method = 'PUT';
+        $route  = route('admin.restaurants.update', $restaurant);
+        $button = 'Modifica';
 
-        return view('admin.restaurants.edit', compact('restaurant', 'types'));
+        return view('admin.restaurants.create_edit', compact('restaurant', 'types', 'title', 'method', 'route', 'button'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int  $i
+,     * @return \Illuminate\Http\Response
      */
     public function update(RestaurantRequest $request, Restaurant $restaurant)
     {
@@ -141,10 +145,8 @@ class RestaurantController extends Controller
 
         $restaurant->update($form_data);
 
-        
-
-        if(array_key_exists('type_id', $form_data)){
-            $restaurant->types()->sync($form_data['type_id']);
+        if(array_key_exists('types', $form_data)){
+            $restaurant->types()->sync($form_data['types']);
         }else{
             $restaurant->types()->detach();
         }
@@ -166,6 +168,6 @@ class RestaurantController extends Controller
 
         $restaurant->delete();
 
-        return redirect()->route('/')->with('deleted', "Il tuo ristorante: \" $restaurant->name \" è stato eliminato con successo!");
+        return redirect()->route('admin.dashboard')->with('deleted', "Il tuo ristorante: \" $restaurant->name \" è stato eliminato con successo!");
     }
 }
