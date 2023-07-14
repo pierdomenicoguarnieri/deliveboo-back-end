@@ -6,25 +6,25 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DishRequest;
 use App\Models\Dish;
 use App\Models\Restaurant;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class DishController extends Controller
 {
   public function index()
   {
-    $restaurant = Restaurant::find(Auth::user()->restaurant_id);
-    $dishes = $restaurant->dishes()->get();
+    $restaurant = (new Restaurant())   ->restaurantUser();
+    $dishes     = $restaurant->dishes()->get();
+
     return view('admin.dishes.index', compact('dishes', 'restaurant'));
   }
 
   public function create()
   {
-    $restaurant = Restaurant::find(Auth::user()->restaurant_id);
+    $restaurant = (new Restaurant())->restaurantUser();
     $method     = 'POST';
     $route      = route('admin.dishes.store');
     $dish       = null;
+
     return view('admin.dishes.create_edit', compact('method', 'route', 'dish', 'restaurant'));
   }
 
@@ -43,7 +43,7 @@ class DishController extends Controller
       $form_data['image_path'] = Storage::put('uploads/', $form_data['image']);
     }
 
-    $restaurant = Restaurant::find(Auth::user()->restaurant_id);
+    $restaurant = (new Restaurant())->restaurantUser();
     $new_dish   = new Dish($form_data);
     $new_dish->restaurant()->associate($restaurant->id);
     $new_dish->save();
@@ -53,15 +53,17 @@ class DishController extends Controller
 
   public function show(Dish $dish)
   {
-    $restaurant = Restaurant::find(Auth::user()->restaurant_id);
+    $restaurant = (new Restaurant())->restaurantuser();
+
     return view('admin.dishes.show', compact('dish', 'restaurant'));
   }
 
   public function edit(Dish $dish)
   {
-    $restaurant = Restaurant::find(Auth::user()->restaurant_id);
+    $restaurant = (new Restaurant())->restaurantuser();
     $method     = 'PUT';
     $route      = route('admin.dishes.update', $dish);
+
     return view('admin.dishes.create_edit', compact('dish', 'method', 'route', 'restaurant'));
   }
 
@@ -90,26 +92,27 @@ class DishController extends Controller
     {
         Storage::disk('public')->delete($dish->image_path);
         $form_data['image_original_name'] = '';
-        $form_data['image_path'] = '';
+        $form_data['image_path']          = '';
     }
-
     $dish->update($form_data);
+
     return redirect()->route('admin.dishes.show', $dish);
   }
 
   public function destroy(Dish $dish)
   {
     $dish->delete();
+
     return redirect()->route('admin.dishes.index')->with('deleted','Piatto eliminato');
   }
 }
 
 /**********************************************************************************
-*                     _____                            _____                     *
-*                   //     \\   ||       //\\        //     \\                   *
-*                  //           ||      //  \\      //       \\                  *
-*                 ((            ||     //    \\    ((         ))                 *
-*                  \\           ||    //======\\    \\       //                  *
-*                   \\_____//   ||   //        \\    \\_____//                   *
+*                     _____                            _____                      *
+*                   //     \\   ||       //\\        //     \\                    *
+*                  //           ||      //  \\      //       \\                   *
+*                 ((            ||     //    \\    ((         ))                  *
+*                  \\           ||    //======\\    \\       //                   *
+*                   \\_____//   ||   //        \\    \\_____//                    *
 *                                                                                 *
 ***********************************************************************************/
