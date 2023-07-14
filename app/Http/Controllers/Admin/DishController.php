@@ -102,9 +102,9 @@ class DishController extends Controller
     }
     if(array_key_exists('noImage', $form_data) && $dish->image_path)
     {
-        Storage::disk('public')->delete($dish->image_path);
-        $form_data['image_original_name'] = '';
-        $form_data['image_path']          = '';
+      Storage::disk('public')->delete($dish->image_path);
+      $form_data['image_original_name'] = '';
+      $form_data['image_path']          = '';
     }
     $dish->update($form_data);
     return redirect()->route('admin.dishes.show', $dish);
