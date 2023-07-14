@@ -28,7 +28,7 @@
       @method( $method )
 
       <div class="mb-3">
-        <label for="name" class="form-label">Name (*)</label>
+        <label for="name" class="form-label">Nome</label>
         <input
           type="text"
           class="form-control @error('name') is-invalid @enderror"
@@ -58,7 +58,7 @@
       </div>
 
       <div class="mb-3">
-        <label for="address" class="form-label">Address</label>
+        <label for="address" class="form-label">Indirizzo</label>
         <input
           type="text"
           class="form-control @error('address') is-invalid @enderror"
@@ -87,7 +87,7 @@
       </div>
 
       <div class="mb-3">
-        <label for="telephone_number" class="form-label">Telephone Number</label>
+        <label for="telephone_number" class="form-label">Numero di telefono</label>
         <input
           type="text"
           id="phone"
@@ -115,11 +115,12 @@
           <img id="default-image" width="150px" src="{{ asset('storage/' . $restaurant?->image_path) }}" alt="{{ $restaurant?->image_name }}" onerror="this.src='/img/noimage.jpg'" class="pt-2">
           <div>
               <input type="radio" name="noImage" onchange="removeImage()">
-              <label for="">No image</label>
+              <label for="noImage">Nessun immagine</label>
           </div>
       </div>
 
-      <div class="form-check d-flex flex-column">
+      <label for="check_type" class="form-label">Tipi di ristorante</label>
+      <div id="check_type" class="form-check d-flex flex-column">
 
         @foreach ($types as $type)
           <div>
@@ -143,7 +144,10 @@
       </div>
 
       </div>
-        <button type="submit" class="btn btn-success">{{ $button }}</button>
+      <div class="text-center pb-5">
+          <button type="submit" class="btn btn-success">{{ $button }}</button>
+      </div>
+
     </form>
   </div>
 

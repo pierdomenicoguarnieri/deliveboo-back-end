@@ -84,6 +84,7 @@
                     <a class="dropdown-item" href="{{ route('logout') }}"
                       onclick="event.preventDefault();
                       document.getElementById('logout-form').submit();">
+                      <i class="fa-solid fa-arrow-right-from-bracket pe-2"></i>
                       {{ __('Logout') }}
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -91,7 +92,8 @@
                     </form>
                     @if (Auth::user()->restaurant_id != null)
                       <a class="dropdown-item" href="{{ route('admin.restaurants.show', $restaurant) }}">
-                        <span>Visualizza profilo</span>
+                        <i class="fa-regular fa-user pe-2"></i>
+                        Profilo ristorante
                       </a>
                     @endif
 

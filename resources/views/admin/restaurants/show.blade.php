@@ -14,7 +14,7 @@
       <p><strong>Indirizzo: </strong>{{$restaurant->address}}</p>
 
       <div class="card-img-top d-block">
-          <img src="{{ asset('storage/' . $restaurant->image_path) }}" alt="{{$restaurant->image_original_name}}" onerror="this.src='/img/noimage.jpg'">
+          <img src="{{ asset('storage/' . $restaurant->image_path) }}" alt="{{$restaurant->image_original_name}}" onerror="this.src='/img/noimage.jpg'" style="width: 500px">
 
       </div>
       <p>{{$restaurant->image_original_name}}</p>
@@ -22,10 +22,12 @@
 
     </div>
       <div class="pt-2">
-          <span>Tipo:</span>
-          @foreach ($restaurant->types as $type)
-            <span class="badge text-bg-warning">{{ $type->name}}</span>
-          @endforeach
+          <strong>Tipo di ristorante:</strong>
+          @forelse ( $restaurant->types as $type )
+          <span class="badge text-bg-primary p-2">{{ $type->name}}</span>
+          @empty
+            <span>Non è stato selezionato il tipo di ristorante</span>
+          @endforelse
 
       </div>
 
@@ -34,7 +36,7 @@
     </div>
 
     <a class="btn btn-warning nv_edit" href="{{route('admin.restaurants.edit', $restaurant)}}">
-        MODIFICA
+        <i class="fa-regular fa-pen-to-square"></i>
     </a>
 
     @include('admin.partials.form-delete',[

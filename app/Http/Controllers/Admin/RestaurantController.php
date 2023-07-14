@@ -110,15 +110,15 @@ class RestaurantController extends Controller
         $route  = route('admin.restaurants.update', $restaurant);
         $button = 'Modifica';
 
-        return view('admin.restaurants.create_edit', compact('restaurant', 'types', 'title', 'method', 'route', 'button'));
+        return view('admin.restaurants.create_edit', compact('restaurant', 'types', 'type_id', 'title', 'method', 'route', 'button'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int  $i
+,     * @return \Illuminate\Http\Response
      */
     public function update(RestaurantRequest $request, Restaurant $restaurant)
     {
@@ -174,6 +174,6 @@ class RestaurantController extends Controller
 
         $restaurant->delete();
 
-        return redirect()->route('home')->with('deleted', "Il tuo ristorante: \" $restaurant->name \" è stato eliminato con successo!");
+        return redirect()->route('admin.dashboard')->with('deleted', "Il tuo ristorante: \" $restaurant->name \" è stato eliminato con successo!");
     }
 }
