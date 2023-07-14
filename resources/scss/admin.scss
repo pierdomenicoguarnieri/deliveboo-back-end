@@ -1,11 +1,28 @@
 @import '~bootstrap/scss/bootstrap';
 @import "node_modules/font-awesome/scss/font-awesome";
-span {
-  display: block;
+@import './admin/partials/variables';
+@import './admin/partials/header';
+@import './admin/partials/aside';
+@import './admin/partials/table';
+@import './admin/partials/dishes';
+@import './partials/typography';
+
+body {
+  font-family: $primary_font, $secondary_font, $tertiary_font;
 }
 
-p {
-  margin: 0;
+main{
+  height: calc(100vh - 76px);
+  background-image: url('/public/img/Ghosts_Bg_2.png');
+  .content-wrapper{
+    background-color: rgba($custom_white, $alpha: 0.95);
+  }
+}
+
+@media screen and (max-width: 991px) {
+  main{
+    height: calc(100vh - 80px);
+  }
 }
 
 .search_dishes{
