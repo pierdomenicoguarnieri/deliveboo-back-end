@@ -3,7 +3,7 @@
 @section('content')
 
 
-  <div class="container py-5">
+  <div class="container rounded-3 bg-white border border-1 py-4 px-5">
     <h1>Registra un nuovo ristorante!</h1>
 
     @if($errors->any())
@@ -18,9 +18,9 @@
 
     @endif
 
-    <form 
-      action="{{route('admin.restaurants.store')}}" 
-      method="POST" 
+    <form
+      action="{{route('admin.restaurants.store')}}"
+      method="POST"
       class="mt-5"
       enctype="multipart/form-data"
     >
@@ -28,12 +28,12 @@
 
       <div class="mb-3">
         <label for="name" class="form-label">Name (*)</label>
-        <input 
-          type="text" 
-          class="form-control @error('name') is-invalid @enderror" 
-          name="name" 
+        <input
+          type="text"
+          class="form-control @error('name') is-invalid @enderror"
+          name="name"
           placeholder="Nome ristorante"
-          id="name" 
+          id="name"
           value="{{ old('name') }}"
         >
         @error('name')
@@ -89,20 +89,20 @@
       </div>
 
       <div class="form-check d-flex flex-column">
-        
+
         @foreach ($types as $type)
           <div>
             <label class="form-check-label" for="type_id">{{$type->name}}</label>
             <input class="form-check-input" type="checkbox" value="{{$type->id}}" @if($type->id == old('type_id')) checked @endif id="type_id" name="type_id[]">
           </div>
 
-            
+
         @endforeach
 
         @error('type_id')
             <p class="text-danger py-1">{{$message}}</p>
         @enderror
-        
+
       </div>
 
       </div>

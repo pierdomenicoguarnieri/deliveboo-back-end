@@ -3,10 +3,10 @@
 @section('content')
 
 
-  <div class="container py-5">
+  <div class="container rounded-3 bg-white border border-1 py-4 px-5">
     <h1>Modifica il tuo ristorante!</h1>
 
-    
+
     @if($errors->any())
 
       <div class="alert alert-danger" role="alert">
@@ -19,10 +19,10 @@
 
     @endif
 
-    <form 
-      action="{{route('admin.restaurants.update', $restaurant)}}" 
-      method="POST" 
-      class="mt-5" 
+    <form
+      action="{{route('admin.restaurants.update', $restaurant)}}"
+      method="POST"
+      class="mt-5"
       enctype="multipart/form-data"
     >
       @csrf
@@ -89,24 +89,30 @@
 
           <img id="default-image" width="150px" src="{{ asset('storage/' . $restaurant->image_path) }}" alt="" onerror="this.src='/img/noimage.jpg'" class="pt-2">
       </div>
-      
-      <div class="form-check d-flex flex-column">
+
+      <div class="btn-group-vertical" role="group" aria-label="Basic checkbox toggle button group">
         @foreach ($types as $type)
-          <div>
-            <input class="form-check-input" type="checkbox" value="{{$type->id}}" @if($type->id == old('type_id', $restaurant->type?->id)) checked @endif id="type_id" name="type_id[]">
-            <label class="form-check-label" for="type_id">{{$type->name}}</label>
-          </div>
+          <input
+          type="checkbox"
+          class="btn-check"
+          autocomplete="off"
+          id="{{$type->id}}"
+          name="type_id[]"
+          value="{{$type->id}}"
+          @if($type->id == old('type_id', $restaurant->type?->id)) checked @endif
+        >
+        <label class="btn btn-outline-primary text-capitalize" for="{{$type->id}}">{{$type->name}}</label>
         @endforeach
-        
+
         @error('type_id')
-            <p class="text-danger py-1">{{$message}}</p>
+        <p class="text-danger py-1">{{$message}}</p>
         @enderror
       </div>
 
-      <button type="submit" class="btn btn-success">Modifica</button>
+      <button type="submit" class="btn btn-success d-block mt-3">Modifica</button>
 
+    </div>
     </form>
-  </div>
 
   <script>
       ClassicEditor
