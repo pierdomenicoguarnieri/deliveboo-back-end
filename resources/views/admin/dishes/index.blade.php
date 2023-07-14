@@ -3,9 +3,9 @@
 @section('content')
   <div class="container">
 
-    @if (session('deleted')) 
+    @if (session('deleted'))
       <div class="alert alert-success" role="alert">
-        {{ session('deleted') }} 
+        {{ session('deleted') }}
       </div>
     @endif
 
@@ -33,18 +33,14 @@
               <a href="{{ route('admin.dishes.edit', $dish) }}" class="btn btn-warning">
                 <i class="fa-regular fa-pen-to-square"></i>
               </a>
-              <form
-                action="{{ route('admin.dishes.destroy', $dish) }}"
-                method="POST"
-                class="d-inline"
-                onsubmit="return confirm('Confirm deletion?')"
-              >
-                @csrf
-                @method('DELETE')
-                
-                <button class="btn btn-danger">
-                  <i class="fa-solid fa-trash"></i>
-                </button>
+
+              @include('admin.partials.form-delete',[
+                  'title' => 'Eliminazione Piatto',
+                  'id' => $dish->id,
+                  'message' => "Confermi l'eliminazione del piatto: $dish->name ?",
+                  'route' => route('admin.dishes.destroy', $dish)
+              ])
+
               </form>
             </td>
           </tr>

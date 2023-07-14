@@ -28,7 +28,7 @@
           @endforeach
 
       </div>
-    
+
     <div class="pt-2">
 
     </div>
@@ -36,6 +36,13 @@
     <a class="btn btn-warning nv_edit" href="{{route('admin.restaurants.edit', $restaurant)}}">
         MODIFICA
     </a>
+
+    @include('admin.partials.form-delete',[
+        'title' => 'Eliminazione Ristorante',
+        'id' => $restaurant->id,
+        'message' => "Confermi l'eliminazione del tuo ristorante: $restaurant->name ?",
+        'route' => route('admin.restaurants.destroy', $restaurant)
+    ])
 
   </div>
 @endsection
