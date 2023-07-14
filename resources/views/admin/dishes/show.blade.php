@@ -18,5 +18,15 @@
     >
       <i class="fa-solid fa-arrow-rotate-left"></i>
     </a>
+    <a href="{{ route('admin.dishes.edit', $dish) }}" class="btn btn-warning">
+      <i class="fa-regular fa-pen-to-square"></i>
+    </a>
+
+    @include('admin.partials.form-delete',[
+        'title' => 'Eliminazione Piatto',
+        'id' => $dish->id,
+        'message' => "Confermi l'eliminazione del piatto: $dish->name ?",
+        'route' => route('admin.dishes.destroy', $dish)
+    ])
   </div>
 @endsection

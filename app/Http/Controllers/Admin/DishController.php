@@ -30,11 +30,12 @@ class DishController extends Controller
      */
     public function create()
     {
-      $restaurant = Restaurant::find(Auth::user()->restaurant_id);
+        $restaurant = Restaurant::find(Auth::user()->restaurant_id);
+        $title = 'Crea un nuovo piatto';
         $method = 'POST';
         $route  = route('admin.dishes.store');
         $dish   = null;
-        return view('admin.dishes.create_edit', compact('method', 'route', 'dish', 'restaurant'));
+        return view('admin.dishes.create_edit', compact('restaurant', 'title', 'method', 'route', 'dish'));
     }
 
     /**
@@ -76,10 +77,11 @@ class DishController extends Controller
      */
     public function edit(Dish $dish)
     {
-      $restaurant = Restaurant::find(Auth::user()->restaurant_id);
+        $restaurant = Restaurant::find(Auth::user()->restaurant_id);
+        $title = 'Modifica il piatto';
         $method = 'PUT';
         $route  = route('admin.dishes.update', $dish);
-        return view('admin.dishes.create_edit', compact('dish', 'method', 'route', 'restaurant'));
+        return view('admin.dishes.create_edit', compact('dish', 'title', 'method', 'route', 'restaurant'));
     }
 
     /**

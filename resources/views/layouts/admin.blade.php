@@ -29,7 +29,6 @@
         <div class="container">
           <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
             DELIVEBOO
-            {{-- config('app.name', 'Laravel') --}}
           </a>
 
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -41,15 +40,11 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
               <li class="nav-item">
-                <a class="nav-link" href="{{ route('home') }}">
-                  Home
-                </a>
+                <a class="nav-link" href="{{ route('home') }}">Vai al sito</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href=" {{ route('admin.home') }}">
-                  Dashboard
-                </a>
+                <a class="nav-link" href=" {{ route('admin.home') }}">Dashboard</a>
               </li>
 
               <li class="nav-item">

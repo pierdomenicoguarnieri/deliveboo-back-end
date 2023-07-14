@@ -1,7 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
-  <div class="container">
+  <div class="container pb-5">
+
+    <h1 class="py-3">{{ $title }}</h1>
 
     <form
       action="{{ $route }}"
@@ -93,7 +95,7 @@
           @endif
         >
         <label class="btn btn-outline-primary" for="is_vegan">Vegan</label>
-      
+
         <input
           type="checkbox"
           class="btn-check"
@@ -106,7 +108,7 @@
           @endif
         >
         <label class="btn btn-outline-primary" for="is_frozen">Frozen</label>
-      
+
         <input
           type="checkbox"
           class="btn-check"
@@ -119,7 +121,7 @@
           @endif
         >
         <label class="btn btn-outline-primary" for="is_gluten_free">Gluten Free</label>
-      
+
         <input
           type="checkbox"
           class="btn-check"
@@ -134,7 +136,11 @@
         <label class="btn btn-outline-primary" for="is_lactose_free">Lactose Free</label>
       </div>
 
-      <button class="btn btn-primary" type="submit">Submit</button>
+      <div class="text-center py-3">
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </div>
+
+
 
     </form>
   </div>
