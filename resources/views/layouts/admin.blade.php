@@ -27,17 +27,14 @@
 </head>
 
 <body>
-  <div id="app" class="d-flex flex-column">
-    @include('layouts.partials.header-admin')
-    <main class="d-flex">
-      @auth
-        @if (Auth::user()->restaurant_id != null)
-          @include('layouts.partials.aside-admin')
-        @endif
-      @endauth
+  <div id="app">
+    <main class="px-2 px-md-4 px-lg-5 py-4">
+      <div class="content-wrapper w-100 h-100 d-flex rounded-5 overflow-hidden">
+        @include('layouts.partials.aside-admin')
 
-      <div class="content-wrapper w-100 overflow-x-scroll py-5 px-lg-5 px-2">
-        @yield('content')
+        <div class="main-content-wrapper w-100 px-2 py-4 d-flex align-items-center justify-content-center overflow-x-scroll">
+          @yield('content')
+        </div>
       </div>
     </main>
   </div>
