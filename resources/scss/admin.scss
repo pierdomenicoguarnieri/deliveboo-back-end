@@ -5,6 +5,7 @@
 @import './admin/partials/aside';
 @import './admin/partials/table';
 @import './admin/partials/dishes';
+@import './admin/partials/dashboard';
 @import './partials/typography';
 
 body {
@@ -12,18 +13,14 @@ body {
 }
 
 main{
-  height: calc(100vh - 76px);
-  background-image: url('/public/img/Ghosts_Bg_2.png');
+  height: 100vh;
+  background: rgb(252,105,76);
+  background: linear-gradient(320deg, rgba(252,105,76,1) 0%, rgba(252,76,105,1) 100%);
   .content-wrapper{
     background-color: rgba($custom_white, $alpha: 0.95);
   }
 }
 
-@media screen and (max-width: 991px) {
-  main{
-    height: calc(100vh - 80px);
-  }
-}
 
 .search_dishes{
   border: 2px solid grey;

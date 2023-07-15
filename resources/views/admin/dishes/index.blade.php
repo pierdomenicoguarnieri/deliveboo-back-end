@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-  <div class="container">
+  <div class="container boo-wrapper">
     <h1 class="py-3">Lista Piatti</h1>
 
     @if (session('deleted'))
@@ -20,7 +20,7 @@
             <th scope="col">Name</th>
             <th scope="col" class="d-none d-md-table-cell">Visible</th>
             <th scope="col">Price</th>
-            <th scope="col">Action</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -31,13 +31,13 @@
               <td class="d-none d-md-table-cell">{{ $dish->visible }}</td>
               <td>{{ $dish->price }} &euro;</td>
               <td>
-                <a href="{{ route('admin.dishes.show', $dish) }}" class="btn btn-primary d-none d-md-inline-block">
+                <a href="{{ route('admin.dishes.show', $dish) }}" class="btn btn-primary d-none d-lg-inline-block">
                   <i class="fa-solid fa-eye"></i>
                 </a>
-                <a href="{{ route('admin.dishes.edit', $dish) }}" class="btn btn-warning d-none d-md-inline-block">
+                <a href="{{ route('admin.dishes.edit', $dish) }}" class="btn btn-warning d-none d-lg-inline-block">
                   <i class="fa-solid fa-pencil"></i>
                 </a>
-                <div class="d-none d-md-inline-block">
+                <div class="d-none d-lg-inline-block">
                   @include('admin.partials.form-delete',[
                     'title' => 'Eliminazione Piatto',
                     'id' => $dish->id,
@@ -47,7 +47,7 @@
                   ])
                 </div>
 
-                <div class="dropdown d-md-none">
+                <div class="dropdown d-lg-none">
                   <button class="btn btn--outline-secondary position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fa-solid fa-ellipsis"></i>
                   </button>

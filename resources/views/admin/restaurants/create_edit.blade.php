@@ -3,8 +3,7 @@
 @section('content')
 
 
-  <div
-    class="container rounded-3 bg-white border border-1 py-4 px-5">
+  <div class="container boo-wrapper">
     <h1>{{ $title }}</h1>
 
     @if ($errors->any())
@@ -85,7 +84,7 @@
     <div class="mb-3">
       <label for="telephone_number" class="form-label">Numero di telefono</label>
       <input
-        type="text"
+        type="number"
         id="phone"
         placeholder="1234567890"
         pattern="[0-9]{10}"

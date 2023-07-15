@@ -62,7 +62,7 @@ class DishController extends Controller
     if (array_key_exists('image', $form_data))
     {
       $form_data['image_name'] = $request->file('image')->getClientOriginalName();
-      $form_data['image_path'] = Storage::put('uploads/', $form_data['image']);
+      $form_data['image_path'] = Storage::put('uploads', $form_data['image']);
     }
     $restaurant = (new Restaurant())->restaurantUser();
     $new_dish   = new Dish($form_data);
@@ -96,12 +96,12 @@ class DishController extends Controller
         Storage::disk('public')->delete($dish->image_path);
       }
       $form_data['image_name'] = $request->file('image')->getClientOriginalName();
-      $form_data['image_path'] = Storage::put('uploads/', $form_data['image']);
+      $form_data['image_path'] = Storage::put('uploads', $form_data['image']);
     }
     if(array_key_exists('noImage', $form_data) && $dish->image_path)
     {
       Storage::disk('public')->delete($dish->image_path);
-      $form_data['image_original_name'] = '';
+      $form_data['image_name'] = '';
       $form_data['image_path']          = '';
     }
     $dish->update($form_data);

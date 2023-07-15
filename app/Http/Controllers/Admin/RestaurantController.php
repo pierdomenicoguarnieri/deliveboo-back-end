@@ -33,7 +33,12 @@ class RestaurantController extends Controller
      */
     public function create(Restaurant $restaurant)
     {
-        $restaurant = Restaurant::find(Auth::user()->restaurant_id);
+        $restaurant = new Restaurant();
+        $restaurant->name = null;
+        $restaurant->piva = null;
+        $restaurant->email = null;
+        $restaurant->telephone_number = null;
+        $restaurant->address = null;
         $types = Type::all();
         $title = 'Registra il tuo ristorante!';
         $method = 'POST';
@@ -64,8 +69,8 @@ class RestaurantController extends Controller
         $new_restaurant->fill($form_data);
         $new_restaurant->save();
 
-        if(array_key_exists('types', $form_data)){
-            $new_restaurant->types()->attach($form_data['types']);
+        if(array_key_exists('type_id', $form_data)){
+            $new_restaurant->types()->attach($form_data['type_id']);
         }
 
         $new_restaurant_id = Restaurant::where('slug', $new_restaurant->slug)->first();
@@ -73,7 +78,7 @@ class RestaurantController extends Controller
         $update_user->restaurant_id = $new_restaurant_id->id;
         $update_user->update();
 
-        return redirect()->route('admin.restaurants.index', $new_restaurant);
+        return redirect()->route('admin.restaurants.show', $new_restaurant);
     }
 
     /**
@@ -146,8 +151,8 @@ class RestaurantController extends Controller
 
         $restaurant->update($form_data);
 
-        if(array_key_exists('types', $form_data)){
-            $restaurant->types()->sync($form_data['types']);
+        if(array_key_exists('type_id', $form_data)){
+            $restaurant->types()->sync($form_data['type_id']);
         }else{
             $restaurant->types()->detach();
         }
