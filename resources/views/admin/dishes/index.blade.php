@@ -32,10 +32,10 @@
         <thead>
           <tr>
             <th scope="col">Id</th>
-            <th scope="col">Name</th>
+            <th scope="col">Nome</th>
             <th scope="col" class="d-none d-md-table-cell">Visible</th>
-            <th scope="col">Price</th>
-            <th scope="col">Actions</th>
+            <th scope="col">Prezzo</th>
+            <th scope="col">Azioni</th>
           </tr>
         </thead>
         <tbody>

@@ -68,8 +68,7 @@
       <textarea
         class="form-control @error('description') is-invalid @endif"
         id="description"
-        name="description"
-        rows="10">
+        name="description">
         {{ old('description', $dish?->description) }}
       </textarea>
 
