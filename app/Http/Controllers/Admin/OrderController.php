@@ -65,9 +65,7 @@ class OrderController extends Controller
     public function show(Order $order)
     {
       $restaurant = (new Restaurant())->restaurantUser();
-      //dd($order->id);
-      //$order = Order::find($order->id)->with('dishes')->get();
-      //dd($order );
+
 
       return view('admin.orders.show', compact('order', 'restaurant'));
     }

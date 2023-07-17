@@ -22,9 +22,9 @@ class DishController extends Controller
 
       if(isset($_GET['search'])){
         $tosearch   = $_GET['search'];
-        $dishes     = $restaurant->dishes()->where('name', 'like', "%$tosearch%")->get();
+        $dishes     = $restaurant->dishes()->where('name', 'like', "%$tosearch%")->paginate(10);
       }else{
-        $dishes     = $restaurant->dishes()->get();
+        $dishes     = $restaurant->dishes()->paginate(10);
       }
 
       return view('admin.dishes.index', compact('dishes', 'restaurant'));

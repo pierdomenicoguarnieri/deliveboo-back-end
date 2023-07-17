@@ -26,7 +26,10 @@ class DishesOrdersTableSeeder extends Seeder
         $dish_array = Dish::where('restaurant_id', $randRestaurantId)->pluck('id')->toArray();
 
         for($i = 0; $i < rand(1, count($dish_array)); $i++){
-          $key = array_rand($dish_array, 1);
+          if($dish_array != null){
+            $key = array_rand($dish_array, 1);
+          }
+
           $order->dishes()->attach($dish_array[$key], ['quantity' => rand(1, 5)]);
           unset($dish_array[$key]);
           $dish_array = array_values($dish_array);

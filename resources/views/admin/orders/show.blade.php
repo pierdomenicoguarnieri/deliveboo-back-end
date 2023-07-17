@@ -7,12 +7,12 @@
       <div class="card-img-overlay bg-dark bg-opacity-25 rounded-5">
         <div class="dish-info overflow-y-auto h-100 d-flex flex-column">
         <h2>Ordine N. {{ $order->id }}</h2>
-          <p>Nome: {{ $order->user_name }}</p>
-          <p>Cognome: {{ $order->user_lastname }}</p>
-          <p>Indirizzo: {{ $order->user_address }}</p>
-          <p>Numero di telefono: {{ $order->user_telephone_number }}</p>
-          <p>Email: {{ $order->user_email }}</p>
-          <p>Prezzo Tot.: {{ $order->tot_order }}</p>
+          <p>Nome: <strong class="text-black">{{ $order->user_name }}</strong></p>
+          <p>Cognome: <strong class="text-black">{{ $order->user_lastname }}</strong></p>
+          <p>Indirizzo: <strong class="text-black">{{ $order->user_address }}</strong></p>
+          <p>Numero di telefono <strong class="text-black">{{ $order->user_telephone_number }}</strong></p>
+          <p>Email: <strong class="text-black">{{ $order->user_email }}</strong></p>
+          <p>Prezzo Tot.: <strong class="text-black">{{ $order->tot_order }} &euro;</strong></p>
 
           <div class="buttons-container">
             <a href="{{ route('admin.orders.index') }}" class="btn btn-primary">
@@ -27,9 +27,32 @@
               ])
           </div>
 
-          @foreach ($order->dishes as $dish)
-            <p>{{ $dish }}</p>
-          @endforeach
+          <table class="table mt-4">
+            <thead>
+              <tr>
+                <th scope="col">Id. Piatto</th>
+                <th scope="col">Piatto</th>
+                <th scope="col">Quantità</th>
+                <th scope="col">Tot. ordine</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($order->dishes as $dish)
+                <tr>
+                  <th scope="row">{{ $dish->id }}</th>
+                  <td>{{ $dish->name }}</td>
+                  <td>quantità</td>
+                  <td>{{ $dish->price }} &euro;</td>
+                </tr>
+              @endforeach
+              <tr>
+                <th></th>
+                <td></td>
+                <td></td>
+                <td>{{ $order->tot_order }} &euro;</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

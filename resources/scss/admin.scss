@@ -27,11 +27,15 @@ main{
   border: 2px solid grey;
   border-radius: 15px;
   overflow: hidden;
-  padding: 0 10px;
   background-color: white;
+  padding-right: 10px;
   input, button{
     border: none;
     background-color: white !important;
+  }
+  input{
+    border-radius: 15px 0px 0px 15px;
+    padding-left: 10px;
   }
   button{
     border-left: 2px solid grey;
