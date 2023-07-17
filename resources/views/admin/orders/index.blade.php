@@ -25,7 +25,8 @@
     @endif
 
     <div class="table-container rounded-3 py-5 bg-white border border-1">
-      @if (!$orders)
+
+      @if ($orders)
 
         <table class="table table-hover m-0 w-100">
           <thead>
@@ -34,7 +35,7 @@
               <th scope="col">Nome</th>
               <th scope="col">Cognome</th>
               <th scope="col" class="d-none d-md-table-cell">Tel.</th>
-              <th scope="col">Totale (€)</th>
+              <th scope="col">Totale</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -44,6 +45,7 @@
                 <th scope="row">{{ $order->id }}</th>
                 <td>{{ $order->user_name }}</td>
                 <td>{{ $order->user_lastname }}</td>
+                <td>{{ $order->user_telephone_number }}</td>
                 <td>{{ $order->tot_order }} &euro;</td>
                 <td>
                   <a href="{{ route('admin.orders.show', $order) }}" class="btn btn-primary d-none d-lg-inline-block">

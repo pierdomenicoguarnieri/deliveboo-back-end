@@ -19,12 +19,17 @@ class OrderController extends Controller
      */
     public function index()
     {
-      $orders = [];
+      $ordersArray = [];
       $restaurant = (new Restaurant())->restaurantUser();
       $dishes     = $restaurant->dishes()->get();
       foreach($dishes as $dish){
-        $orders     = DishOrder::where('dish_id', $dish->id)->with('dishes')->get();
+        $ordersArray     = DishOrder::where('dish_id', $dish->id)->get();
       }
+      foreach($ordersArray as $orderItem){
+        $orders = Order::where('id', $orderItem->order_id)->with('dishes')->get();
+      }
+
+      //dd($order);
 
       //dd($orders );
 
