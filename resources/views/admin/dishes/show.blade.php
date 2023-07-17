@@ -11,7 +11,7 @@
       <div class="card-img-overlay bg-dark bg-opacity-25 rounded-5">
         <div class="dish-info overflow-y-auto h-100 d-flex flex-column">
         <h2>{{ $dish->name }}</h2>
-          <p>Prezzo: {{ $dish->price }}</p>
+          <p>Prezzo: {{ $dish->price }} &euro;</p>
           <p>Visibile: {{ $dish->visible ? 'Si' : 'No' }}</p>
           <p>Descrizione: {!! $dish->description !!}</p>
           <p>Ingredienti: {{ $dish->ingredients }}</p>
