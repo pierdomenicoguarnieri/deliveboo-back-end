@@ -1,4 +1,4 @@
-<aside class="pb-3 px-3 overflow-y-auto">
+<aside class="pb-3 px-3 overflow-y-auto overflow-x-hidden">
 
   <div class="img-container mb-lg-5 mb-md-4 mb-3 mt-5">
     <a class="navbar-brand d-flex align-items-center h-100" href="{{ url('/') }}">
@@ -18,7 +18,7 @@
         <a class="nav-link" href="{{ route('admin.restaurants.show', $restaurant) }}"><i class="fa-solid fa-utensils"></i> <span class="d-none d-md-inline">Ristorante</span></a>
       </li>
 
-      <li class="nav-item mb-lg-4 mb-md-3 mb-2 {{Route::currentRouteName() === 'admin.dishes.index' || str_contains(Route::currentRouteName(), 'admin.dishes.index') || str_contains(Route::currentRouteName(), 'admin.dishes.show')  ? 'active' : ''}}">
+      <li class="nav-item mb-lg-4 mb-md-3 mb-2 {{Route::currentRouteName() === 'admin.dishes.index' || str_contains(Route::currentRouteName(), 'admin.dishes.edit') || str_contains(Route::currentRouteName(), 'admin.dishes.show')  ? 'active' : ''}}">
         <a class="nav-link" href=" {{ route('admin.dishes.index') }}"><i class="fa-solid fa-bowl-food"></i> <span class="d-none d-md-inline">Piatti</span></a>
       </li>
 

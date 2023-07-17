@@ -53,7 +53,6 @@
         class="form-check-input"
         type="checkbox"
         role="switch"
-        id="flexSwitchCheckChecked"
         name="visible"
         id="visible"
         value="{{ old('visible') }}"
