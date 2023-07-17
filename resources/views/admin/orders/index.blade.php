@@ -26,7 +26,7 @@
 
     <div class="table-container rounded-3 py-5 bg-white border border-1">
 
-      @if ($orders_array)
+      @if (!$orders == [])
 
         <table class="table table-hover m-0 w-100">
           <thead>
@@ -40,8 +40,7 @@
             </tr>
           </thead>
           <tbody>
-            @foreach ($orders_array as $order_item)
-              @foreach ($order_item as $order)
+            @foreach ($orders as $order)
               <tr>
                 <th scope="row">{{ $order->id }}</th>
                 <td>{{ $order->user_name }}</td>
@@ -73,7 +72,6 @@
                 </td>
               </tr>
               @endforeach
-            @endforeach
           </tbody>
         </table>
       @else

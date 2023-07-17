@@ -26,6 +26,10 @@
               'route' => route('admin.orders.destroy', $order)
               ])
           </div>
+
+          @foreach ($order->dishes as $dish)
+            <p>{{ $dish }}</p>
+          @endforeach
         </div>
       </div>
     </div>
