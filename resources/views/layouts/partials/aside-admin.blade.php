@@ -14,19 +14,19 @@
     </li>
 
     @if (Auth::user()->restaurant_id != null)
-      <li class="nav-item mb-lg-4 mb-md-3 mb-2 {{str_contains(Route::currentRouteName(), 'admin.restaurant.show')  ? 'active' : ''}}">
+      <li class="nav-item mb-lg-4 mb-md-3 mb-2 {{str_contains(Route::currentRouteName(), 'admin.restaurant')  ? 'active' : ''}}">
         <a class="nav-link" href="{{ route('admin.restaurants.show', $restaurant) }}"><i class="fa-solid fa-utensils"></i> <span class="d-none d-md-inline">Ristorante</span></a>
       </li>
 
-      <li class="nav-item mb-lg-4 mb-md-3 mb-2 {{str_contains(Route::currentRouteName(), 'admin.dishes.index')  ? 'active' : ''}}">
+      <li class="nav-item mb-lg-4 mb-md-3 mb-2 {{Route::currentRouteName() === 'admin.dishes.index' || str_contains(Route::currentRouteName(), 'admin.dishes.index') || str_contains(Route::currentRouteName(), 'admin.dishes.show')  ? 'active' : ''}}">
         <a class="nav-link" href=" {{ route('admin.dishes.index') }}"><i class="fa-solid fa-bowl-food"></i> <span class="d-none d-md-inline">Piatti</span></a>
       </li>
 
-      <li class="nav-item mb-lg-4 mb-md-3 mb-2 {{str_contains(Route::currentRouteName(), 'admin.dishes.create')  ? 'active' : ''}}">
+      <li class="nav-item mb-lg-4 mb-md-3 mb-2 {{Route::currentRouteName() === 'admin.dishes.create'  ? 'active' : ''}}">
         <a class="nav-link" href=" {{ route('admin.dishes.create') }}"><i class="fa-regular fa-square-plus"></i> <span class="d-none d-md-inline">Nuovo Piatto</span></a>
       </li>
 
-      <li class="nav-item mb-lg-4 mb-md-3 mb-2 {{str_contains(Route::currentRouteName(), 'admin.orders.index')  ? 'active' : ''}}">
+      <li class="nav-item mb-lg-4 mb-md-3 mb-2 {{str_contains(Route::currentRouteName(), 'admin.orders')  ? 'active' : ''}}">
         <a class="nav-link" href=" {{ route('admin.orders.index') }}"><i class="fa-solid fa-list-ul"></i> <span class="d-none d-md-inline">Ordini</span></a>
       </li>
     @endif

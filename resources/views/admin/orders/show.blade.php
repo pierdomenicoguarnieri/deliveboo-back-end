@@ -41,7 +41,7 @@
                 <tr>
                   <th scope="row">{{ $dish->id }}</th>
                   <td>{{ $dish->name }}</td>
-                  <td>quantità</td>
+                  <td>{{ $order->quantity }}</td>
                   <td>{{ $dish->price }} &euro;</td>
                 </tr>
               @endforeach

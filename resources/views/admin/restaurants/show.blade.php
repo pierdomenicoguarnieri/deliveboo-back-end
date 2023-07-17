@@ -23,7 +23,7 @@
         <div class="pt-1">
             <strong>Tipo di ristorante:</strong>
             @forelse ( $restaurant->types as $type )
-            <span class="badge text-bg-primary text-capitalize p-2">{{ $type->name}}</span>
+            <span class="badge text-bg-danger bg-opacity-75 text-capitalize p-2">{{ $type->name}}</span>
             @empty
               <span>Non è stato selezionato il tipo di ristorante</span>
             @endforelse
