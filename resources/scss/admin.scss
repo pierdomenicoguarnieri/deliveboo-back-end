@@ -30,9 +30,13 @@ main{
   background-color: white;
   input, button{
     border: none;
+    background-color: white !important;
+  }
+  button{
+    border-left: 2px solid grey;
   }
   &:hover button{
-    color: brown;
+    color: $primary_color;
   }
 }
 

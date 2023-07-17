@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\RestaurantController;
 use App\Http\Controllers\Admin\DishController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,7 @@ Route::middleware(['auth', 'verified'])
     Route::get('/', [DashboardController::class, 'index'])->name('home');
     Route::resource('restaurants', RestaurantController::class);
     Route::resource('dishes', DishController::class);
+    Route::resource('orders', OrderController::class);
   });
 
 Route::middleware('auth')->group(function () {

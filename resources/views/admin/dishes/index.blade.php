@@ -2,7 +2,22 @@
 
 @section('content')
   <div class="container boo-wrapper">
-    <h1 class="py-3">Lista Piatti</h1>
+    <div class="w-100 d-lg-flex align-items-center justify-content-between">
+      <h1 class="py-3">Lista Piatti</h1>
+      <div class="pb-2">
+        <form
+          action="{{route('admin.dishes.index')}}"
+          class="d-flex me-5 search_dishes"
+          method="GET"
+        >
+          <input type="text" name="search" placeholder="Cerca piatto">
+          <button class="p-1"><i class="fa-solid fa-magnifying-glass ps-2"></i></button>
+        </form>
+
+      </div>
+
+    </div>
+
 
     @if (session('deleted'))
       <div class="alert alert-success" role="alert">

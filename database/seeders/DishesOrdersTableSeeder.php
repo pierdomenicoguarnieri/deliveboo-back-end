@@ -7,7 +7,6 @@ use App\Models\Restaurant;
 use App\Models\Order;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Arr;
 
 class DishesOrdersTableSeeder extends Seeder
 {
@@ -32,7 +31,6 @@ class DishesOrdersTableSeeder extends Seeder
           unset($dish_array[$key]);
           $dish_array = array_values($dish_array);
         }
-
       }
     }
 }
