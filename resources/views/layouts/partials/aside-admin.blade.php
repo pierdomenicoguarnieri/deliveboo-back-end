@@ -1,4 +1,4 @@
-<aside class="pb-3 px-3">
+<aside class="pb-3 px-3 overflow-y-auto">
 
   <div class="img-container mb-lg-5 mb-md-4 mb-3 mt-5">
     <a class="navbar-brand d-flex align-items-center h-100" href="{{ url('/') }}">
