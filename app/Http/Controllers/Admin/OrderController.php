@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
 use App\Models\Restaurant;
-use App\Models\Dish;
 use App\Models\DishOrder;
 
 class OrderController extends Controller
@@ -29,7 +27,9 @@ class OrderController extends Controller
       }
       foreach($ordersArray as $orderItem){
         $order = Order::where('id', $orderItem?->order_id)->with('dishes')->first();
-        if (!in_array($order, $orders)) $orders[] = $order;
+        if($order != null){
+          if (!in_array($order, $orders)) $orders[] = $order;
+        }
       }
 
       return view('admin.orders.index', compact('orders', 'restaurant'));

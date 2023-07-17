@@ -26,7 +26,7 @@
 
     <div class="table-container rounded-3 py-5 bg-white border border-1">
 
-      @if (!$orders == [])
+      @if ($orders != null)
 
         <table class="table table-hover m-0 w-100">
           <thead>
@@ -77,13 +77,8 @@
       @else
       <div class="py-3 text-center">
         <h3>Non sono presenti ordini!!</h3>
-
       </div>
-
-
-
       @endif
-
     </div>
   </div>
 @endsection
