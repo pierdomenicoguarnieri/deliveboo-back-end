@@ -32,7 +32,7 @@
       <div class="content-wrapper w-100 h-100 d-flex rounded-5 overflow-hidden">
         @include('layouts.partials.aside-admin')
 
-        <div class="main-content-wrapper w-100 px-2 py-4 d-flex align-items-center justify-content-center overflow-x-scroll">
+        <div class="main-content-wrapper w-100 px-2 py-4 d-flex align-items-center justify-content-center">
           @yield('content')
         </div>
       </div>
