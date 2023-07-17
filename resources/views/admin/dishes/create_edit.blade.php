@@ -59,7 +59,7 @@
         @if($dish?->visible)
           checked
         @endif>
-      <label for="price" class="price">Visibile</label>
+      <label for="visible" class="visible">Visibile</label>
     </div>
 
     <div class="mb-3">
