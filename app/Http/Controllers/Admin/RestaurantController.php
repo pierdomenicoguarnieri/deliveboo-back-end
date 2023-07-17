@@ -63,7 +63,7 @@ class RestaurantController extends Controller
         if(array_key_exists('image_path', $form_data)){
 
             $form_data['image_name'] = $request->file('image_path')->getClientOriginalName();
-            $form_data['image_path'] = Storage::put('uploads/', $form_data['image_path']);
+            $form_data['image_path'] = Storage::put('uploads', $form_data['image_path']);
         }
 
         $new_restaurant->fill($form_data);
@@ -174,6 +174,6 @@ class RestaurantController extends Controller
 
         $restaurant->delete();
 
-        return redirect()->route('admin.dashboard')->with('deleted', "Il tuo ristorante: \" $restaurant->name \" è stato eliminato con successo!");
+        return redirect()->route('register')->with('deleted', "Il tuo ristorante: \"$restaurant->name\" è stato eliminato con successo!");
     }
 }

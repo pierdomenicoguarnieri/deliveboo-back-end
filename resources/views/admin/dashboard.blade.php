@@ -10,12 +10,6 @@
   @section('content')
     <div class="container">
 
-      @if (session('deleted'))
-        <div class="alert alert-success" role="alert">
-          {{ session('deleted') }}
-        </div>
-      @endif
-
       <h2 class="fs-4 text-secondary my-4">
           Attenzione!
       </h2>

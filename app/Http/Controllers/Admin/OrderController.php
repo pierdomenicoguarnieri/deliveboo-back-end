@@ -19,21 +19,29 @@ class OrderController extends Controller
      */
     public function index()
     {
-      $ordersArray = [];
+      $dishes_array = [];
+      $orders_array = [];
+      $i = 0;
       $restaurant = (new Restaurant())->restaurantUser();
       $dishes     = $restaurant->dishes()->get();
-      foreach($dishes as $dish){
-        $ordersArray     = DishOrder::where('dish_id', $dish->id)->get();
+      foreach($dishes as $key => $dish){
+        $order = DishOrder::where('dish_id', $dish->id)->get();
+        if(!$order->isEmpty()){
+          $dishes_array[$key] = $order;
+        }
       }
-      foreach($ordersArray as $orderItem){
-        $orders = Order::where('id', $orderItem->order_id)->with('dishes')->get();
+      foreach($dishes_array as $dish_id){
+        $order = $dish_id;
+        foreach($order as $element){
+          $i++;
+          $result = Order::where('id', $element->order_id)->with('dishes')->get();
+          if(!in_array( $result, $orders_array)){
+            $orders_array[$i] = $result;
+          }
+        }
       }
 
-      //dd($order);
-
-      //dd($orders );
-
-      return view('admin.orders.index', compact('orders', 'restaurant'));
+      return view('admin.orders.index', compact('orders_array', 'restaurant'));
     }
 
     /**

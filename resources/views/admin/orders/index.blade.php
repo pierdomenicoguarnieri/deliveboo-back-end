@@ -26,7 +26,7 @@
 
     <div class="table-container rounded-3 py-5 bg-white border border-1">
 
-      @if ($orders)
+      @if ($orders_array)
 
         <table class="table table-hover m-0 w-100">
           <thead>
@@ -40,7 +40,8 @@
             </tr>
           </thead>
           <tbody>
-            @foreach ($orders as $order)
+            @foreach ($orders_array as $order_item)
+              @foreach ($order_item as $order)
               <tr>
                 <th scope="row">{{ $order->id }}</th>
                 <td>{{ $order->user_name }}</td>
@@ -71,6 +72,7 @@
                   </div>
                 </td>
               </tr>
+              @endforeach
             @endforeach
           </tbody>
         </table>

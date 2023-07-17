@@ -2,6 +2,14 @@
 
 @section('content')
   <div class="container mt-4">
+
+
+    @if (session('deleted'))
+      <div class="alert alert-success" role="alert">
+        {{ session('deleted') }}
+      </div>
+    @endif
+
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card boo-wrapper border-0">
