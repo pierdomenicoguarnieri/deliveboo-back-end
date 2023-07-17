@@ -27,7 +27,7 @@ return new class extends Migration
         ->on('orders')
         ->cascadeOnDelete();
 
-      $table->integer('quantity')->default(1);
+      $table->integer('quantity')->unsigned()->required();
     });
   }
 
