@@ -9,7 +9,7 @@
     onerror="this.src='/img/noimage.jpg'"
     class="img-fluid h-100 object-fit-cover rounded-5 shadow-sm overflow-hidden card-img">
     <div class="card-img-overlay bg-dark bg-opacity-25 rounded-5">
-      <div class="dish-info h-100 overflow-x-scroll d-flex flex-column">
+      <div class="restaurant-info h-100 d-flex flex-column">
         <h2 class="mb-4">{{$restaurant->name}}</h2>
 
         <p class="py-1"><strong>Email: </strong>{{$restaurant->email}}</p>

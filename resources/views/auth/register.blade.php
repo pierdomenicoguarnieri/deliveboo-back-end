@@ -4,7 +4,7 @@
   <div class="container mt-4">
     <div class="row justify-content-center">
       <div class="col-md-8">
-        <div class="card boo-wrapper">
+        <div class="card boo-wrapper border-0">
           <h4>{{ __('Register') }}</h4>
 
           <div class="card-body">
