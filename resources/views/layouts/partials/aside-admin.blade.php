@@ -26,7 +26,7 @@
         <a class="nav-link" href=" {{ route('admin.dishes.create') }}"><i class="fa-regular fa-square-plus"></i> <span class="d-none d-md-inline">Nuovo Piatto</span></a>
       </li>
 
-      <li class="nav-item mb-lg-4 mb-md-3 mb-2 {{Route::currentRouteName() === 'admin.dishes.create'  ? 'active' : ''}}">
+      <li class="nav-item mb-lg-4 mb-md-3 mb-2 {{Route::currentRouteName() === 'admin.deleted.dishes'  ? 'active' : ''}}">
         <a class="nav-link" href=" {{ route('admin.deleted.dishes') }}"><i class="fa-regular fa-square-plus"></i> <span class="d-none d-md-inline">Piatti Eliminati</span></a>
       </li>
 
