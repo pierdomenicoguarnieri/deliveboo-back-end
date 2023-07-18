@@ -3,21 +3,19 @@
 @section('content')
   <div class="container boo-wrapper">
     <div class="w-100 d-lg-flex align-items-center justify-content-between">
+
       <h1 class="py-3">Lista Piatti</h1>
       @if ($dishes)
         <div class="pb-2">
           <form
             action="{{route('admin.dishes.index')}}"
             class="d-flex me-5 search_dishes"
-            method="GET"
-          >
+            method="GET">
             <input type="text" name="search" placeholder="Cerca piatto">
             <button class="p-1"><i class="fa-solid fa-magnifying-glass ps-2"></i></button>
           </form>
         </div>
       @endif
-
-
     </div>
 
 
@@ -80,12 +78,10 @@
           </tbody>
         </table>
       @else
-      <div class="text-center">
-        <h3>Non ci sono piatti nella lista!</h3>
-      </div>
-
+        <div class="text-center">
+          <h3>Non ci sono piatti nella lista!</h3>
+        </div>
       @endif
-
     </div>
     <div>
       {{ $dishes->links() }}
