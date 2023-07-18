@@ -37,6 +37,7 @@
         <input type="number"
           class="form-control @error('price') is-invalid @endif"
           id="price"
+          min="0"
           name="price"
           step="0.01"
           value="{{ old('price', $dish?->price) }}"
