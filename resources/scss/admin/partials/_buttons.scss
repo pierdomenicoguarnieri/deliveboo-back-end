@@ -1,0 +1,33 @@
+.boo-btn{
+  border-color: $tertiary_color !important;
+  color: $tertiary_color !important;
+}
+
+.btn-check:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .btn.show{
+  &.boo-btn{
+    background-color: $tertiary_color !important;
+    color: $custom_white !important;
+  }
+}
+
+.form-check-input:checked{
+  background-color: $tertiary_color !important;
+  border-color: $tertiary_color !important;
+}
+
+.form-check-input:focus{
+  box-shadow: 0 0 0 5px rgba($tertiary_color, 0.5)!important;
+  border-color: $tertiary_color !important;
+}
+
+.accordion-button:not(.collapsed){
+  background-color: rgba($tertiary_color, 0.5) !important;
+  color: darken($tertiary_color, 50%) !important;
+  &::after{
+    color: darken($tertiary_color, 50%) !important;
+  }
+}
+
+.accordion-button:focus{
+  box-shadow: 0 0 0 5px rgba($tertiary_color, 0.5) !important;
+}

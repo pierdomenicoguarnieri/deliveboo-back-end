@@ -1,8 +1,6 @@
 @extends('layouts.admin')
 
 @section('content')
-
-
   <div class="container boo-wrapper">
     <h1>{{ $title }}</h1>
 
@@ -120,27 +118,41 @@
       </div>
     </div>
 
-    <label for="check_type" class="form-label">Tipi di ristorante</label>
-    <div class="btn-group-vertical d-block" role="group" aria-label="Basic checkbox toggle button group">
-      @foreach ($types as $type)
-        <input
-          type="checkbox"
-          class="btn-check"
-          autocomplete="off"
-          id="type{{$loop->iteration}}"
-          name="type_id[]"
-          value="{{ $type->id }}"
-          @if(!$errors->any() && $restaurant?->types->contains($type))
-            checked
-            @elseif($errors->any() && in_array($type->id, old('types', [])))
-            cheked
-          @endif>
-        <label class="btn btn-outline-primary text-capitalize" for="type{{$loop->iteration}}">{{ $type->name }}</label>
-      @endforeach
+    <div class="accordion w-75" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Tipi di ristorante
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <div class="form-check d-flex flex-column">
+              @foreach ($types as $type)
+              <div class="input-wrapper">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  autocomplete="off"
+                  id="type{{$loop->iteration}}"
+                  name="type_id[]"
+                  value="{{ $type->id }}"
+                  @if(!$errors->any() && $restaurant?->types->contains($type))
+                    checked
+                    @elseif($errors->any() && in_array($type->id, old('types', [])))
+                    cheked
+                  @endif>
+                <label class="form-check-label text-capitalize" for="type{{$loop->iteration}}">{{ $type->name }}</label>
+              </div>
+              @endforeach
 
-      @error('type_id')
-        <p class="text-danger py-1">{{ $message }}</p>
-      @enderror
+              @error('type_id')
+                <p class="text-danger py-1">{{ $message }}</p>
+              @enderror
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="mt-4">
