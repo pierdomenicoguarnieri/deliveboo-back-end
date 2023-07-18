@@ -60,7 +60,7 @@
                       'title' => 'Eliminazione Piatto',
                       'id' => $dish->id,
                       'message' => "Confermi l'eliminazione del tuo piatto: $dish->name ?",
-                      'route' => route('admin.restaurants.destroy', $dish),
+                      'route' => route('admin.dishes.destroy', $dish),
                       'mobile' => false
                     ])
                   </div>

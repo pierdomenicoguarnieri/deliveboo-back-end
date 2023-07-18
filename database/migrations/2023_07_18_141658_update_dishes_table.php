@@ -10,7 +10,7 @@ return new class extends Migration
   {
     Schema::table('dishes', function(Blueprint $table)
     {
-      $table->timestamp('deleted_ad')->nullable();
+      $table->timestamp('deleted_at')->nullable();
     });
   }
 
@@ -18,7 +18,7 @@ return new class extends Migration
   {
     Schema::table('dishes', function(Blueprint $table)
     {
-      $table->dropColumn('deleted_ad');
+      $table->dropColumn('deleted_at');
     });
   }
 };
