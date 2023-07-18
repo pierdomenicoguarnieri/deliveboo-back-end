@@ -68,6 +68,7 @@
       <label for="piva" class="form-label">P. IVA</label>
       <input
         type="number"
+        min="10000000000"
         class="form-control @error('piva') is-invalid @enderror"
         placeholder="P. Iva"
         name="piva"
@@ -83,6 +84,7 @@
       <label for="telephone_number" class="form-label">Numero di telefono</label>
       <input
         type="number"
+        min="0"
         id="phone"
         placeholder="1234567890"
         pattern="[0-9]{10}"

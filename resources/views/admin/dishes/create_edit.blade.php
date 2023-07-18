@@ -64,15 +64,17 @@
       </div>
 
       <div class="mb-3">
-        <label for="description" class="form-label">Descrizione</label>
-        <textarea
-          class="form-control @error('description') is-invalid @endif"
-          id="description"
-          name="description">
-          {{ old('description', $dish?->description) }}
-        </textarea>
+        <label for="price" class="form-label">Prezzo</label>
+        <input type="number"
+          class="form-control @error('price') is-invalid @endif"
+          id="price"
+          min="0"
+          name="price"
+          step="0.01"
+          value="{{ old('price', $dish?->price) }}"
+          placeholder="Inserisci il prezzo del piatto">
 
-        @error('description')
+        @error('price')
           <div class="alert alert-danger" role="alert">{{ $message }}</div>
         @enderror
       </div>
