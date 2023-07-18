@@ -31,7 +31,9 @@ Route::middleware(['auth', 'verified'])
   ->group(function(){
     Route::get('/', [DashboardController::class, 'index'])->name('home');
     Route::resource('restaurants', RestaurantController::class);
-    Route::resource('dishes', DishController::class);
+    Route::resource('dishes', DishController::class)->withTrashed();
+    Route::post('/restore_dish/{dish}', [DishController::class, 'restore_dish'])->withTrashed()->name('restore.dish');
+    Route::get('/deleted_dishes', [DishController::class, 'deleted_dishes'])->name('deleted.dishes');
     Route::resource('orders', OrderController::class);
   });
 
