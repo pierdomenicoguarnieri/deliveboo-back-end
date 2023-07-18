@@ -104,11 +104,18 @@ class DishController extends Controller
     return redirect()->route('admin.dishes.index');
   }
 
-  // public function deleted_dish()
-  // {
-  //   $dish = Dish::onlyTrashed()->get();
-  //   dd($dish);
-  // }
+  public function deleted_dishes()
+  {
+    $restaurant = (new Restaurant())->restaurantuser();
+    $dishes_del = Dish::onlyTrashed()->paginate(10);
+    return view('admin.dishes.delete_dishes', compact('restaurant', 'dishes_del'));
+  }
+
+  public function restore_dish(Dish $dish)
+  {
+    $dish->restore();
+    return redirect()->route('admin.dishes.index');
+  }
 }
 
 
