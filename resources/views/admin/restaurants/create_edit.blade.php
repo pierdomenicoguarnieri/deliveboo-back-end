@@ -127,13 +127,15 @@
           type="checkbox"
           class="btn-check"
           autocomplete="off"
-          id="{{ $type->id }}"
+          id="type{{$loop->iteration}}"
           name="type_id[]"
           value="{{ $type->id }}"
-          @if($type->id == old('type_id', $restaurant->type?->id))
+          @if(!$errors->any() && $restaurant?->types->contains($type))
             checked
+            @elseif($errors->any() && in_array($type->id, old('types', [])))
+            cheked
           @endif>
-        <label class="btn btn-outline-primary text-capitalize" for="{{ $type->id }}">{{ $type->name }}</label>
+        <label class="btn btn-outline-primary text-capitalize" for="type{{$loop->iteration}}">{{ $type->name }}</label>
       @endforeach
 
       @error('type_id')
