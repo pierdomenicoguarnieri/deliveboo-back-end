@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-@if ($dish->restaurant_id === Auth::user()->restaurant_id)
+@if ($dish?->restaurant_id === Auth::user()->restaurant_id || str_contains(Route::currentRouteName(), 'admin.dishes.create'))
   <div class="container boo-wrapper">
       <h1 class="py-3">{{ $title }}</h1>
 
