@@ -11,39 +11,29 @@ use Illuminate\Support\Facades\Auth;
 
 class DishController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-      $restaurant   = Restaurant::find(Auth::user()->restaurant_id);
+  public function index()
+  {
+    $restaurant = (new Restaurant())->restaurantUser();
 
-      if(isset($_GET['search'])){
-        $tosearch   = $_GET['search'];
-        $dishes     = $restaurant->dishes()->where('name', 'like', "%$tosearch%")->paginate(10);
-      }else{
-        $dishes     = $restaurant->dishes()->paginate(10);
-      }
-
-      return view('admin.dishes.index', compact('dishes', 'restaurant'));
+    if(isset($_GET['search'])){
+      $tosearch   = $_GET['search'];
+      $dishes     = $restaurant->dishes()->where('name', 'like', "%$tosearch%")->paginate(10);
+    }else{
+      $dishes     = $restaurant->dishes()->paginate(10);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $restaurant = Restaurant::find(Auth::user()->restaurant_id);
-        $title      = 'Crea un nuovo piatto';
-        $method     = 'POST';
-        $route      = route('admin.dishes.store');
-        $dish       = null;
-        return view('admin.dishes.create_edit', compact('restaurant', 'title', 'method', 'route', 'dish'));
-    }
+    return view('admin.dishes.index', compact('dishes', 'restaurant'));
+  }
+
+  public function create()
+  {
+    $restaurant = Restaurant::find(Auth::user()->restaurant_id);
+    $title      = 'Crea un nuovo piatto';
+    $method     = 'POST';
+    $route      = route('admin.dishes.store');
+    $dish       = null;
+    return view('admin.dishes.create_edit', compact('restaurant', 'title', 'method', 'route', 'dish'));
+  }
 
   public function data_bool($request)
   {
@@ -102,7 +92,7 @@ class DishController extends Controller
     {
       Storage::disk('public')->delete($dish->image_path);
       $form_data['image_name'] = '';
-      $form_data['image_path']          = '';
+      $form_data['image_path'] = '';
     }
     $dish->update($form_data);
     return redirect()->route('admin.dishes.show', $dish);
