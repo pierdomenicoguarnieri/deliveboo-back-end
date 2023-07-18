@@ -9,14 +9,26 @@
         {{ session('deleted') }}
       </div>
     @endif
+    @if ($errors->any())
+    <div class="d-flex justify-content-center">
+      <div class="alert alert-danger w-50" role="alert">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    </div>
+    @endif
 
     <div class="row justify-content-center">
       <div class="col-md-8">
+
         <div class="card boo-wrapper border-0">
           <h4>{{ __('Register') }}</h4>
 
           <div class="card-body">
-            <form method="POST" action="{{ route('register') }}">
+            <form onsubmit="return convalidaForm(this)" method="POST" action="{{ route('register') }}">
               @csrf
 
               <div class="mb-4 row">
@@ -87,4 +99,19 @@
       </div>
     </div>
   </div>
+
+<script language="javascript" type="text/javascript">
+
+  function convalidaForm(passwordForm) {
+
+    if (passwordForm.password.value != passwordForm.password_confirmation.value) {
+      alert("La passord inserita non coincide con la prima!")
+      passwordForm.password.focus()
+      passwordForm.password.select()
+      return false
+    }
+    return true
+  }
+</script>
+
 @endsection
