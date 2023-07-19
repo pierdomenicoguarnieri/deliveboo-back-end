@@ -40,36 +40,20 @@ class DishesOrdersTableSeeder extends Seeder
           $dish_array = array_values($dish_array);
         }
 
-        dump('Dish Array',$attached_dishes);
         $order_pivot = DishOrder::where('order_id', $order->id)->get();
         $quantity_price = [];
         foreach($attached_dishes as $key => $dish){
 
-          dump('Dish',$dish);
           $single_dish = Dish::find($dish);
           if(isset($order_pivot[$key]->quantity)){
             $new_price = $single_dish->price * $order_pivot[$key]->quantity;
 
-            dump('Prezzo singolo', $single_dish->price);
-            dump('Quantità',  $order_pivot[$key]->quantity );
-            dump('Nuovo prezzo', $new_price);
-
             array_push($quantity_price, $new_price);
-            dump('Array quantity_price', $quantity_price);
           }
 
         }
-
         $order->tot_order = array_sum($quantity_price);
-        dump('Tot Order', $order->tot_order);
-
         $order->update();
-        dump('Ordine', $order);
-        dump('Array quantity_price', $quantity_price);
-        dump('Tot Order', $order->tot_order);
-        dump('-----------------------------------------------');
-        //dd( $order->tot_order, $quantity_price, $order);
-
       }
     }
 }
