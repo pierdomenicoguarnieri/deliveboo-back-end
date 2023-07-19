@@ -56,8 +56,8 @@
           role="switch"
           name="visible"
           id="visible"
-          value="{{ old('visible') }}"
-          @if($dish?->visible)
+          value="1"
+          @if(old('visible',$dish?->visible))
             checked
           @endif>
         <label for="visible" class="visible">Visibile</label>
@@ -139,8 +139,8 @@
         id="is_vegan"
         autocomplete="off"
         name="is_vegan"
-        value="{{ old('is_vegan') }}"
-        @if ($dish?->is_vegan) checked @endif>
+        value="1"
+        @if (old('is_vegan',$dish?->is_vegan)) checked @endif>
         <label class="btn btn-outline-primary boo-btn" for="is_vegan"><i class="fa-solid fa-seedling"></i> <span class="d-none d-xl-inline">Vegano</span></label>
 
         <input
@@ -149,8 +149,8 @@
         id="is_frozen"
         autocomplete="off"
         name="is_frozen"
-        value="{{ old('is_frozen') }}"
-        @if ($dish?->is_frozen) checked @endif>
+        value="1"
+        @if (old('is_frozen',$dish?->is_frozen)) checked @endif>
         <label class="btn btn-outline-primary boo-btn" for="is_frozen"><i class="fa-solid fa-snowflake"></i> <span class="d-none d-xl-inline">Surgelato</span></label>
 
         <input
@@ -159,8 +159,8 @@
         id="is_gluten_free"
         autocomplete="off"
         name="is_gluten_free"
-        value="{{ old('is_gluten_free') }}"
-        @if ($dish?->is_gluten_free) checked @endif>
+        value="1"
+        @if (old('is_gluten_free',$dish?->is_gluten_free)) checked @endif>
         <label class="btn btn-outline-primary boo-btn" for="is_gluten_free"><i class="fa-solid fa-wheat-awn-circle-exclamation"></i> <span class="d-none d-xl-inline">Senza glutine</span></label>
 
         <input
@@ -169,8 +169,8 @@
         id="is_lactose_free"
         autocomplete="off"
         name="is_lactose_free"
-        value="{{ old('is_lactose_free') }}"
-        @if ($dish?->is_lactose_free) checked @endif>
+        value="1"
+        @if (old('is_lactose_free', $dish?->is_lactose_free)) checked @endif>
         <label class="btn btn-outline-primary boo-btn" for="is_lactose_free"><i class="fa-solid fa-cow"></i> <span class="d-none d-xl-inline">Senza Lattosio</span></label>
       </div>
 
