@@ -168,12 +168,14 @@ class RestaurantController extends Controller
      */
     public function destroy(Restaurant $restaurant)
     {
-        if($restaurant->image_path){
-            Storage::disk('public')->delete($restaurant->image_path);
-        }
-
         $restaurant->delete();
 
         return redirect()->route('register')->with('deleted', "Il tuo ristorante: \"$restaurant->name\" è stato eliminato con successo!");
+    }
+
+    public function restore_restaurant(Restaurant $restaurant)
+    {
+      $restaurant->restore();
+      return redirect()->route('admin.restaurants.show', compact('restaurant'));
     }
 }
