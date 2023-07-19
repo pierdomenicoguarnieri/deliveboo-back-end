@@ -5,7 +5,7 @@
     <div class="w-100 d-lg-flex align-items-center justify-content-between">
       <h1 class="py-3">Lista Piatti Eliminati</h1>
 
-      @if ($dishes_del)
+      @if ($dishes_del[0] != null)
         <div class="pb-2">
           <form
             class="d-flex me-5 search_dishes"

@@ -22,16 +22,23 @@ class OrderController extends Controller
       $restaurant = (new Restaurant())->restaurantUser();
       $dishes     = $restaurant->dishes()->get();
       foreach($dishes as $dish){
-        $order    = DishOrder::where('dish_id', $dish->id)->first();
-        $ordersArray[] = $order;
+        $order_pivot    = DishOrder::where('dish_id', $dish->id)->first();
+        $ordersArray[] = $order_pivot;
+
       }
 
       foreach($ordersArray as $orderItem){
         $order = Order::where('id', $orderItem?->order_id)->with('dishes')->first();
-        if($order != null){
-          if (!in_array($order, $orders)) $orders[] = $order;
+        if($order != null && !in_array($order, $orders)){
+          $orders[] = $order;
         }
       }
+
+     //$restaurant = (new Restaurant())->restaurantUser();
+     //$dishes     = $restaurant->dishes()->get();
+      //$order    = DishOrder::where('dish_id', $dish->id)->first();
+
+
 
       return view('admin.orders.index', compact('orders', 'ordersArray', 'restaurant'));
     }
