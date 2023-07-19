@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Order;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class OrdersTableSeeder extends Seeder
 {
@@ -24,7 +25,7 @@ class OrdersTableSeeder extends Seeder
         $new_order->user_address = $order['user_address'];
         $new_order->user_telephone_number = $order['user_telephone_number'];
         $new_order->user_email = $order['user_email'];
-        $new_order->tot_order = $order['tot_order'];
+        $new_order->tot_order = 0;
         $new_order->save();
       }
     }

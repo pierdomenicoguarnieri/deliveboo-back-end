@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
+
   @if ($restaurant->dishes->contains($order->dishes[0]->id))
     <div class="container h-100 d-flex align-items-center justify-content-center">
       <div class="card h-75 w-100 border-0 bg-transparent m-0 text-bg-dark">
@@ -31,11 +32,12 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($order->dishes as $dish)
+                @foreach ($order->dishes as $key => $dish)
                   <tr>
                     <th scope="row">{{ $dish->id }}</th>
                     <td>{{ $dish->name }}</td>
-                    <td>{{ $order->quantity }}</td>
+
+                    <td>{{ $order_pivot[$key]->quantity }}</td>
 
                     <td>{{ $dish->price }} &euro;</td>
                   </tr>

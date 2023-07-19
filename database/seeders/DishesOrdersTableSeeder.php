@@ -3,10 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\Dish;
+use App\Models\DishOrder;
 use App\Models\Restaurant;
 use App\Models\Order;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class DishesOrdersTableSeeder extends Seeder
 {
@@ -21,7 +23,6 @@ class DishesOrdersTableSeeder extends Seeder
       $restaurantsIds = Restaurant::all()->pluck('id')->toArray();
 
       foreach ($orders as $order) {
-
         $randRestaurantId = rand(1, count($restaurantsIds));
         $dish_array = Dish::where('restaurant_id', $randRestaurantId)->pluck('id')->toArray();
 
@@ -34,6 +35,19 @@ class DishesOrdersTableSeeder extends Seeder
           unset($dish_array[$key]);
           $dish_array = array_values($dish_array);
         }
+
+        $order_pivot = DishOrder::where('order_id', $order->id)->get();
+        $quantity_price = [];
+
+        foreach($dish_array as $key => $dish){
+          $single_dish = Dish::find($dish);
+          $new_price = $single_dish->price * $order_pivot[$key]->quantity;
+          array_push($quantity_price, $new_price);
+
+        }
+        $order->tot_order = array_sum($quantity_price);
+        //dd($order, $new_price);
+        $order->update();
       }
     }
 }

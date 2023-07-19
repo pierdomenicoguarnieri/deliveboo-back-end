@@ -46,7 +46,7 @@
                       <i class="fa-solid fa-ellipsis"></i>
                     </button>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="{{ route('admin.orders.show', $order, $ordersArray) }}">Mostra</a></li>
+                      <li><a class="dropdown-item" href="{{ route('admin.orders.show', $order) }}">Mostra</a></li>
 
                     </ul>
                   </div>
