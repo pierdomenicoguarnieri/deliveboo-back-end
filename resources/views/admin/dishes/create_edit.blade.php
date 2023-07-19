@@ -64,22 +64,6 @@
       </div>
 
       <div class="mb-3">
-        <label for="price" class="form-label">Prezzo</label>
-        <input type="number"
-          class="form-control @error('price') is-invalid @endif"
-          id="price"
-          min="0"
-          name="price"
-          step="0.01"
-          value="{{ old('price', $dish?->price) }}"
-          placeholder="Inserisci il prezzo del piatto">
-
-        @error('price')
-          <div class="alert alert-danger" role="alert">{{ $message }}</div>
-        @enderror
-      </div>
-
-      <div class="mb-3">
         <label for="image" class="form-label">Immagine</label>
         <input
           class="form-control mb-3"
