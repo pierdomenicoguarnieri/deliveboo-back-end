@@ -5,7 +5,7 @@
     <div class="w-100 d-lg-flex align-items-center justify-content-between">
 
       <h1 class="py-3">Lista Piatti</h1>
-      @if ($dishes)
+      @if ($dishes[0] != null)
         <div class="pb-2">
           <form
             action="{{route('admin.dishes.index')}}"
