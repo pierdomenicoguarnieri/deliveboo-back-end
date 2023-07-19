@@ -141,8 +141,8 @@
                   value="{{ $type->id }}"
                   @if(!$errors->any() && $restaurant?->types->contains($type))
                     checked
-                    @elseif($errors->any() && in_array($type->id, old('types', [])))
-                    cheked
+                    @elseif($errors->any() && in_array($type->id, old('type_id', [])))
+                    checked
                   @endif>
                 <label class="form-check-label text-capitalize" for="type{{$loop->iteration}}">{{ $type->name }}</label>
               </div>
