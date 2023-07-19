@@ -8,6 +8,30 @@ aside{
   align-items: center;
   font-size: 1.2rem;
   flex-shrink: 0;
+  .accordion{
+    .accordion-button{
+      font-size: 1.2rem;
+      color: $custom_gray !important;
+      .text{
+        padding-left: 30px;
+      }
+    }
+    li{
+      padding-left: 30px;
+    }
+  }
+
+  .accordion-button:not(.collapsed){
+    background-color: $tertiary_color !important;
+    color: $custom_white !important;
+    &::after{
+      filter: invert(100%) !important;
+    }
+  }
+
+  .accordion-button:focus{
+    box-shadow: 0 0 0 5px rgba($tertiary_color, 0.5) !important;
+  }
   ul{
     width: 100%;
     li{
@@ -50,6 +74,27 @@ aside{
         text-align: center !important;
       }
   }
+
+  .accordion{
+    .accordion-button{
+      font-size: 1.2rem;
+      color: $custom_gray !important;
+      padding-left: 14px !important;
+      text-align: center !important;
+      &::after{
+        content: "" !important;
+        background-image: none !important;
+      }
+      .text{
+        padding-left: 0 !important;
+        text-align: center !important;
+      }
+    }
+    li{
+      padding-left: 0 !important;
+      text-align: center !important;
+    }
+  }
 }
 
 @media screen and (max-width: 500px) {
@@ -60,4 +105,20 @@ aside{
         text-align: center !important;
       }
   }
-}
+  .accordion{
+    .accordion-button{
+      font-size: 1.2rem;
+      color: $custom_gray !important;
+      padding-left: 4px !important;
+      text-align: center !important;
+        &::after{
+          content: "" !important;
+          background-image: none !important;
+        }
+      }
+      li{
+        padding: 2px 5px !important;
+        text-align: center !important;
+      }
+    }
+  }
