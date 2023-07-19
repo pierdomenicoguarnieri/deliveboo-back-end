@@ -31,8 +31,10 @@ class OrderController extends Controller
           if (!in_array($order, $orders)) $orders[] = $order;
         }
       }
+      //dump($ordersArray);
 
-      return view('admin.orders.index', compact('orders', 'restaurant'));
+
+      return view('admin.orders.index', compact('orders', 'ordersArray', 'restaurant'));
     }
 
     /**
@@ -64,8 +66,17 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
+      //$ordersArray = [];
+      //$orders = [];
       $restaurant = (new Restaurant())->restaurantUser();
+      /*$dish       = $order->dishes[0]->id;
+      if ($restaurant->dishes->contains($dish)){
+        $order    = DishOrder::where('dish_id', $dish)->first();
+      }*/
 
+      //$ordersArray[] = $order;
+
+      //dump($ordersArray);
 
       return view('admin.orders.show', compact('order', 'restaurant'));
     }

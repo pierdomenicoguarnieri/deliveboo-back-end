@@ -34,7 +34,11 @@
                 'title' => 'Eliminazione Piatto',
                 'id' => $dish->id,
                 'message' => "Confermi l'eliminazione del piatto: $dish->name ?",
-                'route' => route('admin.dishes.destroy', $dish)
+                'route' => route('admin.dishes.destroy', $dish),
+                'method' => 'DELETE',
+                'text' => 'Elimina',
+                'icon' => 'fa-solid fa-trash-can',
+                'color_btn' => 'btn-danger'
                 ])
             </div>
           </div>

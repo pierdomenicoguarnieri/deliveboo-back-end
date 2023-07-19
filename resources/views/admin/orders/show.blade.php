@@ -19,13 +19,6 @@
               <a href="{{ route('admin.orders.index') }}" class="btn btn-primary">
                 <i class="fa-solid fa-arrow-rotate-left"></i>
               </a>
-
-              @include('admin.partials.form-delete-restore',[
-                'title' => 'Eliminazione Ordine',
-                'id' => $order->id,
-                'message' => "Confermi l'eliminazione dell'ordine con id: $order->id ?",
-                'route' => route('admin.orders.destroy', $order)
-                ])
             </div>
 
             <table class="table mt-4">
@@ -43,6 +36,7 @@
                     <th scope="row">{{ $dish->id }}</th>
                     <td>{{ $dish->name }}</td>
                     <td>{{ $order->quantity }}</td>
+
                     <td>{{ $dish->price }} &euro;</td>
                   </tr>
                 @endforeach
