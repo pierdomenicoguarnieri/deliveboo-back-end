@@ -52,7 +52,7 @@
               <tr>
                 <th scope="row">{{ $dish->id }}</th>
                 <td>{{ $dish->name }}</td>
-                <td class="d-none d-md-table-cell">{{ $dish->visible }}</td>
+                <td class="d-none d-md-table-cell">{{ $dish->visible ? 'Si' : 'No' }}</td>
                 <td>{{ $dish->price }} &euro;</td>
                 <td>
                   <a href="{{ route('admin.dishes.show', $dish) }}" class="btn btn-primary d-none d-lg-inline-block">
