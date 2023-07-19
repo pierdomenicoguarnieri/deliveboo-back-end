@@ -13,7 +13,7 @@
       <a class="nav-link" href=" {{ route('admin.home') }}"><i class="fa-solid fa-table-columns"></i> <span class="d-none d-md-inline">Dashboard</span></a>
     </li>
 
-    @if (Auth::user()->restaurant_id != null)
+    @if (Auth::user()->restaurant_id != null && $restaurant != null)
       <li class="nav-item mb-lg-4 mb-md-3 mb-2 {{str_contains(Route::currentRouteName(), 'admin.restaurant')  ? 'active' : ''}}">
         <a class="nav-link" href="{{ route('admin.restaurants.show', $restaurant) }}"><i class="fa-solid fa-utensils"></i> <span class="d-none d-md-inline">Ristorante</span></a>
       </li>
