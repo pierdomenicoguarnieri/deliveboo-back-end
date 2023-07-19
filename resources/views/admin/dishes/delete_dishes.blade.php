@@ -45,22 +45,19 @@
                 <td class="d-none d-md-table-cell">{{ $dish->visible ? 'Si' : 'No' }}</td>
                 <td>{{ $dish->price }} &euro;</td>
                 <td>
-                  <form action="{{ route('admin.restore.dish', $dish) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    {{-- @method('PUT') --}}
-                    <button class="btn btn-primary" type="submit">
-                      <i class="fa-solid fa-trash-can-arrow-up"></i>
-                    </button>
-                  </form>
-                  {{-- <div class="d-none d-lg-inline-block">
-                    @include('admin.partials.form-delete',[
+                  <div class="d-none d-lg-inline-block">
+                    @include('admin.partials.form-delete-restore',[
                       'title' => 'Ripristina Piatto',
                       'id' => $dish->id,
-                      'message' => "Confermi il ripristino del tuo piatto: $dish->name ?",
+                      'message' => "Confermi il ripristino del piatto: $dish->name ?",
                       'route' => route('admin.restore.dish', $dish),
-                      'mobile' => false
+                      'mobile' => false,
+                      'method' => 'POST',
+                      'text' => 'Ripristina',
+                      'icon' => 'fa-solid fa-trash-can-arrow-up',
+                      'color_btn' => 'btn-primary'
                     ])
-                  </div> --}}
+                  </div>
 
                   <div class="dropdown d-lg-none">
                     <button class="btn btn--outline-secondary position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false">

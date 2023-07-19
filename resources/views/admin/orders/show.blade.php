@@ -20,7 +20,7 @@
                 <i class="fa-solid fa-arrow-rotate-left"></i>
               </a>
 
-              @include('admin.partials.form-delete',[
+              @include('admin.partials.form-delete-restore',[
                 'title' => 'Eliminazione Ordine',
                 'id' => $order->id,
                 'message' => "Confermi l'eliminazione dell'ordine con id: $order->id ?",

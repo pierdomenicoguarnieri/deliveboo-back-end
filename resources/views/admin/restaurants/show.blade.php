@@ -32,11 +32,15 @@
           <a class="btn btn-warning nv_edit" href="{{route('admin.restaurants.edit', $restaurant)}}">
             <i class="fa-solid fa-pencil"></i>
           </a>
-          @include('admin.partials.form-delete',[
+          @include('admin.partials.form-delete-restore',[
               'title' => 'Eliminazione Ristorante',
               'id' => $restaurant->id,
               'message' => "Confermi l'eliminazione del tuo ristorante: $restaurant->name ?",
-              'route' => route('admin.restaurants.destroy', $restaurant)
+              'route' => route('admin.restaurants.destroy', $restaurant),
+              'method' => 'DELETE',
+              'text' => 'Elimina',
+              'icon' => 'fa-solid fa-trash-can',
+              'color_btn' => 'btn-danger'
           ])
         </div>
       </div>
