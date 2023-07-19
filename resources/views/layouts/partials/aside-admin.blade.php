@@ -27,7 +27,7 @@
       </li>
 
       <li class="nav-item mb-lg-4 mb-md-3 mb-2 {{Route::currentRouteName() === 'admin.deleted.dishes'  ? 'active' : ''}}">
-        <a class="nav-link" href=" {{ route('admin.deleted.dishes') }}"><i class="fa-regular fa-square-plus"></i> <span class="d-none d-md-inline">Piatti Eliminati</span></a>
+        <a class="nav-link" href=" {{ route('admin.deleted.dishes') }}"><i class="fa-solid fa-trash"></i> <span class="d-none d-md-inline">Piatti Eliminati</span></a>
       </li>
 
       <li class="nav-item mb-lg-4 mb-md-3 mb-2 {{str_contains(Route::currentRouteName(), 'admin.orders')  ? 'active' : ''}}">

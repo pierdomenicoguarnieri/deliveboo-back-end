@@ -30,7 +30,7 @@
                 <i class="fa-solid fa-pencil"></i>
               </a>
 
-              @include('admin.partials.form-delete',[
+              @include('admin.partials.form-delete-restore',[
                 'title' => 'Eliminazione Piatto',
                 'id' => $dish->id,
                 'message' => "Confermi l'eliminazione del piatto: $dish->name ?",

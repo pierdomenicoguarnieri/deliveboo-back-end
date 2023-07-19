@@ -1,6 +1,6 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-danger nv_trash" data-bs-toggle="modal" data-bs-target="#modal{{$id}}">
-  <i class="fa-solid fa-trash-can"></i>
+<button type="button" class="btn {{$color_btn}} nv_trash" data-bs-toggle="modal" data-bs-target="#modal{{$id}}">
+  <i class="{{$icon}}"></i>
 </button>
 
 <!-- Modal -->
@@ -22,8 +22,8 @@
                   class="d-inline"
               >
                   @csrf
-                  @method('DELETE')
-                  <button type="submit" class="btn btn-danger">Elimina</button>
+                  @method($method)
+                  <button type="submit" class="btn btn-danger">{{$text}}</button>
               </form>
           </div>
       </div>

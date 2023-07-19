@@ -54,12 +54,16 @@
                     <i class="fa-solid fa-pencil"></i>
                   </a>
                   <div class="d-none d-lg-inline-block">
-                    @include('admin.partials.form-delete',[
+                    @include('admin.partials.form-delete-restore',[
                       'title' => 'Eliminazione Piatto',
                       'id' => $dish->id,
                       'message' => "Confermi l'eliminazione del tuo piatto: $dish->name ?",
                       'route' => route('admin.dishes.destroy', $dish),
-                      'mobile' => false
+                      'mobile' => false,
+                      'method' => 'DELETE',
+                      'text' => 'Elimina',
+                      'icon' => 'fa-solid fa-trash-can',
+                      'color_btn' => 'btn-danger'
                     ])
                   </div>
 
