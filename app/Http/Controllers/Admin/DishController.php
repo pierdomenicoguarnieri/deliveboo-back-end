@@ -107,7 +107,14 @@ class DishController extends Controller
   public function deleted_dishes()
   {
     $restaurant = (new Restaurant())->restaurantuser();
-    $dishes_del = Dish::onlyTrashed()->paginate(10);
+
+    if(isset($_GET['search'])){
+      $tosearch   = $_GET['search'];
+      $dishes_del = Dish::onlyTrashed()->where('name', 'like', "%$tosearch%")->paginate(10);
+    }else{
+      $dishes_del = Dish::onlyTrashed()->paginate(10);
+    }
+    //$dishes_del = Dish::onlyTrashed()->paginate(10);
     return view('admin.dishes.delete_dishes', compact('restaurant', 'dishes_del'));
   }
 

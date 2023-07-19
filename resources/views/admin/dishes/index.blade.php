@@ -10,11 +10,19 @@
           <form
             action="{{route('admin.dishes.index')}}"
             class="d-flex me-5 search_dishes"
-            method="GET">
-            <input type="text" name="search" placeholder="Cerca piatto">
+            method="GET"
+          >
+            <input
+            @if (isset($_GET['search']))
+              value="{{$_GET['search']}}"
+            @else
+              value=""
+            @endif
+            type="text" name="search" placeholder="Cerca piatto">
             <button class="p-1"><i class="fa-solid fa-magnifying-glass ps-2"></i></button>
           </form>
         </div>
+
       @endif
     </div>
 

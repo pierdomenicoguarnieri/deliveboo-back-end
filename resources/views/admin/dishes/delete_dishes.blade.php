@@ -4,18 +4,27 @@
   <div class="container boo-wrapper">
     <div class="w-100 d-lg-flex align-items-center justify-content-between">
       <h1 class="py-3">Lista Piatti Eliminati</h1>
-      {{-- @if ($dishes)
+
+      @if ($dishes_del)
         <div class="pb-2">
           <form
-            action="{{route('admin.dishes.index')}}"
             class="d-flex me-5 search_dishes"
             method="GET"
           >
-            <input type="text" name="search" placeholder="Cerca piatto">
+            <input
+            @if (isset($_GET['search']))
+              value="{{$_GET['search']}}"
+            @else
+              value=""
+            @endif
+            type="text" name="search" placeholder="Cerca piatto eliminato">
             <button class="p-1"><i class="fa-solid fa-magnifying-glass ps-2"></i></button>
           </form>
         </div>
-      @endif --}}
+
+      @endif
+
+
     </div>
 
 
