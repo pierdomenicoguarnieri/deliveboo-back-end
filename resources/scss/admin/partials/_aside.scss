@@ -21,6 +21,14 @@ aside{
     }
   }
 
+  .accordion-item{
+    border: none;
+  }
+
+  .accordion-button.collapsed{
+    background-color: rgba(lighten($custom_gray, 60%), 0.95) !important;
+  }
+
   .accordion-button:not(.collapsed){
     background-color: $tertiary_color !important;
     color: $custom_white !important;
