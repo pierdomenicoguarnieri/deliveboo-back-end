@@ -28,6 +28,7 @@ class Dish extends Model
     'is_vegan',
     'is_frozen',
     'is_gluten_free',
+    'is_lactose_free',
     'type',
     'image_path',
     'image_name'

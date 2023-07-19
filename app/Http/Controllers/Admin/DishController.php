@@ -37,12 +37,12 @@ class DishController extends Controller
 
   public function data_bool($request)
   {
-    $form_data                    = $request->all();
-    $form_data['visible']         = $request->has('visible');
-    $form_data['is_vegan']        = $request->has('is_vegan');
-    $form_data['is_frozen']       = $request->has('is_frozen');
-    $form_data['is_gluten_free']  = $request->has('is_gluten_free');
-    $form_data['is_lactose_free'] = $request->has('is_lactose_free');
+    $form_data = $request->all();
+    if (!isset($form_data['visible'])) $form_data['visible'] = 0;
+    if (!isset($form_data['is_vegan'])) $form_data['is_vegan'] = 0;
+    if (!isset($form_data['is_frozen'])) $form_data['is_frozen'] = 0;
+    if (!isset($form_data['is_gluten_free'])) $form_data['is_gluten_free'] = 0;
+    if (!isset($form_data['is_lactose_free'])) $form_data['is_lactose_free'] = 0;
     return $form_data;
   }
 
