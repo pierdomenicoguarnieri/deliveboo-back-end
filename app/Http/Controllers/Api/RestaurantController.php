@@ -11,11 +11,15 @@ class RestaurantController extends Controller
 {
   public function index(){
     $restaurants = Restaurant::all();
+    foreach($restaurants as $restaurant)
+    {
+      $restaurant->image_path = asset('storage/' . $restaurant->image_path);
+    }
     $types = Type::all();
-    
+
     return response()->json(compact('restaurants', 'types'));
   }
-  
+
   public function getRestaurant($slug){
     $restaurant = Restaurant::where('slug', $slug)->with('dishes')->first();
 
