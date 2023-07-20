@@ -22,6 +22,10 @@ class RestaurantController extends Controller
   public function getRestaurant($slug){
     $restaurant = Restaurant::where('slug', $slug)->with('dishes')->first();
 
+    foreach($restaurant->dishes as $dish){
+      $dish->image_path = asset('storage/' . $dish->image_path);
+    }
+
     return response()->json($restaurant);
   }
 }
