@@ -1,9 +1,51 @@
 @import '~bootstrap/scss/bootstrap';
 @import "node_modules/font-awesome/scss/font-awesome";
-span {
-  display: block;
+@import './admin/partials/variables';
+@import './admin/partials/header';
+@import './admin/partials/aside';
+@import './admin/partials/table';
+@import './admin/partials/dishes';
+@import './admin/partials/dashboard';
+@import './admin/partials/ckeditor';
+@import './admin/partials/buttons';
+@import './partials/typography';
+
+body {
+  font-family: $primary_font, $secondary_font, $tertiary_font;
 }
 
-p {
-  margin: 0;
+main{
+  height: 100vh;
+  background: rgb(252,105,76);
+  background: linear-gradient(320deg, rgba(252,105,76,1) 0%, rgba(252,76,105,1) 100%);
+  .content-wrapper{
+    background-color: rgba($custom_white, $alpha: 0.95);
+  }
+}
+
+
+.search_dishes{
+  border: 2px solid grey;
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: white;
+  padding-right: 10px;
+  input, button{
+    border: none;
+    background-color: white !important;
+  }
+  input{
+    border-radius: 15px 0px 0px 15px;
+    padding-left: 10px;
+  }
+  button{
+    border-left: 2px solid grey;
+  }
+  &:hover button{
+    color: $primary_color;
+  }
+}
+
+.ck-editor__editable_inline {
+  min-height: 300px;
 }

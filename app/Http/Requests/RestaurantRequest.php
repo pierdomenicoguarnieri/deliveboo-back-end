@@ -28,7 +28,8 @@ class RestaurantRequest extends FormRequest
       'email' => 'required|email|min:5|max:255',
       'address' => 'required|min:5|max:255',
       'piva' => 'required|numeric|min:10000000000|max:99999999999',
-      'telephone_number' => 'required'
+      'telephone_number' => 'required',
+      'type_id'=> 'required'
     ];
   }
 
@@ -50,6 +51,7 @@ class RestaurantRequest extends FormRequest
       'piva.min' => 'La Partita IVA deve avere un valore minimo di :min',
       'piva.max' => 'L\'email può avere un valore massimo di :max',
       'telephone_number.required' => 'Il telefono è un campo richiesto',
+      'type_id.required' => 'Il tipo è un campo richiesto, selezionare almeno un tipo'
     ];
   }
 }

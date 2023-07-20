@@ -3,114 +3,137 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DishRequest;
 use App\Models\Dish;
 use App\Models\Restaurant;
-use App\Models\Type;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
 class DishController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-      $restaurant = Restaurant::find(Auth::user()->restaurant_id);
-        $dishes = Dish::all();
-        return view('admin.dishes.index', compact('dishes', 'restaurant'));
+  public function index()
+  {
+    $restaurant = (new Restaurant())->restaurantUser();
+
+    if(isset($_GET['search'])){
+      $tosearch   = $_GET['search'];
+      $dishes     = $restaurant->dishes()->where('name', 'like', "%$tosearch%")->paginate(10);
+    }else{
+      $dishes     = $restaurant->dishes()->paginate(10);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    return view('admin.dishes.index', compact('dishes', 'restaurant'));
+  }
+
+  public function create()
+  {
+    $restaurant = Restaurant::find(Auth::user()->restaurant_id);
+    $title      = 'Crea un nuovo piatto';
+    $method     = 'POST';
+    $route      = route('admin.dishes.store');
+    $dish       = null;
+    return view('admin.dishes.create_edit', compact('restaurant', 'title', 'method', 'route', 'dish'));
+  }
+
+  public function data_bool($request)
+  {
+    $form_data = $request->all();
+    if (!isset($form_data['visible'])) $form_data['visible'] = 0;
+    if (!isset($form_data['is_vegan'])) $form_data['is_vegan'] = 0;
+    if (!isset($form_data['is_frozen'])) $form_data['is_frozen'] = 0;
+    if (!isset($form_data['is_gluten_free'])) $form_data['is_gluten_free'] = 0;
+    if (!isset($form_data['is_lactose_free'])) $form_data['is_lactose_free'] = 0;
+    return $form_data;
+  }
+
+  public function store(DishRequest $request)
+  {
+    $form_data = $this->data_bool($request);
+    if (array_key_exists('image', $form_data))
     {
-      $restaurant = Restaurant::find(Auth::user()->restaurant_id);
-        $method = 'POST';
-        $route  = route('admin.dishes.store');
-        $dish   = null;
-        return view('admin.dishes.create_edit', compact('method', 'route', 'dish', 'restaurant'));
+      $form_data['image_name'] = $request->file('image')->getClientOriginalName();
+      $form_data['image_path'] = Storage::put('uploads', $form_data['image']);
     }
+    $restaurant = (new Restaurant())->restaurantUser();
+    $new_dish   = new Dish($form_data);
+    $new_dish->restaurant()->associate($restaurant->id);
+    $new_dish->save();
+    return redirect()->route('admin.dishes.show', $new_dish);
+  }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+  public function show(Dish $dish)
+  {
+    $restaurant = (new Restaurant())->restaurantuser();
+    return view('admin.dishes.show', compact('dish', 'restaurant'));
+  }
+
+  public function edit(Dish $dish)
+  {
+    $restaurant = (new Restaurant())->restaurantuser();
+    $title      = 'Modifica il piatto: "' . $dish->name . '"';
+    $method     = 'PUT';
+    $route      = route('admin.dishes.update', $dish);
+    return view('admin.dishes.create_edit', compact('dish', 'method', 'title','route', 'restaurant'));
+  }
+
+  public function update(DishRequest $request, Dish $dish)
+  {
+    $form_data = $this->data_bool($request);
+    if(array_key_exists('image',$form_data))
     {
-        $form_data                    = $request->all();
-        $form_data['visible']         = $request->has('visible');
-        $form_data['is_vegan']        = $request->has('is_vegan');
-        $form_data['is_frozen']       = $request->has('is_frozen');
-        $form_data['is_gluten_free']  = $request->has('is_gluten_free');
-        $form_data['is_lactose_free'] = $request->has('is_lactose_free');
-
-        $new_dish = Dish::create($form_data);
-        return redirect()->route('admin.dishes.show', $new_dish);
+      if($dish->image_path)
+      {
+        Storage::disk('public')->delete($dish->image_path);
+      }
+      $form_data['image_name'] = $request->file('image')->getClientOriginalName();
+      $form_data['image_path'] = Storage::put('uploads', $form_data['image']);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Dish $dish)
+    if(array_key_exists('noImage', $form_data) && $dish->image_path)
     {
-      $restaurant = Restaurant::find(Auth::user()->restaurant_id);
-        return view('admin.dishes.show', compact('dish', 'restaurant'));
+      Storage::disk('public')->delete($dish->image_path);
+      $form_data['image_name'] = '';
+      $form_data['image_path'] = '';
     }
+    $dish->update($form_data);
+    return redirect()->route('admin.dishes.show', $dish);
+  }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Dish $dish)
-    {
-      $restaurant = Restaurant::find(Auth::user()->restaurant_id);
-        $method = 'PUT';
-        $route  = route('admin.dishes.update', $dish);
-        return view('admin.dishes.create_edit', compact('dish', 'method', 'route', 'restaurant'));
+  public function destroy(Dish $dish)
+  {
+    $dish->delete();
+    return redirect()->route('admin.dishes.index');
+  }
+
+  public function deleted_dishes()
+  {
+    $restaurant = (new Restaurant())->restaurantuser();
+
+    if(isset($_GET['search'])){
+      $tosearch   = $_GET['search'];
+      $dishes_del = Dish::onlyTrashed()->where('name', 'like', "%$tosearch%")->paginate(10);
+    }else{
+      $dishes_del = Dish::onlyTrashed()->paginate(10);
     }
+    //$dishes_del = Dish::onlyTrashed()->paginate(10);
+    return view('admin.dishes.delete_dishes', compact('restaurant', 'dishes_del'));
+  }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Dish $dish)
-    {
-        $form_data                    = $request->all();
-        $form_data['visible']         = $request->has('visible');
-        $form_data['is_vegan']        = $request->has('is_vegan');
-        $form_data['is_frozen']       = $request->has('is_frozen');
-        $form_data['is_gluten_free']  = $request->has('is_gluten_free');
-        $form_data['is_lactose_free'] = $request->has('is_lactose_free');
-
-        $dish->update($form_data);
-        return redirect()->route('admin.dishes.show', $dish);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Dish $dish)
-    {
-        $dish->delete();
-        return redirect()->route('admin.dishes.index')->with('deleted','Dish deleted');
-    }
+  public function restore_dish(Dish $dish)
+  {
+    $dish->restore();
+    return redirect()->route('admin.dishes.index');
+  }
 }
+
+
+
+
+/***********************************************************************************
+*                     _____                            _____                       *
+*                   //     \\   ||       //\\        //     \\                     *
+*                  //           ||      //  \\      //       \\                    *
+*                 ((            ||     //    \\    ((         ))                   *
+*                  \\           ||    //======\\    \\       //                    *
+*                   \\_____//   ||   //        \\    \\_____//                     *
+*                                                                                  *
+***********************************************************************************/

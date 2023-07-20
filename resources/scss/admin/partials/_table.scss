@@ -1,0 +1,10 @@
+table{
+  min-height: 100px;
+  max-height: 70%;
+  overflow-y: auto;
+  tr{
+    th, td{
+      font-size: calc(0.8rem + 0.2vw);
+    }
+  }
+}

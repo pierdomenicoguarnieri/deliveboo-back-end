@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class Restaurant extends Model
 {
   use HasFactory;
+  use SoftDeletes;
 
   public function user(){
     return $this->belongsTo(User::class);
@@ -20,6 +23,11 @@ class Restaurant extends Model
 
   public function dishes(){
     return $this->hasMany(Dish::class);
+  }
+
+  public function restaurantUser()
+  {
+    return $restaurant = Restaurant::find(Auth::user()->restaurant_id);
   }
 
   public static function generateSlug($str){
@@ -48,4 +56,6 @@ class Restaurant extends Model
     'image_name',
     'rating'
   ];
+
+  protected $dates = ['deleted_at'];
 }

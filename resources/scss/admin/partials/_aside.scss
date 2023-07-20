@@ -1,0 +1,132 @@
+aside{
+  width: 300px;
+  height: 100%;
+  background-color: rgba(lighten($custom_gray, 60%), 0.95);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  .accordion{
+    .accordion-button{
+      font-size: 1.2rem;
+      color: $custom_gray !important;
+      .text{
+        padding-left: 30px;
+      }
+    }
+    li{
+      padding-left: 30px;
+    }
+  }
+
+  .accordion-item{
+    border: none;
+  }
+
+  .accordion-button.collapsed{
+    background-color: rgba(lighten($custom_gray, 60%), 0.95) !important;
+  }
+
+  .accordion-button:not(.collapsed){
+    background-color: $tertiary_color !important;
+    color: $custom_white !important;
+    &::after{
+      filter: invert(100%) !important;
+    }
+  }
+
+  .accordion-button:focus{
+    box-shadow: 0 0 0 5px rgba($tertiary_color, 0.5) !important;
+  }
+  ul{
+    width: 100%;
+    li{
+      transition: all .5s;
+      width: 100%;
+      padding: 10px 0;
+      border-radius: 10px;
+      padding-left: 50px;
+      background-color: transparent;
+      cursor: pointer;
+      a{
+        transition: all .5s;
+        color: $custom_gray !important;
+      }
+      &:hover{
+        cursor: pointer;
+        background-color: $tertiary_color;
+        a{
+          color: $custom_white !important;
+        }
+      }
+      &.active{
+        background-color: $tertiary_color;
+        a{
+          color: $custom_white !important;
+        }
+      }
+    }
+  }
+  .svg{
+    width: 50px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  aside{
+    width: 80px;
+      li{
+        padding-left: 0 !important;
+        text-align: center !important;
+      }
+  }
+
+  .accordion{
+    .accordion-button{
+      font-size: 1.2rem;
+      color: $custom_gray !important;
+      padding-left: 14px !important;
+      text-align: center !important;
+      &::after{
+        content: "" !important;
+        background-image: none !important;
+      }
+      .text{
+        padding-left: 0 !important;
+        text-align: center !important;
+      }
+    }
+    li{
+      padding-left: 0 !important;
+      text-align: center !important;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  aside{
+    width: 60px;
+      li{
+        padding: 2px 5px !important;
+        text-align: center !important;
+      }
+  }
+  .accordion{
+    .accordion-button{
+      font-size: 1.2rem;
+      color: $custom_gray !important;
+      padding-left: 4px !important;
+      text-align: center !important;
+        &::after{
+          content: "" !important;
+          background-image: none !important;
+        }
+      }
+      li{
+        padding: 2px 5px !important;
+        text-align: center !important;
+      }
+    }
+  }

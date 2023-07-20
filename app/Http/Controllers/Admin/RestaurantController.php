@@ -33,8 +33,18 @@ class RestaurantController extends Controller
      */
     public function create(Restaurant $restaurant)
     {
+        $restaurant = new Restaurant();
+        $restaurant->name = null;
+        $restaurant->piva = null;
+        $restaurant->email = null;
+        $restaurant->telephone_number = null;
+        $restaurant->address = null;
         $types = Type::all();
-        return view('admin.restaurants.create', compact('restaurant', 'types'));
+        $title = 'Registra il tuo ristorante!';
+        $method = 'POST';
+        $route  = route('admin.restaurants.store');
+        $button = 'Crea';
+        return view('admin.restaurants.create_edit', compact('restaurant', 'types', 'title', 'method', 'route', 'button', 'restaurant'));
     }
 
     /**
@@ -53,26 +63,22 @@ class RestaurantController extends Controller
         if(array_key_exists('image_path', $form_data)){
 
             $form_data['image_name'] = $request->file('image_path')->getClientOriginalName();
-            $form_data['image_path'] = Storage::put('uploads/', $form_data['image_path']);
+            $form_data['image_path'] = Storage::put('uploads', $form_data['image_path']);
         }
 
         $new_restaurant->fill($form_data);
         $new_restaurant->save();
 
-
-
         if(array_key_exists('type_id', $form_data)){
             $new_restaurant->types()->attach($form_data['type_id']);
         }
-        
 
         $new_restaurant_id = Restaurant::where('slug', $new_restaurant->slug)->first();
         $update_user = User::find(Auth::user()->id);
         $update_user->restaurant_id = $new_restaurant_id->id;
         $update_user->update();
 
-
-        return redirect()->route('admin.restaurants.index', $new_restaurant);
+        return redirect()->route('admin.restaurants.show', $new_restaurant);
     }
 
     /**
@@ -102,15 +108,19 @@ class RestaurantController extends Controller
     {
         $restaurant = Restaurant::find(Auth::user()->restaurant_id);
         $types = Type::all();
+        $title = 'Modifica il tuo ristorante!';
+        $method = 'PUT';
+        $route  = route('admin.restaurants.update', $restaurant);
+        $button = 'Modifica';
 
-        return view('admin.restaurants.edit', compact('restaurant', 'types'));
+        return view('admin.restaurants.create_edit', compact('restaurant', 'types', 'title', 'method', 'route', 'button'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $i
      * @return \Illuminate\Http\Response
      */
     public function update(RestaurantRequest $request, Restaurant $restaurant)
@@ -141,8 +151,6 @@ class RestaurantController extends Controller
 
         $restaurant->update($form_data);
 
-        
-
         if(array_key_exists('type_id', $form_data)){
             $restaurant->types()->sync($form_data['type_id']);
         }else{
@@ -160,12 +168,14 @@ class RestaurantController extends Controller
      */
     public function destroy(Restaurant $restaurant)
     {
-        if($restaurant->image_path){
-            Storage::disk('public')->delete($restaurant->image_path);
-        }
-
         $restaurant->delete();
 
-        return redirect()->route('/')->with('deleted', "Il tuo ristorante: \" $restaurant->name \" è stato eliminato con successo!");
+        return redirect()->route('register')->with('deleted', "Il tuo ristorante: \"$restaurant->name\" è stato eliminato con successo!");
+    }
+
+    public function restore_restaurant(Restaurant $restaurant)
+    {
+      $restaurant->restore();
+      return redirect()->route('admin.restaurants.show', compact('restaurant'));
     }
 }
