@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::namespace('Api')
-  ->prefix('restaurant')
+  ->prefix('restaurants')
   ->group(function(){
     Route::get('/', [RestaurantController::class, 'index']);
-    Route::get('restaurant_detail/{slug}', [RestaurantController::class, 'getRestaurant']);
+    Route::get('restaurant-detail/{slug}', [RestaurantController::class, 'getRestaurant']);
   });
 
 Route::namespace('Api')
