@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class RestaurantController extends Controller
 {
   public function index(){
-    $restaurants = Restaurant::all()->with('types');
+    $restaurants = Restaurant::all();
     foreach($restaurants as $restaurant)
     {
       $restaurant->image_path = asset('storage/' . $restaurant->image_path);
