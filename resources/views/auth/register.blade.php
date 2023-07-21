@@ -133,7 +133,6 @@ function convalidaForm(formData) {
 function controll(cond, msg, id) {
   if (cond) {
     message = msg;
-    // errors.push(message);
     document.getElementById(id).innerHTML = `<span class="text-danger">${message}</span>`;
     condition = false;
   }
