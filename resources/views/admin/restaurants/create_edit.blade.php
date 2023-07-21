@@ -204,13 +204,16 @@
 
     let errors = [];
     let message;
-    let condition = true;
+    let condition;
+    let check;
 
     function convalidaForm(formData) {
 
       let errorsList = document.getElementById("errorsList");
       errorsList.innerHTML = '';
       errors = [];
+      condition = true;
+      check = false;
       reset();
 
       //controlli di validazione
@@ -227,7 +230,21 @@
       controll(formData.piva.value === '', 'P. Iva è un campo obbligatorio', 'errorIva')
       controll(formData.piva.value > 99999999999 , 'P. Iva deve avere 11 numeri', 'errorIva')
       controll(formData.telephone_number.value === '', 'Il numero di telefono è un campo obbligatorio', 'errorNumber')
-      // controll(!checkbox.checked, 'Devi selezionare almeno un tipo', 'errorType')
+
+      // error Checkbox
+
+      for (let i = 1; i < 14; i++) {
+        if (formData[`type${i}`].checked) {
+          check = true;
+          break
+        }
+      }
+      if (!check) {
+        message = 'Devi selezionare almeno un tipo';
+        errors.push(message);
+        document.getElementById('errorType').innerHTML = `<span class="text-danger">${message}</span>`;
+        condition = false;
+      }
 
       //stampa errori
 
@@ -266,6 +283,7 @@
       document.getElementById('errorAddress').innerHTML = '';
       document.getElementById('errorIva').innerHTML = '';
       document.getElementById('errorNumber').innerHTML = '';
+      document.getElementById('errorType').innerHTML = '';
     }
   </script>
 @endsection
