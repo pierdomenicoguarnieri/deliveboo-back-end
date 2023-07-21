@@ -216,18 +216,18 @@
       //controlli di validazione
 
       controll(formData.name.value.length === 0, 'Il nome è un campo obbligatorio', 'errorName')
-      controll(formData.name.value.length < 5 , 'Il nome deve avere almeno 5 caratteri', 'errorName')
+      controll(formData.name.value.length > 0 && formData.name.value.length < 5 , 'Il nome deve avere almeno 5 caratteri', 'errorName')
       controll(formData.name.value.length > 255, 'Il nome può avere un massimo di 255 caratteri', 'errorName')
       controll(formData.email.value.length === 0, 'L\'email è un campo obbligatorio', 'errorEmail')
-      controll(formData.email.value.length < 5 , 'L\'email deve avere almeno 5 caratteri', 'errorEmail')
+      controll(formData.email.value.length > 0 && formData.email.value.length < 5 , 'L\'email deve avere almeno 5 caratteri', 'errorEmail')
       controll(formData.email.value.length > 255, 'L\'email può avere un massimo di 255 caratteri', 'errorEmail')
       controll(formData.address.value.length === 0, 'L\'indirizzo è un campo obbligatorio', 'errorAddress')
-      controll(formData.address.value.length < 5 , 'L\'indirizzo deve avere almeno 5 caratteri', 'errorAddress')
+      controll(formData.address.value.length > 0 && formData.address.value.length < 5 , 'L\'indirizzo deve avere almeno 5 caratteri', 'errorAddress')
       controll(formData.address.value.length > 255, 'L\'indirizzo può avere un massimo di 255 caratteri', 'errorAddress')
       controll(formData.piva.value === '', 'P. Iva è un campo obbligatorio', 'errorIva')
       controll(formData.piva.value > 99999999999 , 'P. Iva deve avere 11 numeri', 'errorIva')
       controll(formData.telephone_number.value === '', 'Il numero di telefono è un campo obbligatorio', 'errorNumber')
-      // controll(formData.type_id.length === 0, 'Devi selezionare almeno un tipo', 'errorType')
+      // controll(!checkbox.checked, 'Devi selezionare almeno un tipo', 'errorType')
 
       //stampa errori
 

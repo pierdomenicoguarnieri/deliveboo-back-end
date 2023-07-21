@@ -21,8 +21,6 @@
     </div>
     @endif
 
-    {{-- <div id="errorsList"></div> --}}
-
     <div class="row justify-content-center">
       <div class="col-md-8">
 
@@ -115,9 +113,6 @@ let condition = true;
 
 function convalidaForm(formData) {
 
-  // let errorsList = document.getElementById("errorsList");
-  // errorsList.innerHTML = '';
-  // errors = [];
   reset();
 
   //controlli di validazione
@@ -131,44 +126,23 @@ function convalidaForm(formData) {
   controll(formData.password_confirmation.value != formData.password.value, 'La conferma della password non corrisponde', 'errorPass')
   controll(formData.password.value.length > 0 && formData.password.value.length < 8 && formData.password_confirmation.value != formData.password.value, 'La password deve avere almeno 8 caratteri e la conferma della password non corrisponde', 'errorPass')
 
+  return condition;
+}
 
-
-    // stampa errori
-
-    // if (errors.length > 0) {
-
-    //   let liErrors = '';
-    //   errors.forEach((error) => {
-    //     liErrors += `<li>${error}</li>`
-    //   });
-
-    //   errorsList.innerHTML += `
-    //     <div class="d-flex justify-content-start">
-    //       <div class="alert alert-danger w-50 py-1" role="alert">
-    //         <ul class="mb-0">
-    //           ${liErrors}
-    //         </ul>
-    //       </div>
-    //     </div>`
-    // }
-
-    return condition;
+function controll(cond, msg, id) {
+  if (cond) {
+    message = msg;
+    // errors.push(message);
+    document.getElementById(id).innerHTML = `<span class="text-danger">${message}</span>`;
+    condition = false;
   }
+}
 
-  function controll(cond, msg, id) {
-    if (cond) {
-      message = msg;
-      // errors.push(message);
-      document.getElementById(id).innerHTML = `<span class="text-danger">${message}</span>`;
-      condition = false;
-    }
-  }
-
-  function reset() {
-    document.getElementById('errorName').innerHTML = '';
-    document.getElementById('errorEmail').innerHTML = '';
-    document.getElementById('errorPass').innerHTML = '';
-  }
+function reset() {
+  document.getElementById('errorName').innerHTML = '';
+  document.getElementById('errorEmail').innerHTML = '';
+  document.getElementById('errorPass').innerHTML = '';
+}
 </script>
 
 @endsection
