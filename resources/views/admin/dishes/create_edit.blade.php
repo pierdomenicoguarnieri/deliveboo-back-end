@@ -202,13 +202,14 @@
 
     let errors = [];
     let message;
-    let condition = true;
+    let condition;
 
     function convalidaForm(formData) {
 
       let errorsList = document.getElementById("errorsList");
       errorsList.innerHTML = '';
       errors = [];
+      condition = true;
       reset();
 
       //controlli di validazione
@@ -221,7 +222,7 @@
       controll(formData.ingredients.value.length > 1000, 'Gli ingredienti possono avere un massimo di 1000 caratteri', 'errorIngredients')
       controll(formData.type.value > 50 , 'Il tipo può avere al massimo 50 caratteri', 'errorType')
 
-      //stampa errori
+      //stampa lista errori
 
       if (errors.length > 0) {
 

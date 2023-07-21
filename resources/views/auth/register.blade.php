@@ -109,10 +109,11 @@
 <script language="javascript" type="text/javascript">
 let errors = [];
 let message;
-let condition = true;
+let condition;
 
 function convalidaForm(formData) {
 
+  condition = true;
   reset();
 
   //controlli di validazione

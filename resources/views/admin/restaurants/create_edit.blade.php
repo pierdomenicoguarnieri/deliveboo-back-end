@@ -246,7 +246,7 @@
         condition = false;
       }
 
-      //stampa errori
+      //stampa lista errori
 
       if (errors.length > 0) {
 
