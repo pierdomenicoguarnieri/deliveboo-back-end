@@ -15,7 +15,14 @@
   </div>
   @endif
 
-  <form action="{{ $route }}" method="POST" class="mt-5" enctype="multipart/form-data">
+ <div id="errorsList"></div>
+
+  <form
+    action="{{ $route }}"
+    method="POST"
+    class="mt-5"
+    enctype="multipart/form-data"
+    onsubmit="return convalidaForm(this)">
     @csrf
     @method($method)
 
@@ -32,6 +39,8 @@
       @error('name')
         <span class="text-danger">{{ $message }}</span>
       @enderror
+
+      <div id="errorName"></div>
     </div>
 
     <div class="mb-3">
@@ -47,6 +56,8 @@
       @error('email')
         <span class="text-danger">{{ $message }}</span>
       @enderror
+
+      <div id="errorEmail"></div>
     </div>
 
     <div class="mb-3">
@@ -62,6 +73,8 @@
       @error('address')
         <span class="text-danger">{{ $message }}</span>
       @enderror
+
+      <div id="errorAddress"></div>
     </div>
 
     <div class="mb-3">
@@ -78,6 +91,8 @@
       @error('piva')
         <span class="text-danger">{{ $message }}</span>
       @enderror
+
+      <div id="errorIva"></div>
     </div>
 
     <div class="mb-3">
@@ -96,6 +111,8 @@
       @error('telephone_number')
         <span class="text-danger">{{ $message }}</span>
       @enderror
+
+      <div id="errorNumber"></div>
     </div>
 
     <div class="mb-3">
@@ -151,6 +168,8 @@
               @error('type_id')
                 <p class="text-danger py-1">{{ $message }}</p>
               @enderror
+
+              <div id="errorType"></div>
             </div>
           </div>
         </div>
@@ -181,6 +200,72 @@
       imageInput.value = '';
       const tagImage = document.getElementById('prev-image');
       tagImage.src = '';
+    }
+
+    let errors = [];
+    let message;
+    let condition = true;
+
+    function convalidaForm(formData) {
+
+      let errorsList = document.getElementById("errorsList");
+      errorsList.innerHTML = '';
+      errors = [];
+      reset();
+
+      //controlli di validazione
+
+      controll(formData.name.value.length === 0, 'Il nome è un campo obbligatorio', 'errorName')
+      controll(formData.name.value.length < 5 , 'Il nome deve avere almeno 5 caratteri', 'errorName')
+      controll(formData.name.value.length > 255, 'Il nome può avere un massimo di 255 caratteri', 'errorName')
+      controll(formData.email.value.length === 0, 'L\'email è un campo obbligatorio', 'errorEmail')
+      controll(formData.email.value.length < 5 , 'L\'email deve avere almeno 5 caratteri', 'errorEmail')
+      controll(formData.email.value.length > 255, 'L\'email può avere un massimo di 255 caratteri', 'errorEmail')
+      controll(formData.address.value.length === 0, 'L\'indirizzo è un campo obbligatorio', 'errorAddress')
+      controll(formData.address.value.length < 5 , 'L\'indirizzo deve avere almeno 5 caratteri', 'errorAddress')
+      controll(formData.address.value.length > 255, 'L\'indirizzo può avere un massimo di 255 caratteri', 'errorAddress')
+      controll(formData.piva.value === '', 'P. Iva è un campo obbligatorio', 'errorIva')
+      controll(formData.piva.value > 99999999999 , 'P. Iva deve avere 11 numeri', 'errorIva')
+      controll(formData.telephone_number.value === '', 'Il numero di telefono è un campo obbligatorio', 'errorNumber')
+      // controll(formData.type_id.length === 0, 'Devi selezionare almeno un tipo', 'errorType')
+
+      //stampa errori
+
+      if (errors.length > 0) {
+
+        let liErrors = '';
+        errors.forEach((error) => {
+           liErrors += `<li>${error}</li>`
+        });
+
+        errorsList.innerHTML += `
+          <div class="d-flex justify-content-start">
+            <div class="alert alert-danger  py-1" role="alert">
+              <ul class="mb-0">
+                ${liErrors}
+              </ul>
+            </div>
+          </div>`
+      }
+
+      return condition;
+    }
+
+    function controll(cond, msg, id) {
+      if (cond) {
+        message = msg;
+        errors.push(message);
+        document.getElementById(id).innerHTML = `<span class="text-danger">${message}</span>`;
+        condition = false;
+      }
+    }
+
+    function reset() {
+      document.getElementById('errorName').innerHTML = '';
+      document.getElementById('errorEmail').innerHTML = '';
+      document.getElementById('errorAddress').innerHTML = '';
+      document.getElementById('errorIva').innerHTML = '';
+      document.getElementById('errorNumber').innerHTML = '';
     }
   </script>
 @endsection

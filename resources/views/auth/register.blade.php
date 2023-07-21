@@ -21,6 +21,8 @@
     </div>
     @endif
 
+    {{-- <div id="errorsList"></div> --}}
+
     <div class="row justify-content-center">
       <div class="col-md-8">
 
@@ -43,6 +45,8 @@
                       <strong>{{ $message }}</strong>
                     </span>
                   @enderror
+
+                  <div id="errorName"></div>
                 </div>
               </div>
 
@@ -58,6 +62,8 @@
                       <strong>{{ $message }}</strong>
                     </span>
                   @enderror
+
+                  <div id="errorEmail"></div>
                 </div>
               </div>
 
@@ -73,6 +79,8 @@
                       <strong>{{ $message }}</strong>
                     </span>
                   @enderror
+
+                  <div id="errorPass"></div>
                 </div>
               </div>
 
@@ -89,7 +97,7 @@
               <div class="mb-4 row mb-0">
                 <div class="col-md-6 offset-md-4">
                   <button type="submit" class="btn btn-primary">
-                    {{ __('Register') }}
+                    Registrati
                   </button>
                 </div>
               </div>
@@ -101,16 +109,65 @@
   </div>
 
 <script language="javascript" type="text/javascript">
+let errors = [];
+let message;
+let condition = true;
 
-  function convalidaForm(passwordForm) {
+function convalidaForm(formData) {
 
-    if (passwordForm.password.value != passwordForm.password_confirmation.value) {
-      alert("La passord inserita non coincide con la prima!")
-      passwordForm.password.focus()
-      passwordForm.password.select()
-      return false
+  // let errorsList = document.getElementById("errorsList");
+  // errorsList.innerHTML = '';
+  // errors = [];
+  reset();
+
+  //controlli di validazione
+
+  controll(formData.name.value.length === 0, 'Il nome è un campo obbligatorio', 'errorName')
+  controll(formData.name.value.length > 255, 'Il nome può avere un massimo di 255 caratteri', 'errorName')
+  controll(formData.email.value.length === 0, 'L\'email è un campo obbligatorio', 'errorEmail')
+  controll(formData.email.value.length > 255, 'L\'email deve avere un massimo di 255 caratteri', 'errorEmail')
+  controll(formData.password.value.length === 0, 'La password è un campo obbligatorio', 'errorPass')
+  controll(formData.password.value.length > 0 && formData.password.value.length < 8, 'La password deve avere almeno 8 caratteri', 'errorPass')
+  controll(formData.password_confirmation.value != formData.password.value, 'La conferma della password non corrisponde', 'errorPass')
+  controll(formData.password.value.length > 0 && formData.password.value.length < 8 && formData.password_confirmation.value != formData.password.value, 'La password deve avere almeno 8 caratteri e la conferma della password non corrisponde', 'errorPass')
+
+
+
+    // stampa errori
+
+    // if (errors.length > 0) {
+
+    //   let liErrors = '';
+    //   errors.forEach((error) => {
+    //     liErrors += `<li>${error}</li>`
+    //   });
+
+    //   errorsList.innerHTML += `
+    //     <div class="d-flex justify-content-start">
+    //       <div class="alert alert-danger w-50 py-1" role="alert">
+    //         <ul class="mb-0">
+    //           ${liErrors}
+    //         </ul>
+    //       </div>
+    //     </div>`
+    // }
+
+    return condition;
+  }
+
+  function controll(cond, msg, id) {
+    if (cond) {
+      message = msg;
+      // errors.push(message);
+      document.getElementById(id).innerHTML = `<span class="text-danger">${message}</span>`;
+      condition = false;
     }
-    return true
+  }
+
+  function reset() {
+    document.getElementById('errorName').innerHTML = '';
+    document.getElementById('errorEmail').innerHTML = '';
+    document.getElementById('errorPass').innerHTML = '';
   }
 </script>
 
