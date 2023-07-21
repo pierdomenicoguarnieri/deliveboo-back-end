@@ -216,7 +216,16 @@
       check = false;
       reset();
 
-      //controlli di validazione
+      //controllo checkbox
+
+      for (let i = 1; i < 14; i++) {
+        if (formData[`type${i}`].checked) {
+          check = true;
+          break
+        }
+      }
+
+      //controlli di validazione e stampa errori singoli
 
       controll(formData.name.value.length === 0, 'Il nome è un campo obbligatorio', 'errorName')
       controll(formData.name.value.length > 0 && formData.name.value.length < 5 , 'Il nome deve avere almeno 5 caratteri', 'errorName')
@@ -230,21 +239,7 @@
       controll(formData.piva.value === '', 'P. Iva è un campo obbligatorio', 'errorIva')
       controll(formData.piva.value > 99999999999 , 'P. Iva deve avere 11 numeri', 'errorIva')
       controll(formData.telephone_number.value === '', 'Il numero di telefono è un campo obbligatorio', 'errorNumber')
-
-      // error Checkbox
-
-      for (let i = 1; i < 14; i++) {
-        if (formData[`type${i}`].checked) {
-          check = true;
-          break
-        }
-      }
-      if (!check) {
-        message = 'Devi selezionare almeno un tipo';
-        errors.push(message);
-        document.getElementById('errorType').innerHTML = `<span class="text-danger">${message}</span>`;
-        condition = false;
-      }
+      controll(!check, 'Devi selezionare almeno un tipo', 'errorType')
 
       //stampa lista errori
 
