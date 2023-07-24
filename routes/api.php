@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CheckoutController;
 use App\Http\Controllers\Api\RestaurantController;
 use App\Http\Controllers\Api\TypeController;
 use Illuminate\Http\Request;
@@ -17,3 +18,4 @@ Route::namespace('Api')
   ->group(function(){
     Route::get('/{name}', [TypeController::class, 'getByType']);
   });
+
