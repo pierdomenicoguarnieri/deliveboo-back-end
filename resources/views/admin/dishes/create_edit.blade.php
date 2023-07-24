@@ -28,6 +28,7 @@
         <div class="mb-3">
           <label for="name" class="form-label">Nome</label>
           <input type="text"
+            onkeyup="valideInput(this)"
             class="form-control @error('name') is-invalid @endif"
             id="name"
             name="name"
@@ -44,6 +45,7 @@
         <div class="mb-3">
           <label for="price" class="form-label">Prezzo</label>
           <input type="number"
+            onkeyup="valideInput(this)"
             class="form-control @error('price') is-invalid @endif"
             id="price"
             name="price"
@@ -98,6 +100,7 @@
         <div class="mb-3">
           <label for="ingredients" class="form-label">Ingredienti</label>
           <input
+            onkeyup="valideInput(this)"
             type="text"
             class="form-control @error('ingredients') is-invalid @endif"
             id="ingredients"
@@ -115,6 +118,7 @@
       <div class="mb-3">
         <label for="type" class="form-label">Tipo</label>
         <input
+          onkeyup="valideInput(this)"
           type="text"
           class="form-control @error('type') is-invalid @endif"
           id="type"
@@ -204,6 +208,28 @@
     let message;
     let condition;
 
+    function valideInput(input) {
+      if (input.id == 'name') {
+        document.getElementById('errorName').innerHTML = '';
+        controll(input.value.length === 0, 'Il nome è un campo obbligatorio', 'errorName');
+        controll(input.value.length > 255, 'Il nome può avere un massimo di 255 caratteri', 'errorName')
+      }
+      if (input.id == 'price') {
+        document.getElementById('errorPrice').innerHTML = '';
+        controll(input.value.length === 0, 'Il prezzo è un campo obbligatorio', 'errorPrice')
+        controll(input.value > 999.99, 'Il prezzo non può superare i 999.99 €', 'errorPrice')
+      }
+      if (input.id == 'ingredients') {
+        document.getElementById('errorIngredients').innerHTML = '';
+        controll(input.value.length < 20 , 'Gli ingredienti devono avere almeno 20 caratteri', 'errorIngredients')
+        controll(input.value.length > 1000, 'Gli ingredienti possono avere un massimo di 1000 caratteri', 'errorIngredients')
+      }
+      if (input.id == 'type') {
+        document.getElementById('errorType').innerHTML = '';
+        controll(input.value.length > 50 , 'Il tipo può avere al massimo 50 caratteri', 'errorType')
+      }
+    }
+
     function convalidaForm(formData) {
 
       let errorsList = document.getElementById("errorsList");
@@ -218,9 +244,9 @@
       controll(formData.name.value.length > 255, 'Il nome può avere un massimo di 255 caratteri', 'errorName')
       controll(formData.price.value.length === 0, 'Il prezzo è un campo obbligatorio', 'errorPrice')
       controll(formData.price.value > 999.99, 'Il prezzo non può superare i 999.99 €', 'errorPrice')
-      controll(formData.ingredients.value.length < 20 , 'Gli ingredienti devono avere almeno 5 caratteri', 'errorIngredients')
+      controll(formData.ingredients.value.length < 20 , 'Gli ingredienti devono avere almeno 20 caratteri', 'errorIngredients')
       controll(formData.ingredients.value.length > 1000, 'Gli ingredienti possono avere un massimo di 1000 caratteri', 'errorIngredients')
-      controll(formData.type.value > 50 , 'Il tipo può avere al massimo 50 caratteri', 'errorType')
+      controll(formData.type.value.length > 50 , 'Il tipo può avere al massimo 50 caratteri', 'errorType')
 
       //stampa lista errori
 
