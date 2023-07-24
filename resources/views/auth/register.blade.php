@@ -35,7 +35,7 @@
                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                 <div class="col-md-8">
-                  <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
+                  <input onkeyup="valideInput(this)" id="name" type="text" class="form-control @error('name') is-invalid @enderror"
                     name="name" value="{{ old('name') }}" autocomplete="name" autofocus>
 
                   @error('name')
@@ -52,7 +52,7 @@
                 <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                 <div class="col-md-8">
-                  <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                  <input onkeyup="valideInput(this)" id="email" type="email" class="form-control @error('email') is-invalid @enderror"
                     name="email" value="{{ old('email') }}" autocomplete="email">
 
                   @error('email')
@@ -69,7 +69,7 @@
                 <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                 <div class="col-md-8">
-                  <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
+                  <input onkeyup="valideInput(this)" id="password" type="password" class="form-control @error('password') is-invalid @enderror"
                     name="password" autocomplete="new-password">
 
                   @error('password')
@@ -87,7 +87,7 @@
                   class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
                 <div class="col-md-8">
-                  <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
+                  <input onkeyup="valideInput(this)"  id="password-confirm" type="password" class="form-control" name="password_confirmation"
                     autocomplete="new-password">
                 </div>
               </div>
@@ -110,6 +110,34 @@
 let errors = [];
 let message;
 let condition;
+let pass;
+let newPass;
+
+function valideInput(input) {
+  reset();
+
+  if (input.id == 'name') {
+    controll(input.value.length === 0, 'Il nome è un campo obbligatorio', 'errorName');
+    controll(input.value.length > 255, 'Il nome può avere un massimo di 255 caratteri', 'errorName')
+  }
+  if (input.id == 'email') {
+    controll(input.value.length === 0, 'L\'email è un campo obbligatorio', 'errorEmail')
+    controll(input.value.length > 255, 'L\'email deve avere un massimo di 255 caratteri', 'errorEmail')
+  }
+  if (input.id == 'password') {
+    controll(input.value.length === 0, 'La password è un campo obbligatorio', 'errorPass')
+    controll(input.value.length > 0 && input.value.length < 8, 'La password deve avere almeno 8 caratteri', 'errorPass')
+    controll(input.value != newPass, 'La conferma della password non corrisponde', 'errorPass')
+    controll(input.value.length > 0 && input.value.length < 8 && input.value != newPass, 'La password deve avere almeno 8 caratteri e la conferma della password non corrisponde', 'errorPass')
+    pass = input.value;
+  }
+  if (input.id == 'password-confirm') {
+    controll(input.value != pass, 'La conferma della password non corrisponde', 'errorPass')
+    controll(pass.length > 0 && pass.length < 8, 'La password deve avere almeno 8 caratteri', 'errorPass')
+    controll(pass.length > 0 && pass.length < 8 && input.value != pass, 'La password deve avere almeno 8 caratteri e la conferma della password non corrisponde', 'errorPass')
+    newPass = input.value;
+  }
+}
 
 function convalidaForm(formData) {
 
