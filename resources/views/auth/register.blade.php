@@ -114,17 +114,18 @@ let pass;
 let newPass;
 
 function valideInput(input) {
-  reset();
-
   if (input.id == 'name') {
+    document.getElementById('errorName').innerHTML = '';
     controll(input.value.length === 0, 'Il nome è un campo obbligatorio', 'errorName');
     controll(input.value.length > 255, 'Il nome può avere un massimo di 255 caratteri', 'errorName')
   }
   if (input.id == 'email') {
+    document.getElementById('errorEmail').innerHTML = '';
     controll(input.value.length === 0, 'L\'email è un campo obbligatorio', 'errorEmail')
     controll(input.value.length > 255, 'L\'email deve avere un massimo di 255 caratteri', 'errorEmail')
   }
   if (input.id == 'password') {
+    document.getElementById('errorPass').innerHTML = '';
     controll(input.value.length === 0, 'La password è un campo obbligatorio', 'errorPass')
     controll(input.value.length > 0 && input.value.length < 8, 'La password deve avere almeno 8 caratteri', 'errorPass')
     controll(input.value != newPass, 'La conferma della password non corrisponde', 'errorPass')
@@ -132,6 +133,7 @@ function valideInput(input) {
     pass = input.value;
   }
   if (input.id == 'password-confirm') {
+    document.getElementById('errorPass').innerHTML = '';
     controll(input.value != pass, 'La conferma della password non corrisponde', 'errorPass')
     controll(pass.length > 0 && pass.length < 8, 'La password deve avere almeno 8 caratteri', 'errorPass')
     controll(pass.length > 0 && pass.length < 8 && input.value != pass, 'La password deve avere almeno 8 caratteri e la conferma della password non corrisponde', 'errorPass')

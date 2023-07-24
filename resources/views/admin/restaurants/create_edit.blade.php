@@ -29,6 +29,7 @@
     <div class="mb-3">
       <label for="name" class="form-label">Nome</label>
       <input
+        onkeyup="valideInput(this)"
         type="text"
         class="form-control @error('name') is-invalid @enderror"
         name="name"
@@ -46,6 +47,7 @@
     <div class="mb-3">
       <label for="email" class="form-label">Email</label>
       <input
+        onkeyup="valideInput(this)"
         type="email"
         class="form-control @error('email') is-invalid @enderror"
         placeholder="Email ristorante"
@@ -63,6 +65,7 @@
     <div class="mb-3">
       <label for="address" class="form-label">Indirizzo</label>
       <input
+        onkeyup="valideInput(this)"
         type="text"
         class="form-control @error('address') is-invalid @enderror"
         placeholder="Restaurant address"
@@ -80,6 +83,7 @@
     <div class="mb-3">
       <label for="piva" class="form-label">P. IVA</label>
       <input
+        onkeyup="valideInput(this)"
         type="number"
         min="10000000000"
         class="form-control @error('piva') is-invalid @enderror"
@@ -98,6 +102,7 @@
     <div class="mb-3">
       <label for="telephone_number" class="form-label">Numero di telefono</label>
       <input
+        onkeyup="valideInput(this)"
         type="number"
         min="0"
         id="phone"
@@ -150,6 +155,7 @@
               @foreach ($types as $type)
               <div class="input-wrapper">
                 <input
+                  onchange="valideCheck(this)"
                   type="checkbox"
                   class="form-check-input"
                   autocomplete="off"
@@ -206,6 +212,49 @@
     let message;
     let condition;
     let check;
+
+    function valideInput(input) {
+      if (input.id == 'name') {
+        document.getElementById('errorName').innerHTML = '';
+        controll(input.value.length === 0, 'Il nome è un campo obbligatorio', 'errorName');
+        controll(input.value.length > 0 && input.value.length < 5 , 'Il nome deve avere almeno 5 caratteri', 'errorName')
+        controll(input.value.length > 255, 'Il nome può avere un massimo di 255 caratteri', 'errorName')
+      }
+      if (input.id == 'email') {
+        document.getElementById('errorEmail').innerHTML = '';
+        controll(input.value.length === 0, 'L\'email è un campo obbligatorio', 'errorEmail')
+        controll(input.value.length > 0 && input.value.length < 5 , 'L\'email deve avere almeno 5 caratteri', 'errorEmail')
+        controll(input.value.length > 255, 'L\'email deve avere un massimo di 255 caratteri', 'errorEmail')
+      }
+      if (input.id == 'address') {
+        document.getElementById('errorAddress').innerHTML = '';
+        controll(input.value.length === 0, 'L\'indirizzo è un campo obbligatorio', 'errorAddress')
+        controll(input.value.length > 0 && input.value.length < 5 , 'L\'indirizzo deve avere almeno 5 caratteri', 'errorAddress')
+        controll(input.value.length > 255, 'L\'indirizzo può avere un massimo di 255 caratteri', 'errorAddress')
+      }
+      if (input.id == 'piva') {
+        document.getElementById('errorIva').innerHTML = '';
+        controll(input.value === '', 'P. Iva è un campo obbligatorio', 'errorIva')
+        controll(input.value > 99999999999 , 'P. Iva deve avere 11 numeri', 'errorIva')
+      }
+      if (input.id == 'phone') {
+        document.getElementById('errorNumber').innerHTML = '';
+        controll(input.value === '', 'Il numero di telefono è un campo obbligatorio', 'errorNumber')
+      }
+    }
+
+    function valideCheck(checkId) {
+      document.getElementById('errorType').innerHTML = '';
+      const checkboxe = document.getElementsByClassName('form-check-input');
+      check = false;
+      for (let i = 0; i < checkboxe.length; i++) {
+        if (checkboxe[i].checked) {
+          check = true;
+          break
+        }
+      }
+      controll(!check, 'Devi selezionare almeno un tipo', 'errorType')
+    }
 
     function convalidaForm(formData) {
 
