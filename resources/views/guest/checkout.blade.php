@@ -20,7 +20,7 @@
             </ul>
         </div>
     @endif
-    <form action="{{route('checkout')}}" method="POST" id="payment-form" onsubmit="return convalidaForm(this)">
+    <form action="{{route('checkout')}}" method="POST" id="payment-form">
         @csrf
 
         <div class="mb-3">
@@ -32,9 +32,10 @@
             name="user_name"
             placeholder="Mario"
             id="user_name"
-            value="{{ old('user_name') }}">
+            value="{{ old('user_name') }}"
+            required>
 
-          @error('name')
+          @error('user_name')
             <span class="text-danger">{{ $message }}</span>
           @enderror
 
@@ -50,7 +51,8 @@
             name="user_lastname"
             placeholder="Rossi"
             id="user_lastname"
-            value="{{ old('user_lastname') }}">
+            value="{{ old('user_lastname') }}"
+            required>
 
           @error('user_lastname')
             <span class="text-danger">{{ $message }}</span>
@@ -68,7 +70,8 @@
             placeholder="Email"
             name="user_email"
             id="user_email"
-            value="{{ old('user_email') }}">
+            value="{{ old('user_email') }}"
+            required>
 
           @error('user_email')
             <span class="text-danger">{{ $message }}</span>
@@ -89,7 +92,8 @@
             class="form-control @error('user_telephone_number') form-invalid @enderror"
             name="user_telephone_number"
             id="user_telephone_number"
-            value="{{ old('user_telephone_number') }}">
+            value="{{ old('user_telephone_number') }}"
+            required>
 
           @error('user_telephone_number')
             <span class="text-danger">{{ $message }}</span>
@@ -107,7 +111,8 @@
             placeholder="Idirizzo"
             name="user_address"
             id="user_address"
-            value="{{ old('user_address') }}">
+            value="{{ old('user_address') }}"
+            required>
 
           @error('user_address')
             <span class="text-danger">{{ $message }}</span>
@@ -269,7 +274,6 @@ return paypalCheckoutInstance.createPayment({
 
 onAuthorize: function (data, actions) {
 return paypalCheckoutInstance.tokenizePayment(data, function (err, payload) {
-
   // Submit `payload.nonce` to your server.
   document.querySelector('#nonce').value = payload.nonce;
   form.submit();

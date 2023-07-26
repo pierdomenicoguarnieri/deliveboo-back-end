@@ -52,7 +52,9 @@ class PageController extends Controller
         ]
     ]);
 
-    if ($result->success && $request->user_name && $request->user_lastname && $request->user_address && $request->user_telephone_number && $request->user_email) {
+    if ($result->success) {
+      $errors = PageController::convalidaForm($request);
+      if($errors === []){
         $transaction = $result->transaction;
         // header("Location: transaction.php?id=" . $transaction->id);
         $json = file_get_contents('data.js');
@@ -69,16 +71,40 @@ class PageController extends Controller
           $new_order->dishes()->attach($dish->id, ['quantity' => $dish->counterQuantity]);
         }
         return back()->with('success_message', 'Transaction successful. The ID is:'. $transaction->id);
+      }else{
+        return back()->withErrors($errors);
+      }
     } else {
         $errorString = "";
 
         foreach ($result->errors->deepAll() as $error) {
             $errorString .= 'Error: ' . $error->code . ": " . $error->message . "\n";
         }
-
+        return back()->withErrors('An error occurred with the message: '.$result->message);
         // $_SESSION["errors"] = $errorString;
         // header("Location: index.php");
-        return back()->withErrors('An error occurred with the message: '.$result->message);
     }
+  }
+
+  public function convalidaForm($request){
+    $errors = [];
+
+    if(str_word_count($request->user_name) === 0) $errors['user_name'] = 'Il nome è un campo obbligatorio';
+    if(str_word_count($request->user_name) > 0  && str_word_count($request->user_name) < 5) $errors['user_name'] = 'Il nome deve avere almeno 5 caratteri';
+    if(str_word_count($request->user_name) > 255) $errors['user_name'] = 'Il nome può avere un massimo di 255 caratteri';
+    if(str_word_count($request->user_lastname) === 0) $errors['user_lastname'] = 'Il cognome è un campo obbligatorio';
+    if(str_word_count($request->user_lastname) > 0  && str_word_count($request->user_lastname) < 5) $errors['user_lastname'] = 'Il cognome deve avere almeno 5 caratteri';
+    if(str_word_count($request->user_lastname) > 255) $errors['user_lastname'] = 'Il cognome può avere un massimo di 255 caratteri';
+    if(str_word_count($request->user_email) === 0) $errors['user_email'] = 'L\'email è un campo obbligatorio';
+    if(str_word_count($request->user_email) > 0  && str_word_count($request->user_email) < 5) $errors['user_email'] = 'L\'email deve avere almeno 5 caratteri';
+    if(str_word_count($request->user_email) > 255) $errors['user_email'] = 'L\'email deve avere un massimo di 255 caratteri';
+    if(str_word_count($request->user_address) === 0) $errors['user_address'] = 'L\'indirizzo è un campo obbligatorio';
+    if(str_word_count($request->user_address) > 0  && str_word_count($request->user_address) < 5) $errors['user_address'] = 'L\'indirizzo deve avere almeno 5 caratteri';
+    if(str_word_count($request->user_address) > 255) $errors['user_address'] = 'L\'indirizzo può avere un massimo di 255 caratteri';
+    if(str_word_count($request->user_telephone_number) === '') $errors['user_telephone_number'] = 'Il numero di telefono è un campo obbligatorio';
+    if($request->user_telephone_number < 1000000000) $errors['user_telephone_number'] = 'Il numero di telefono deve essere di 10 cifre';
+    if($request->user_telephone_number < 9999999999) $errors['user_telephone_number'] = 'Il numero di telefono deve essere di 10 cifre';
+
+    return $errors;
   }
 }
