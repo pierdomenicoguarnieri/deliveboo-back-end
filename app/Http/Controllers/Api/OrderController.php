@@ -35,7 +35,8 @@ class OrderController extends Controller
 
       $data_json = json_decode($json);
 
-      if($data == $data_json->token){
+      if($data['token'] == $data_json->token){
+        unlink('token.json');
         return response()->json(['success' => true]);
       }else{
         return response()->json(['success' => false]);

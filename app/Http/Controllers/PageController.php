@@ -79,7 +79,7 @@ class PageController extends Controller
           file_put_contents("token.json", json_encode($data_arr, JSON_PRETTY_PRINT));
         }
 
-        return redirect()->route('http://localhost:5174/payment-success');
+        return redirect('http://localhost:5174/payment-success');
       }else{
         return back()->withErrors($errors);
       }
