@@ -1,7 +1,6 @@
 @extends('layouts.guest')
 
 @section('content')
-
   <div class="col-md-6 offset-md-3">
     <h1>Payment Form</h1>
     <div class="spacer"></div>
@@ -21,7 +20,7 @@
             </ul>
         </div>
     @endif
-    <form action="{{route('checkout')}}" method="POST" id="payment-form">
+    <form action="{{route('checkout')}}" method="POST" id="payment-form" onsubmit="return convalidaForm(this)">
         @csrf
 
         <div class="mb-3">
@@ -121,7 +120,7 @@
           <div class="col-md-6">
               <div class="form-group">
                   <label for="amount">Amount</label>
-                  <input type="text" class="form-control" id="amount" name="amount" value="11">
+                  <input type="text" class="form-control" id="amount" name="amount" value="{{number_format($data->total_price, 2)}}" readonly>
               </div>
           </div>
       </div>
@@ -338,15 +337,6 @@ let errors = [];
       condition = true;
       check = false;
       reset();
-
-      //controllo checkbox
-
-      for (let i = 1; i < 14; i++) {
-        if (formData[`type${i}`].checked) {
-          check = true;
-          break
-        }
-      }
 
       //controlli di validazione e stampa errori singoli
 
