@@ -25,4 +25,5 @@ Route::namespace('Api')
   ->prefix('orders')
   ->group(function(){
     Route::post('/send-order', [OrderController::class, 'cartRequest']);
+    Route::post('/check-payment', [OrderController::class, 'checkPayment']);
   });
