@@ -1,171 +1,167 @@
 @extends('layouts.guest')
 
 @section('content')
-  <div class="col-md-6 offset-md-3">
-    <h1>Payment Form</h1>
-    <div class="spacer"></div>
+<div class="form-wrapper h-100 p-2 overflow-y-auto overflow-x-hidden">
 
-    @if (session()->has('success_message'))
-        <div class="alert alert-success">
-            {{ session()->get('success_message') }}
-        </div>
-    @endif
+  <h1 class="mb-3">Payment Form</h1>
+  @if (session()->has('success_message'))
+      <div class="alert alert-success">
+          {{ session()->get('success_message') }}
+      </div>
+  @endif
 
-    @if(count($errors) > 0)
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-    <form action="{{route('checkout')}}" method="POST" id="payment-form">
-        @csrf
+  @if(count($errors) > 0)
+      <div class="alert alert-danger">
+          <ul>
+              @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+              @endforeach
+          </ul>
+      </div>
+  @endif
+  <form action="{{route('checkout')}}" method="POST" id="payment-form">
+      @csrf
 
-        <div class="mb-3">
-          <label for="user_name" class="form-label">Nome</label>
-          <input
-            onkeyup="valideInput(this)"
-            type="text"
-            class="form-control @error('name') form-invalid @enderror"
-            name="user_name"
-            placeholder="Mario"
-            id="user_name"
-            value="{{ old('user_name') }}"
-            required>
+      <div class="mb-3">
+        <label for="user_name" class="form-label">Nome</label>
+        <input
+          onkeyup="valideInput(this)"
+          type="text"
+          class="form-control @error('name') form-invalid @enderror"
+          name="user_name"
+          placeholder="Mario"
+          id="user_name"
+          value="{{ old('user_name') }}"
+          required>
 
-          @error('user_name')
-            <span class="text-danger">{{ $message }}</span>
-          @enderror
+        @error('user_name')
+          <span class="text-danger">{{ $message }}</span>
+        @enderror
 
-          <div id="errorName"></div>
-        </div>
-
-        <div class="mb-3">
-          <label for="user_lastname" class="form-label">Cognome</label>
-          <input
-            onkeyup="valideInput(this)"
-            type="text"
-            class="form-control @error('user_lastname') form-invalid @enderror"
-            name="user_lastname"
-            placeholder="Rossi"
-            id="user_lastname"
-            value="{{ old('user_lastname') }}"
-            required>
-
-          @error('user_lastname')
-            <span class="text-danger">{{ $message }}</span>
-          @enderror
-
-          <div id="errorLastName"></div>
-        </div>
-
-        <div class="mb-3">
-          <label for="user_email" class="form-label">Email</label>
-          <input
-            onkeyup="valideInput(this)"
-            type="email"
-            class="form-control @error('user_email') form-invalid @enderror"
-            placeholder="Email"
-            name="user_email"
-            id="user_email"
-            value="{{ old('user_email') }}"
-            required>
-
-          @error('user_email')
-            <span class="text-danger">{{ $message }}</span>
-          @enderror
-
-          <div id="errorEmail"></div>
-        </div>
-
-        <div class="mb-3">
-          <label for="user_telephone_number" class="form-label">Numero di telefono</label>
-          <input
-            onkeyup="valideInput(this)"
-            type="number"
-            min="0"
-            id="user_telephone_number"
-            placeholder="1234567890"
-            pattern="[0-9]{10}"
-            class="form-control @error('user_telephone_number') form-invalid @enderror"
-            name="user_telephone_number"
-            id="user_telephone_number"
-            value="{{ old('user_telephone_number') }}"
-            required>
-
-          @error('user_telephone_number')
-            <span class="text-danger">{{ $message }}</span>
-          @enderror
-
-          <div id="errorNumber"></div>
-        </div>
-
-        <div class="mb-3">
-          <label for="user_address" class="form-label">Indirizzo</label>
-          <input
-            onkeyup="valideInput(this)"
-            type="text"
-            class="form-control @error('user_address') form-invalid @enderror"
-            placeholder="Idirizzo"
-            name="user_address"
-            id="user_address"
-            value="{{ old('user_address') }}"
-            required>
-
-          @error('user_address')
-            <span class="text-danger">{{ $message }}</span>
-          @enderror
-
-          <div id="errorAddress"></div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-              <div class="form-group">
-                  <label for="amount">Amount</label>
-                  <input type="text" class="form-control" id="amount" name="amount" value="{{number_format($data->total_price, 2)}}" readonly>
-              </div>
-          </div>
+        <div id="errorName"></div>
       </div>
 
-        <div class="row">
-            <div class="col-md-6">
-                <label for="cc_number">Credit Card Number</label>
+      <div class="mb-3">
+        <label for="user_lastname" class="form-label">Cognome</label>
+        <input
+          onkeyup="valideInput(this)"
+          type="text"
+          class="form-control @error('user_lastname') form-invalid @enderror"
+          name="user_lastname"
+          placeholder="Rossi"
+          id="user_lastname"
+          value="{{ old('user_lastname') }}"
+          required>
 
-                <div class="form-group" id="card-number">
+        @error('user_lastname')
+          <span class="text-danger">{{ $message }}</span>
+        @enderror
 
-                </div>
+        <div id="errorLastName"></div>
+      </div>
+
+      <div class="mb-3">
+        <label for="user_email" class="form-label">Email</label>
+        <input
+          onkeyup="valideInput(this)"
+          type="email"
+          class="form-control @error('user_email') form-invalid @enderror"
+          placeholder="Email"
+          name="user_email"
+          id="user_email"
+          value="{{ old('user_email') }}"
+          required>
+
+        @error('user_email')
+          <span class="text-danger">{{ $message }}</span>
+        @enderror
+
+        <div id="errorEmail"></div>
+      </div>
+
+      <div class="mb-3">
+        <label for="user_telephone_number" class="form-label">Numero di telefono</label>
+        <input
+          onkeyup="valideInput(this)"
+          type="number"
+          min="0"
+          id="user_telephone_number"
+          placeholder="1234567890"
+          pattern="[0-9]{10}"
+          class="form-control @error('user_telephone_number') form-invalid @enderror"
+          name="user_telephone_number"
+          id="user_telephone_number"
+          value="{{ old('user_telephone_number') }}"
+          required>
+
+        @error('user_telephone_number')
+          <span class="text-danger">{{ $message }}</span>
+        @enderror
+
+        <div id="errorNumber"></div>
+      </div>
+
+      <div class="mb-3">
+        <label for="user_address" class="form-label">Indirizzo</label>
+        <input
+          onkeyup="valideInput(this)"
+          type="text"
+          class="form-control @error('user_address') form-invalid @enderror"
+          placeholder="Idirizzo"
+          name="user_address"
+          id="user_address"
+          value="{{ old('user_address') }}"
+          required>
+
+        @error('user_address')
+          <span class="text-danger">{{ $message }}</span>
+        @enderror
+
+        <div id="errorAddress"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+            <div class="form-group">
+                <label for="amount">Amount</label>
+                <input type="text" class="form-control" id="amount" name="amount" value="{{number_format($data->total_price, 2)}}" readonly>
             </div>
-
-            <div class="col-md-3">
-                <label for="expiry">Expiry</label>
-
-                <div class="form-group" id="expiration-date">
-
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <label for="cvv">CVV</label>
-
-                <div class="form-group" id="cvv">
-
-                </div>
-            </div>
-
         </div>
+    </div>
 
-        <div class="spacer"></div>
+      <div class="row">
+          <div class="col-md-6 mb-3">
+              <label for="cc_number">Credit Card Number</label>
 
-        <div id="paypal-button"></div>
+              <div class="form-group" id="card-number">
 
-        <div class="spacer"></div>
+              </div>
+          </div>
 
-        <input id="nonce" name="payment_method_nonce" type="hidden" />
-        <button type="submit" class="btn btn-success">Submit Payment</button>
-    </form>
+          <div class="col-md-3 mb-3">
+              <label for="expiry">Expiry</label>
+
+              <div class="form-group" id="expiration-date">
+
+              </div>
+          </div>
+
+          <div class="col-md-3 mb-3">
+              <label for="cvv">CVV</label>
+
+              <div class="form-group" id="cvv">
+
+              </div>
+          </div>
+
+      </div>
+
+      <div id="paypal-button"></div>
+
+      <input id="nonce" name="payment_method_nonce" type="hidden" />
+      <button type="submit" class="btn btn-success">Invia il pagamento</button>
+  </form>
+</div>
 <script src="https://js.braintreegateway.com/web/3.38.1/js/client.min.js"></script>
 <script src="https://js.braintreegateway.com/web/3.38.1/js/hosted-fields.min.js"></script>
 
@@ -398,13 +394,6 @@ let errors = [];
 </script>
 
 <style>
-  body {
-      margin: 24px 0;
-  }
-  .spacer {
-      margin-bottom: 24px;
-  }
-
   #card-number, #cvv, #expiration-date {
       background: white;
       height: 38px;

@@ -1,0 +1,54 @@
+{
+    "token": "8fc0157e-ed41-4082-96ee-0b15fe4a1c69",
+    "restaurant_name": "il Signore degli Agnelli",
+    "total_price": 28,
+    "total_quantity": 2,
+    "dishes": [
+        {
+            "id": 38,
+            "dish": {
+                "id": 38,
+                "restaurant_id": 6,
+                "name": "Anellini alla Pecorara",
+                "price": 13,
+                "visible": 0,
+                "description": "<p>Anelli di pasta fresca con rag\u00f9 di verdure e ricotta di pecora.<\/p>",
+                "ingredients": "pasta fresca, rag\u00f9 di verdure, ricotta di pecora",
+                "is_vegan": 0,
+                "is_frozen": 0,
+                "is_gluten_free": 0,
+                "is_lactose_free": 0,
+                "type": null,
+                "image_path": "http:\/\/127.0.0.1:8000\/storage\/uploads\/dfss26FaEAOWuISi7th2IctV4y7tM7U8ay39kYvi.jpg",
+                "image_name": "anellini.jpg",
+                "created_at": "2023-07-17T15:05:38.000000Z",
+                "updated_at": "2023-07-17T15:05:38.000000Z",
+                "deleted_at": null
+            },
+            "counterQuantity": 1
+        },
+        {
+            "id": 39,
+            "dish": {
+                "id": 39,
+                "restaurant_id": 6,
+                "name": "Arrosticini",
+                "price": 15,
+                "visible": 0,
+                "description": "<p>30 gr. c.a. cad.<\/p>",
+                "ingredients": "Carne di pecora nostrana",
+                "is_vegan": 0,
+                "is_frozen": 0,
+                "is_gluten_free": 0,
+                "is_lactose_free": 0,
+                "type": null,
+                "image_path": "http:\/\/127.0.0.1:8000\/storage\/uploads\/lTt5NrUq4ptv1K9JcDPgt0o9fI7PL3nMAjHIWLXO.jpg",
+                "image_name": "arrosticini.jpg",
+                "created_at": "2023-07-17T15:06:58.000000Z",
+                "updated_at": "2023-07-17T15:07:07.000000Z",
+                "deleted_at": null
+            },
+            "counterQuantity": 1
+        }
+    ]
+}
