@@ -14,7 +14,7 @@
         <canvas id="lastYear"></canvas>
       </div>
       {{-- <button id="changeRange"></button> --}}
-      <select id="changeRange">
+      <select id="changeRange" class="my-3">
         <option value="1">Sette giorni</option>
         <option value="2">Trenta giorni</option>
         <option value="3">Ultimo anno</option>
