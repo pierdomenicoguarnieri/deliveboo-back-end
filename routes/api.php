@@ -12,6 +12,8 @@ Route::namespace('Api')
   ->group(function(){
     Route::get('/', [RestaurantController::class, 'index']);
     Route::get('restaurant-detail/{slug}', [RestaurantController::class, 'getRestaurant']);
+      //Add for Cart
+    Route::get('cart/dishes/{id}', [RestaurantController::class, 'restaurants.cartDihes']);
   });
 
 Route::namespace('Api')
