@@ -14,18 +14,22 @@ class PageController extends Controller
   }
 
   public function chekcoutForm(){
-    $gateway = new Braintree\Gateway([
-      'environment' => config('services.braintree.environment'),
-      'merchantId' => config('services.braintree.merchantId'),
-      'publicKey' => config('services.braintree.publicKey'),
-      'privateKey' => config('services.braintree.privateKey')
-    ]);
+    if(file_exists('data.json')){
+      $gateway = new Braintree\Gateway([
+        'environment' => config('services.braintree.environment'),
+        'merchantId' => config('services.braintree.merchantId'),
+        'publicKey' => config('services.braintree.publicKey'),
+        'privateKey' => config('services.braintree.privateKey')
+      ]);
 
-    $token = $gateway->ClientToken()->generate();
-    $json = file_get_contents('data.json');
-    $data = json_decode($json);
+      $token = $gateway->ClientToken()->generate();
+      $json = file_get_contents('data.json');
+      $data = json_decode($json);
 
-    return view('guest.checkout', compact('token', 'data'));
+      return view('guest.checkout', compact('token', 'data'));
+    }else{
+      return redirect('http://localhost:5174/error404');
+    }
   }
 
   public function checkout(Request $request){

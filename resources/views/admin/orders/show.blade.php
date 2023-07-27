@@ -6,50 +6,54 @@
     <div class="container h-100 d-flex align-items-center justify-content-center">
       <div class="card h-75 w-100 border-0 bg-transparent m-0 text-bg-dark">
 
-        <div class="card-img-overlay bg-dark bg-opacity-25 rounded-5">
-          <div class="dish-info overflow-y-auto h-100 d-flex flex-column">
-          <h2>Ordine N. {{ $order->id }}</h2>
-            <p>Nome: <strong class="text-black">{{ $order->user_name }}</strong></p>
-            <p>Cognome: <strong class="text-black">{{ $order->user_lastname }}</strong></p>
-            <p>Indirizzo: <strong class="text-black">{{ $order->user_address }}</strong></p>
-            <p>Numero di telefono <strong class="text-black">{{ $order->user_telephone_number }}</strong></p>
-            <p>Email: <strong class="text-black">{{ $order->user_email }}</strong></p>
-            <p>Prezzo Tot.: <strong class="text-black">{{ $order->tot_order }} &euro;</strong></p>
+        <div class="card-img-overlay bg-white shadow rounded-5 text-dark">
+          <div class="order-info overflow-y-auto h-100 d-flex flex-column">
+            <div class="title-container d-flex justify-content-between align-items-center mb-4 pe-2">
+              <h2 class="fs-1 m-0">Ordine N. {{ $order->id }}</h2>
 
-            <div class="buttons-container">
-              <a href="{{ route('admin.orders.index') }}" class="btn btn-primary">
-                <i class="fa-solid fa-arrow-rotate-left"></i>
-              </a>
+              <div class="buttons-container">
+                <a href="{{ route('admin.orders.index') }}" class="btn btn-primary">
+                  <i class="fa-solid fa-arrow-rotate-left"></i>
+                </a>
+              </div>
             </div>
+            <div class="infos fs-5">
+              <p class="fw-bold">Nome: <span class="fw-normal">{{ $order->user_name }}</span></p>
+              <p class="fw-bold">Cognome: <span class="fw-normal">{{ $order->user_lastname }}</span></p>
+              <p class="fw-bold">Indirizzo: <span class="fw-normal">{{ $order->user_address }}</span></p>
+              <p class="fw-bold">Numero di telefono <span class="fw-normal">{{ $order->user_telephone_number }}</span></p>
+              <p class="fw-bold">Email: <span class="fw-normal">{{ $order->user_email }}</span></p>
+              <p class="fw-bold">Totale: <span class="fw-normal">{{ number_format($order->tot_order, 2) }} &euro;</span></p>
 
-            <table class="table mt-4">
-              <thead>
-                <tr>
-                  <th scope="col">Id. Piatto</th>
-                  <th scope="col">Piatto</th>
-                  <th scope="col">Quantità</th>
-                  <th scope="col">Tot. ordine</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach ($order->dishes as $key => $dish)
+              <table class="table mt-4">
+                <thead>
                   <tr>
-                    <th scope="row">{{ $dish->id }}</th>
-                    <td>{{ $dish->name }}</td>
-
-                    <td>{{ $order_pivot[$key]->quantity }}</td>
-
-                    <td>{{ $dish->price }} &euro;</td>
+                    <th scope="col" class="d-none d-sm-table-cell">Id. Piatto</th>
+                    <th scope="col">Piatto</th>
+                    <th scope="col">Quantità</th>
+                    <th scope="col">Tot.</th>
                   </tr>
-                @endforeach
-                <tr>
-                  <th></th>
-                  <td></td>
-                  <td></td>
-                  <td>{{ $order->tot_order }} &euro;</td>
-                </tr>
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  @foreach ($order->dishes as $key => $dish)
+                    <tr>
+                      <th scope="row" class="d-none d-sm-table-cell">{{ $dish->id }}</th>
+                      <td>{{ $dish->name }}</td>
+
+                      <td>{{ $order_pivot[$key]->quantity }}</td>
+
+                      <td>{{ $dish->price }} &euro;</td>
+                    </tr>
+                  @endforeach
+                  <tr>
+                    <th class="d-none d-sm-table-cell"></th>
+                    <td></td>
+                    <td></td>
+                    <td>{{ $order->tot_order }} &euro;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
