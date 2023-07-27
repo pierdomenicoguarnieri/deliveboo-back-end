@@ -25,6 +25,7 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/luxon/3.3.0/luxon.min.js'></script>
 
     <script>
+
       const orders              = {!! json_encode($orders) !!};
       const DateTime            = luxon.DateTime;
       const dt                  = DateTime.now().set({ hour: 00, minutes: 00, seconds: 00, milliseconds: 00 }).setLocale('it');
@@ -121,10 +122,9 @@
                                      thirty.classList.add('graphic-hide');
                                      year.classList.remove('graphic-hide');
                                    }
-                                   console.log(changeRange.value == 1);
                                   })
 
-       // id, n, labels, dates, count                           
+      // id, n, labels, dates, count                           
       graphic(lastSeven, 6, SevenDaysLabels, SevenDates, SevenDatesCount);
       graphic(lastThirty, 30, ThirtyDaysLabels, ThirtyDates, ThirtyDatesCount);
 
@@ -184,14 +184,14 @@
         for (let i = n; i >= 0; i--) {
           labels.push(dt.minus({days: i}).toISODate())
         }
-        
+
         //ordini degli ultimi sette giorni
         orders.forEach(order => {
           for (let i = n; i >= 0; i--) {
             if (order == dt.minus({days: i}).toISODate()) dates[i].push(order);
           }
         });
-        
+
         // count degli ordini degli ultimi sette giorni
         for (const day in dates) {
           count.push(dates[day].length);
