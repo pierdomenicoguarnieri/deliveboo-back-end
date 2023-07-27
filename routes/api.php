@@ -1,19 +1,31 @@
 <?php
 
+use App\Http\Controllers\Api\CheckoutController;
+use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\RestaurantController;
+use App\Http\Controllers\Api\TypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+Route::namespace('Api')
+  ->prefix('restaurants')
+  ->group(function(){
+    Route::get('/', [RestaurantController::class, 'index']);
+    Route::get('restaurant-detail/{slug}', [RestaurantController::class, 'getRestaurant']);
+      //Add for Cart
+    Route::get('cart/dishes/{id}', [RestaurantController::class, 'restaurants.cartDihes']);
+  });
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::namespace('Api')
+  ->prefix('type')
+  ->group(function(){
+    Route::get('/{name}', [TypeController::class, 'getByType']);
+  });
+
+
+Route::namespace('Api')
+  ->prefix('orders')
+  ->group(function(){
+    Route::post('/send-order', [OrderController::class, 'cartRequest']);
+    Route::post('/check-payment', [OrderController::class, 'checkPayment']);
+  });

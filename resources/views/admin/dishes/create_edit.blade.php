@@ -15,13 +15,20 @@
         </div>
       @endif
 
-      <form action="{{ $route }}" method="POST" enctype="multipart/form-data">
+     <div id="errorsList"></div>
+
+      <form
+        action="{{ $route }}"
+        method="POST"
+        enctype="multipart/form-data"
+        onsubmit="return convalidaForm(this)">
         @csrf
         @method($method)
 
         <div class="mb-3">
           <label for="name" class="form-label">Nome</label>
           <input type="text"
+            onkeyup="valideInput(this)"
             class="form-control @error('name') is-invalid @endif"
             id="name"
             name="name"
@@ -30,12 +37,15 @@
 
             @error('name')
             <div class="alert alert-danger" role="alert">{{ $message }}</div>
-          @enderror
+            @enderror
+
+            <div id="errorName"></div>
         </div>
 
         <div class="mb-3">
           <label for="price" class="form-label">Prezzo</label>
           <input type="number"
+            onkeyup="valideInput(this)"
             class="form-control @error('price') is-invalid @endif"
             id="price"
             name="price"
@@ -46,6 +56,8 @@
           @error('price')
             <div class="alert alert-danger" role="alert">{{ $message }}</div>
           @enderror
+
+          <div id="errorPrice"></div>
         </div>
 
 
@@ -88,6 +100,7 @@
         <div class="mb-3">
           <label for="ingredients" class="form-label">Ingredienti</label>
           <input
+            onkeyup="valideInput(this)"
             type="text"
             class="form-control @error('ingredients') is-invalid @endif"
             id="ingredients"
@@ -98,11 +111,14 @@
           @error('ingredients')
             <div class="alert alert-danger" role="alert">{{ $message }} </div>
           @enderror
+
+          <div id="errorIngredients"></div>
         </div>
 
       <div class="mb-3">
         <label for="type" class="form-label">Tipo</label>
         <input
+          onkeyup="valideInput(this)"
           type="text"
           class="form-control @error('type') is-invalid @endif"
           id="type"
@@ -113,6 +129,8 @@
         @error('type')
           <div class="alert alert-danger" role="alert">{{ $message }}</div>
         @enderror
+
+        <div id="errorType"></div>
       </div>
 
       <label for="allergens" class="d-block mb-2">Allergeni</label>
@@ -184,6 +202,89 @@
       imageInput.value = '';
       const tagImage = document.getElementById('prev-image');
       tagImage.src = '';
+    }
+
+    let errors = [];
+    let message;
+    let condition;
+
+    function valideInput(input) {
+      if (input.id == 'name') {
+        document.getElementById('errorName').innerHTML = '';
+        controll(input.value.length === 0, 'Il nome è un campo obbligatorio', 'errorName');
+        controll(input.value.length > 255, 'Il nome può avere un massimo di 255 caratteri', 'errorName')
+      }
+      if (input.id == 'price') {
+        document.getElementById('errorPrice').innerHTML = '';
+        controll(input.value.length === 0, 'Il prezzo è un campo obbligatorio', 'errorPrice')
+        controll(input.value > 999.99, 'Il prezzo non può superare i 999.99 €', 'errorPrice')
+      }
+      if (input.id == 'ingredients') {
+        document.getElementById('errorIngredients').innerHTML = '';
+        controll(input.value.length < 20 , 'Gli ingredienti devono avere almeno 20 caratteri', 'errorIngredients')
+        controll(input.value.length > 1000, 'Gli ingredienti possono avere un massimo di 1000 caratteri', 'errorIngredients')
+      }
+      if (input.id == 'type') {
+        document.getElementById('errorType').innerHTML = '';
+        controll(input.value.length > 50 , 'Il tipo può avere al massimo 50 caratteri', 'errorType')
+      }
+    }
+
+    function convalidaForm(formData) {
+
+      let errorsList = document.getElementById("errorsList");
+      errorsList.innerHTML = '';
+      errors = [];
+      condition = true;
+      reset();
+
+      //controlli di validazione
+
+      controll(formData.name.value.length === 0, 'Il nome è un campo obbligatorio', 'errorName')
+      controll(formData.name.value.length > 255, 'Il nome può avere un massimo di 255 caratteri', 'errorName')
+      controll(formData.price.value.length === 0, 'Il prezzo è un campo obbligatorio', 'errorPrice')
+      controll(formData.price.value > 999.99, 'Il prezzo non può superare i 999.99 €', 'errorPrice')
+      controll(formData.ingredients.value.length < 20 , 'Gli ingredienti devono avere almeno 20 caratteri', 'errorIngredients')
+      controll(formData.ingredients.value.length > 1000, 'Gli ingredienti possono avere un massimo di 1000 caratteri', 'errorIngredients')
+      controll(formData.type.value.length > 50 , 'Il tipo può avere al massimo 50 caratteri', 'errorType')
+
+      //stampa lista errori
+
+      if (errors.length > 0) {
+
+       let liErrors = '';
+       errors.forEach((error) => {
+         liErrors += `<li>${error}</li>`
+       });
+
+       errorsList.innerHTML += `
+         <div class="d-flex justify-content-start">
+           <div class="alert alert-danger  py-1" role="alert">
+             <ul class="mb-0">
+               ${liErrors}
+             </ul>
+           </div>
+         </div>`
+      }
+      window.scrollTo(0, 0);
+
+      return condition;
+    }
+
+    function controll(cond, msg, id) {
+      if (cond) {
+        message = msg;
+        errors.push(message);
+        document.getElementById(id).innerHTML = `<span class="text-danger">${message}</span>`;
+        condition = false;
+      }
+    }
+
+    function reset() {
+      document.getElementById('errorName').innerHTML = '';
+      document.getElementById('errorPrice').innerHTML = '';
+      document.getElementById('errorIngredients').innerHTML = '';
+      document.getElementById('errorType').innerHTML = '';
     }
   </script>
 @endsection

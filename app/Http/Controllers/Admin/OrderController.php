@@ -19,16 +19,23 @@ class OrderController extends Controller
     {
       $ordersArray = [];
       $orders = [];
+      $orders_ids = [];
+      $order_pivot = [];
       $restaurant = (new Restaurant())->restaurantUser();
       $dishes     = $restaurant->dishes()->get();
       foreach($dishes as $dish){
-        $order_pivot    = DishOrder::where('dish_id', $dish->id)->first();
-        $ordersArray[] = $order_pivot;
-
+        $order_pivot    = DishOrder::where('dish_id', $dish->id)->get();
+        foreach ($order_pivot as $order) {
+          if(!in_array($order->order_id, $orders_ids)){
+            $orders_ids[] = $order->order_id;
+          }
+        }
       }
 
-      foreach($ordersArray as $orderItem){
-        $order = Order::where('id', $orderItem?->order_id)->with('dishes')->first();
+      asort($orders_ids);
+
+      foreach($orders_ids as $orderItem){
+        $order = Order::where('id', $orderItem)->with('dishes')->first();
         if($order != null && !in_array($order, $orders)){
           $orders[] = $order;
         }
