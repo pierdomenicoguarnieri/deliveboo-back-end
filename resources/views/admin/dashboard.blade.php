@@ -25,7 +25,6 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/luxon/3.3.0/luxon.min.js'></script>
 
     <script>
-
       const orders              = {!! json_encode($orders) !!};
       const DateTime            = luxon.DateTime;
       const dt                  = DateTime.now().set({ hour: 00, minutes: 00, seconds: 00, milliseconds: 00 }).setLocale('it');
@@ -174,8 +173,9 @@
               ticks: {
                 stepSize: 1
               }
-            },
-          }
+            }
+          },
+            tension: .4
         }
       });
 
@@ -216,7 +216,9 @@
                   stepSize: 1
                 }
               },
-            }
+            },
+            tension: .4,
+            spanGaps: false
           }
         });             
       }
