@@ -18,6 +18,14 @@
   </head>
 
   <body>
-    @yield('content')
+    <div id="app">
+      <main class="px-2 px-md-4 px-lg-5 py-4">
+        <div class="content-wrapper w-100 h-100 d-flex rounded-5 overflow-hidden">
+          <div class="main-content-wrapper w-100 px-2 py-4 d-flex align-items-center justify-content-center">
+            @yield('content')
+          </div>
+        </div>
+      </main>
+    </div>
   </body>
 </html>

@@ -1,4 +1,4 @@
-@extends('admin.dashboard')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container h-100 d-flex align-items-center justify-content-center">

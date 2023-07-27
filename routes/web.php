@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PageController::class, 'index'])->name('home');
+Route::get('/checkout-form', [PageController::class, 'chekcoutForm'])->name('checkout-form');
+Route::post('/checkout', [PageController::class, 'checkout'])->name('checkout');
 
 Route::get('/admin', function () {
     return view('admin.dashboard');

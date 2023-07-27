@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\CheckoutController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\RestaurantController;
 use App\Http\Controllers\Api\TypeController;
 use Illuminate\Http\Request;
@@ -16,4 +18,12 @@ Route::namespace('Api')
   ->prefix('type')
   ->group(function(){
     Route::get('/{name}', [TypeController::class, 'getByType']);
+  });
+
+
+Route::namespace('Api')
+  ->prefix('orders')
+  ->group(function(){
+    Route::post('/send-order', [OrderController::class, 'cartRequest']);
+    Route::post('/check-payment', [OrderController::class, 'checkPayment']);
   });

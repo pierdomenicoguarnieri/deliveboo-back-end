@@ -1,6 +1,19 @@
 @import '~bootstrap/scss/bootstrap';
+@import "node_modules/font-awesome/scss/font-awesome";
+@import './guest/partials/variables';
+@import './guest/partials/buttons';
 @import './partials/typography';
 
 body {
+  margin: 0 !important;
   font-family: $primary_font, $secondary_font, $tertiary_font;
+}
+
+main{
+  height: 100vh;
+  background: rgb(252,105,76);
+  background: linear-gradient(320deg, rgba(252,105,76,1) 0%, rgba(252,76,105,1) 100%);
+  .content-wrapper{
+    background-color: rgba($custom_white, $alpha: 0.95);
+  }
 }
