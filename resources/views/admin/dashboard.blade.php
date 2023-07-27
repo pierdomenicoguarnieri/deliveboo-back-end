@@ -218,7 +218,6 @@
               },
             },
             tension: .4,
-            spanGaps: false
           }
         });             
       }
