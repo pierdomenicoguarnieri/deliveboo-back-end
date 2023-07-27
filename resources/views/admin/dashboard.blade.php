@@ -38,8 +38,8 @@
                                   year.classList.add('graphic-hide');
       const lastYear            = document.getElementById('lastYear');
       
-      const lastSevenDay        = [];     
-      const lastSevenDate       = {
+      const SevenDaysLabels     = [];     
+      const SevenDates          = {
                                     0: [],
                                     1: [],
                                     2: [],
@@ -48,9 +48,9 @@
                                     5: [],
                                     6: [],
                                   };
-      const lastSevenDateCount  = [];
-      const lastThirtyDay       = [];
-      const lastThirtyDate      = {
+      const SevenDatesCount     = [];
+      const ThirtyDaysLabels    = [];
+      const ThirtyDates         = {
                                     0: [],
                                     1: [],
                                     2: [],
@@ -83,9 +83,9 @@
                                     28: [],
                                     29: [],
                                   };
-      const lastThirtyDateCount = [];
-      const lastYearMonth       = [];
-      const lastYearDate        = {
+      const ThirtyDatesCount    = [];
+      const LastYearMonths      = [];
+      const lastYearDates       = {
                                     0: [],
                                     1: [],
                                     2: [],
@@ -100,8 +100,8 @@
                                     10: [],
                                     11: [],
                                   };
-      const lastYearDateCount   = [];
-      const monthsLabels         = [];
+      const lastYearDatesCount  = [];
+      const monthsLabels        = [];
       const ordersMonth         = [];
 
       const changeRange         = document.getElementById('changeRange');
@@ -110,119 +110,32 @@
                                      seven.classList.remove('graphic-hide');
                                      thirty.classList.add('graphic-hide');
                                      year.classList.add('graphic-hide');
-                                     console.log(1);
                                    } 
                                    if (changeRange.value == 2) {
                                      seven.classList.add('graphic-hide');
                                      thirty.classList.remove('graphic-hide');
                                      year.classList.add('graphic-hide');
-                                     console.log(2);
                                    }
                                    if (changeRange.value == 3) {
                                      seven.classList.add('graphic-hide');
                                      thirty.classList.add('graphic-hide');
                                      year.classList.remove('graphic-hide');
-                                     console.log(3);
                                    }
                                    console.log(changeRange.value == 1);
                                   })
 
+       // id, n, labels, dates, count                           
+      graphic(lastSeven, 6, SevenDaysLabels, SevenDates, SevenDatesCount);
+      graphic(lastThirty, 30, ThirtyDaysLabels, ThirtyDates, ThirtyDatesCount);
 
-
-    
-      // array ultimi sette giorni per le labels
-      for (let i = 6; i >= 0; i--) {
-        lastSevenDay.push(dt.minus({days: i}).toISODate())
-      }
-      
-      //ordini degli ultimi sette giorni
-      orders.forEach(order => {
-        for (let i = 6; i >= 0; i--) {
-          if (order == dt.minus({days: i}).toISODate()) lastSevenDate[i].push(order);
-        }
-      });
-      
-      // count degli ordini degli ultimi sette giorni
-      for (const day in lastSevenDate) {
-        lastSevenDateCount.push(lastSevenDate[day].length);
-      }
-      lastSevenDateCount.reverse()
-
-      new Chart(lastSeven, {
-        type: 'line',
-        data: {
-          labels: lastSevenDay,
-          datasets: [{
-            label: 'Numero di ordini negli ultimi sette giorni',
-            data: lastSevenDateCount,
-            borderWidth: 1
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-              ticks: {
-                stepSize: 1
-              }
-            },
-          }
-        }
-      });
-
-
-
-
-      // array ultimi 30 giorni per le labels
-      for (let i = 30; i >= 0; i--) {
-        lastThirtyDay.push(dt.minus({days: i}).toISODate())
-      }
-
-      // ordini degli ultimi 30 giorni
-      orders.forEach(order => {
-        for (let i = 30; i >= 0; i--) {
-          if (order == dt.minus({days: i}).toISODate()) lastThirtyDate[i].push(order);
-        }
-      });
-
-      // count degli ordini degli ultimi 30 giorni
-      for (const day in lastThirtyDate) {
-        lastThirtyDateCount.push(lastThirtyDate[day].length);
-      }
-      lastThirtyDateCount.reverse()
-
-      new Chart(lastThirty, {
-        type: 'line',
-        data: {
-          labels: lastThirtyDay,
-          datasets: [{
-            label: 'Numero di ordini negli ultimi trenta giorni',
-            data: lastThirtyDateCount,
-            borderWidth: 1
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-              ticks: {
-                stepSize: 1
-              }
-            },
-          }
-        }
-      });
-
-
-
+      // graphic lastYear
 
       // array ultimo anno per le labels
       for (let i = 11; i >= 0; i--) {
         let month = dt.minus({months: i}).toISODate()
-        lastYearMonth.push(DateTime.fromISO(month).month)
+        LastYearMonths.push(DateTime.fromISO(month).month)
         let monthLabel = DateTime.fromISO(month).toLocaleString({ month: 'long'});
         monthsLabels.push(monthLabel);
-        console.log(monthsLabels);
       }
       
       // lettura dei soli mesi degli ordini
@@ -235,13 +148,13 @@
       // ordini dell'ultimo anno 
       ordersMonth.forEach(order => {
         for (let i = 11; i >= 0; i--) {
-          if (order == lastYearMonth[i]) lastYearDate[i].push(order);
+          if (order == LastYearMonths[i]) lastYearDates[i].push(order);
         }
       })
       
       // count degli ordini dell'ultimo anno
-      for (const month in lastYearDate) {
-        lastYearDateCount.push(lastYearDate[month].length);
+      for (const month in lastYearDates) {
+        lastYearDatesCount.push(lastYearDates[month].length);
       }
 
       new Chart(lastYear, {
@@ -250,7 +163,7 @@
           labels: monthsLabels,
           datasets: [{
             label: 'Numero di ordini dell\'ultimo anno',
-            data: lastYearDateCount,
+            data: lastYearDatesCount,
             borderWidth: 1
           }]
         },
@@ -265,6 +178,48 @@
           }
         }
       });
+
+      function graphic(id, n, labels, dates, count) {
+        // array ultimi sette giorni per le labels
+        for (let i = n; i >= 0; i--) {
+          labels.push(dt.minus({days: i}).toISODate())
+        }
+        
+        //ordini degli ultimi sette giorni
+        orders.forEach(order => {
+          for (let i = n; i >= 0; i--) {
+            if (order == dt.minus({days: i}).toISODate()) dates[i].push(order);
+          }
+        });
+        
+        // count degli ordini degli ultimi sette giorni
+        for (const day in dates) {
+          count.push(dates[day].length);
+        }
+        count.reverse();
+
+        new Chart(id, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Numero di ordini negli ultimi sette giorni',
+              data: count,
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  stepSize: 1
+                }
+              },
+            }
+          }
+        });             
+      }
     </script>
   @endsection
 
