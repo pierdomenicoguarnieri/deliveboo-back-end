@@ -14,11 +14,13 @@
         <canvas id="lastYear"></canvas>
       </div>
       {{-- <button id="changeRange"></button> --}}
-      <select id="changeRange" class="my-3">
-        <option value="1">Sette giorni</option>
-        <option value="2">Trenta giorni</option>
-        <option value="3">Ultimo anno</option>
-      </select>
+      <div class="select-container mt-3 w-25">
+        <select id="changeRange" class="form-select" class="my-3">
+          <option value="1">Sette giorni</option>
+          <option value="2">Trenta giorni</option>
+          <option value="3">Ultimo anno</option>
+        </select>
+      </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -37,8 +39,8 @@
       const year                = document.getElementById('year');
                                   year.classList.add('graphic-hide');
       const lastYear            = document.getElementById('lastYear');
-      
-      const SevenDaysLabels     = [];     
+
+      const SevenDaysLabels     = [];
       const SevenDates          = {
                                     0: [],
                                     1: [],
@@ -110,7 +112,7 @@
                                      seven.classList.remove('graphic-hide');
                                      thirty.classList.add('graphic-hide');
                                      year.classList.add('graphic-hide');
-                                   } 
+                                   }
                                    if (changeRange.value == 2) {
                                      seven.classList.add('graphic-hide');
                                      thirty.classList.remove('graphic-hide');
@@ -123,7 +125,7 @@
                                    }
                                   })
 
-      // id, n, labels, dates, count                           
+      // id, n, labels, dates, count
       graphic(lastSeven, 6, SevenDaysLabels, SevenDates, SevenDatesCount);
       graphic(lastThirty, 30, ThirtyDaysLabels, ThirtyDates, ThirtyDatesCount);
 
@@ -136,21 +138,21 @@
         let monthLabel = DateTime.fromISO(month).toLocaleString({ month: 'long'});
         monthsLabels.push(monthLabel);
       }
-      
+
       // lettura dei soli mesi degli ordini
       orders.forEach(order => {
         let orderDate = DateTime.fromISO(order);
         let orderMonth = orderDate.month;
         ordersMonth.push(orderMonth);
       });
-      
-      // ordini dell'ultimo anno 
+
+      // ordini dell'ultimo anno
       ordersMonth.forEach(order => {
         for (let i = 11; i >= 0; i--) {
           if (order == LastYearMonths[i]) lastYearDates[i].push(order);
         }
       })
-      
+
       // count degli ordini dell'ultimo anno
       for (const month in lastYearDates) {
         lastYearDatesCount.push(lastYearDates[month].length);
@@ -219,7 +221,7 @@
             },
             tension: .4,
           }
-        });             
+        });
       }
     </script>
   @endsection
