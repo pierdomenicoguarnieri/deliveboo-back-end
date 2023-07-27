@@ -4,20 +4,20 @@
 
   @section('content')
     <div class="container">
-      <div id="seven" class="graphic-hide">
+      <div id="seven">
         <canvas id="lastSeven"></canvas>
       </div>
       <div id="thirty">
-        <canvas id="lastThirty" ></canvas>
+        <canvas id="lastThirty"></canvas>
       </div>
       <div id="year">
-        <canvas id="lastYear" ></canvas>
+        <canvas id="lastYear"></canvas>
       </div>
       {{-- <button id="changeRange"></button> --}}
       <select id="changeRange">
         <option value="1">Sette giorni</option>
         <option value="2">Trenta giorni</option>
-        <option value="3">Un anno</option>
+        <option value="3">Ultimo anno</option>
       </select>
     </div>
 
@@ -101,21 +101,31 @@
                                     11: [],
                                   };
       const lastYearDateCount   = [];
+      const monthsLabels         = [];
       const ordersMonth         = [];
 
       const changeRange         = document.getElementById('changeRange');
-                                  // changeRange.innerHTML = '30 giorni';
-                                  // changeRange.addEventListener('click', function() {
-                                  //   if (thirty.classList.contains('graphic-hide')) {
-                                  //     seven.classList.add('graphic-hide');
-                                  //     thirty.classList.remove('graphic-hide');
-                                  //     changeRange.innerHTML = '7 giorni';
-                                  //   } else {
-                                  //     seven.classList.remove('graphic-hide');
-                                  //     thirty.classList.add('graphic-hide');
-                                  //     changeRange.innerHTML = '30 giorni';
-                                  //   }
-                                  // });
+                                  changeRange.addEventListener('change', function() {
+                                   if (changeRange.value == 1) {
+                                     seven.classList.remove('graphic-hide');
+                                     thirty.classList.add('graphic-hide');
+                                     year.classList.add('graphic-hide');
+                                     console.log(1);
+                                   } 
+                                   if (changeRange.value == 2) {
+                                     seven.classList.add('graphic-hide');
+                                     thirty.classList.remove('graphic-hide');
+                                     year.classList.add('graphic-hide');
+                                     console.log(2);
+                                   }
+                                   if (changeRange.value == 3) {
+                                     seven.classList.add('graphic-hide');
+                                     thirty.classList.add('graphic-hide');
+                                     year.classList.remove('graphic-hide');
+                                     console.log(3);
+                                   }
+                                   console.log(changeRange.value == 1);
+                                  })
 
 
 
@@ -210,6 +220,9 @@
       for (let i = 11; i >= 0; i--) {
         let month = dt.minus({months: i}).toISODate()
         lastYearMonth.push(DateTime.fromISO(month).month)
+        let monthLabel = DateTime.fromISO(month).toLocaleString({ month: 'long'});
+        monthsLabels.push(monthLabel);
+        console.log(monthsLabels);
       }
       
       // lettura dei soli mesi degli ordini
@@ -234,7 +247,7 @@
       new Chart(lastYear, {
         type: 'line',
         data: {
-          labels: lastYearMonth,
+          labels: monthsLabels,
           datasets: [{
             label: 'Numero di ordini dell\'ultimo anno',
             data: lastYearDateCount,
