@@ -2,8 +2,11 @@
 
 @section('content')
 <div class="form-wrapper h-100 p-2 overflow-y-auto overflow-x-hidden">
+  <div class="d-flex align-items-center justify-content-between">
+    <h1 class="mb-3">Modalità di pagamento</h1>
+    <a class="custom-btn-back text-decoration-none" href="{{ url('/') }}">Torna indietro</a>
+  </div>
 
-  <h1 class="mb-3">Payment Form</h1>
   @if (session()->has('success_message'))
       <div class="alert alert-success">
           {{ session()->get('success_message') }}
@@ -122,8 +125,10 @@
 
       <div class="row">
         <div class="col-md-6 mb-3">
-            <div class="form-group">
-                <label for="amount">Amount</label>
+          <label for="amount">Totale ordine</label>
+            <div class="input-group">
+
+                <span class="input-group-text">&euro;</span>
                 <input type="text" class="form-control" id="amount" name="amount" value="{{number_format($data->total_price, 2)}}" readonly>
             </div>
         </div>
@@ -131,7 +136,7 @@
 
       <div class="row">
           <div class="col-md-6 mb-3">
-              <label for="cc_number">Credit Card Number</label>
+              <label for="cc_number">Numero carta di credito</label>
 
               <div class="form-group" id="card-number">
 
@@ -139,7 +144,7 @@
           </div>
 
           <div class="col-md-3 mb-3">
-              <label for="expiry">Expiry</label>
+              <label for="expiry">Data di scadenza</label>
 
               <div class="form-group" id="expiration-date">
 
@@ -159,7 +164,7 @@
       <div id="paypal-button"></div>
 
       <input id="nonce" name="payment_method_nonce" type="hidden" />
-      <button type="submit" class="btn btn-success">Invia il pagamento</button>
+      <button type="submit" class="custom-btn-checkout mt-3">Acquista ora</button>
   </form>
 </div>
 <script src="https://js.braintreegateway.com/web/3.38.1/js/client.min.js"></script>
@@ -264,7 +269,7 @@ return paypalCheckoutInstance.createPayment({
   // http://braintree.github.io/braintree-web/current/PayPalCheckout.html#createPayment
   flow: 'checkout', // Required
   amount: 13.00, // Required
-  currency: 'USD', // Required
+  currency: 'EUR', // Required
 });
 },
 

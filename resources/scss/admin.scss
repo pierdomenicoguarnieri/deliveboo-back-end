@@ -49,3 +49,32 @@ main{
 .ck-editor__editable_inline {
   min-height: 300px;
 }
+
+.custom-btn-checkout{
+  border: 1px solid #198754;
+  background-color: #198754;
+  color: $custom_white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-align: center;
+  &:hover{
+    border: 1px solid #198754;
+    background-color:  $custom_white;
+    color: #198754;
+  }
+}
+
+.custom-btn-back{
+  border: 1px solid $tertiary_color;
+  background-color: $tertiary_color;
+  color: $custom_white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 12px;
+  &:hover{
+    border: 1px solid $tertiary_color;
+    background-color:  $custom_white;
+    color: $tertiary_color;
+  }
+}
