@@ -1,171 +1,199 @@
 @extends('layouts.guest')
 
 @section('content')
-<div class="form-wrapper h-100 p-2 overflow-y-auto overflow-x-hidden">
-  <div class="d-flex align-items-center justify-content-between">
-    <h1 class="mb-3">Modalità di pagamento</h1>
-    <a class="custom-btn-back text-decoration-none" href="{{ url('/') }}">Torna indietro</a>
+<div class="container boo-wrapper d-flex flex-wrap flex-row">
+  <div class="cart-container w-100 mb-5">
+    <div class="content-wrapper rounded-5 bg-transparent border border-2 py-5 px-3">
+      <h2 class="mb-4">Resoconto dell'ordine.</h2>
+
+      <p class="fw-bold fs-5">Ristorante: <span class="fw-normal">{{$data->restaurant_name}}</span></p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col" class="bg-transparent w-25">Nome piatto</th>
+            <th scope="col" class="bg-transparent text-center">Quantità</th>
+            <th scope="col" class="bg-transparent text-center">Totale</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($data->dishes as $dish)
+            <tr>
+              <th scope="row" class="bg-transparent">{{$dish->dish->name}}</th>
+              <td class="bg-transparent text-center">{{$dish->counterQuantity}}</td>
+              <td class="bg-transparent text-center">&euro; {{number_format(($dish->dish->price) * $dish->counterQuantity, 2) }}</td>
+            </tr>
+          @endforeach
+          <tr>
+            <th scope="row" class="bg-transparent"></th>
+            <td class="bg-transparent"></td>
+            <td class="bg-transparent text-center">&euro; {{number_format($data->total_price, 2) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
-  @if (session()->has('success_message'))
-      <div class="alert alert-success">
-          {{ session()->get('success_message') }}
-      </div>
-  @endif
-
-  @if(count($errors) > 0)
-      <div class="alert alert-danger">
-          <ul>
-              @foreach ($errors->all() as $error)
-              <li>{{ $error }}</li>
-              @endforeach
-          </ul>
-      </div>
-  @endif
-  <form action="{{route('checkout')}}" method="POST" id="payment-form">
-      @csrf
-
-      <div class="mb-3">
-        <label for="user_name" class="form-label">Nome</label>
-        <input
-          onkeyup="valideInput(this)"
-          type="text"
-          class="form-control @error('name') form-invalid @enderror"
-          name="user_name"
-          placeholder="Mario"
-          id="user_name"
-          value="{{ old('user_name') }}"
-          required>
-
-        @error('user_name')
-          <span class="text-danger">{{ $message }}</span>
-        @enderror
-
-        <div id="errorName"></div>
-      </div>
-
-      <div class="mb-3">
-        <label for="user_lastname" class="form-label">Cognome</label>
-        <input
-          onkeyup="valideInput(this)"
-          type="text"
-          class="form-control @error('user_lastname') form-invalid @enderror"
-          name="user_lastname"
-          placeholder="Rossi"
-          id="user_lastname"
-          value="{{ old('user_lastname') }}"
-          required>
-
-        @error('user_lastname')
-          <span class="text-danger">{{ $message }}</span>
-        @enderror
-
-        <div id="errorLastName"></div>
-      </div>
-
-      <div class="mb-3">
-        <label for="user_email" class="form-label">Email</label>
-        <input
-          onkeyup="valideInput(this)"
-          type="email"
-          class="form-control @error('user_email') form-invalid @enderror"
-          placeholder="Email"
-          name="user_email"
-          id="user_email"
-          value="{{ old('user_email') }}"
-          required>
-
-        @error('user_email')
-          <span class="text-danger">{{ $message }}</span>
-        @enderror
-
-        <div id="errorEmail"></div>
-      </div>
-
-      <div class="mb-3">
-        <label for="user_telephone_number" class="form-label">Numero di telefono</label>
-        <input
-          onkeyup="valideInput(this)"
-          type="number"
-          min="0"
-          id="user_telephone_number"
-          placeholder="1234567890"
-          pattern="[0-9]{10}"
-          class="form-control @error('user_telephone_number') form-invalid @enderror"
-          name="user_telephone_number"
-          id="user_telephone_number"
-          value="{{ old('user_telephone_number') }}"
-          required>
-
-        @error('user_telephone_number')
-          <span class="text-danger">{{ $message }}</span>
-        @enderror
-
-        <div id="errorNumber"></div>
-      </div>
-
-      <div class="mb-3">
-        <label for="user_address" class="form-label">Indirizzo</label>
-        <input
-          onkeyup="valideInput(this)"
-          type="text"
-          class="form-control @error('user_address') form-invalid @enderror"
-          placeholder="Idirizzo"
-          name="user_address"
-          id="user_address"
-          value="{{ old('user_address') }}"
-          required>
-
-        @error('user_address')
-          <span class="text-danger">{{ $message }}</span>
-        @enderror
-
-        <div id="errorAddress"></div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label for="amount">Totale ordine</label>
-            <div class="input-group">
-
-                <span class="input-group-text">&euro;</span>
-                <input type="text" class="form-control" id="amount" name="amount" value="{{number_format($data->total_price, 2)}}" readonly>
-            </div>
-        </div>
+  <div class="form-wrapper h-100 w-100 px-2 mb-0">
+    <div class="d-flex align-items-center justify-content-between">
+      <h1 class="mb-3">Modalità di pagamento</h1>
+      <a class="custom-btn-back text-decoration-none" href="{{ url('/') }}">Torna indietro</a>
     </div>
 
-      <div class="row">
+    @if (session()->has('success_message'))
+        <div class="alert alert-success">
+            {{ session()->get('success_message') }}
+        </div>
+    @endif
+
+    @if(count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <form action="{{route('checkout')}}" method="POST" id="payment-form">
+        @csrf
+
+        <div class="mb-3">
+          <label for="user_name" class="form-label fw-bold">Nome</label>
+          <input
+            onkeyup="valideInput(this)"
+            type="text"
+            class="form-control boo-form @error('name') form-invalid @enderror"
+            name="user_name"
+            id="user_name"
+            value="{{ old('user_name') }}"
+            required>
+
+          @error('user_name')
+            <span class="text-danger">{{ $message }}</span>
+          @enderror
+
+          <div id="errorName"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="user_lastname" class="form-label fw-bold">Cognome</label>
+          <input
+            onkeyup="valideInput(this)"
+            type="text"
+            class="form-control boo-form @error('user_lastname') form-invalid @enderror"
+            name="user_lastname"
+            id="user_lastname"
+            value="{{ old('user_lastname') }}"
+            required>
+
+          @error('user_lastname')
+            <span class="text-danger">{{ $message }}</span>
+          @enderror
+
+          <div id="errorLastName"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="user_email" class="form-label fw-bold">Email</label>
+          <input
+            onkeyup="valideInput(this)"
+            type="email"
+            class="form-control boo-form @error('user_email') form-invalid @enderror"
+            name="user_email"
+            id="user_email"
+            value="{{ old('user_email') }}"
+            required>
+
+          @error('user_email')
+            <span class="text-danger">{{ $message }}</span>
+          @enderror
+
+          <div id="errorEmail"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="user_telephone_number" class="form-label fw-bold">Numero di telefono</label>
+          <input
+            onkeyup="valideInput(this)"
+            type="number"
+            min="0"
+            id="user_telephone_number"
+            pattern="[0-9]{10}"
+            class="form-control boo-form @error('user_telephone_number') form-invalid @enderror"
+            name="user_telephone_number"
+            id="user_telephone_number"
+            value="{{ old('user_telephone_number') }}"
+            required>
+
+          @error('user_telephone_number')
+            <span class="text-danger">{{ $message }}</span>
+          @enderror
+
+          <div id="errorNumber"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="user_address" class="form-label fw-bold">Indirizzo</label>
+          <input
+            onkeyup="valideInput(this)"
+            type="text"
+            class="form-control boo-form @error('user_address') form-invalid @enderror"
+            name="user_address"
+            id="user_address"
+            value="{{ old('user_address') }}"
+            required>
+
+          @error('user_address')
+            <span class="text-danger">{{ $message }}</span>
+          @enderror
+
+          <div id="errorAddress"></div>
+        </div>
+
+        <div class="row">
           <div class="col-md-6 mb-3">
-              <label for="cc_number">Numero carta di credito</label>
+            <label for="amount fw-bold">Totale ordine</label>
+              <div class="input-group">
 
-              <div class="form-group" id="card-number">
-
+                  <span class="input-group-text">&euro; {{number_format($data->total_price, 2)}}</span>
+                  <input type="text" class="form-control" id="amount" name="amount" value="{{number_format($data->total_price, 2)}}" hidden>
               </div>
           </div>
-
-          <div class="col-md-3 mb-3">
-              <label for="expiry">Data di scadenza</label>
-
-              <div class="form-group" id="expiration-date">
-
-              </div>
-          </div>
-
-          <div class="col-md-3 mb-3">
-              <label for="cvv">CVV</label>
-
-              <div class="form-group" id="cvv">
-
-              </div>
-          </div>
-
       </div>
 
-      <div id="paypal-button"></div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="cc_number fw-bold">Numero carta di credito</label>
 
-      <input id="nonce" name="payment_method_nonce" type="hidden" />
-      <button type="submit" class="custom-btn-checkout mt-3">Acquista ora</button>
-  </form>
+                <div class="form-group" id="card-number">
+
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <label for="expiry fw-bold">Data di scadenza</label>
+
+                <div class="form-group" id="expiration-date">
+
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <label for="cvv fw-bold">CVV</label>
+
+                <div class="form-group" id="cvv">
+
+                </div>
+            </div>
+
+        </div>
+
+        <div id="paypal-button"></div>
+
+        <input id="nonce" name="payment_method_nonce" type="hidden" />
+        <button type="submit" class="custom-btn-checkout mt-3">Acquista ora</button>
+    </form>
+  </div>
 </div>
 <script src="https://js.braintreegateway.com/web/3.38.1/js/client.min.js"></script>
 <script src="https://js.braintreegateway.com/web/3.38.1/js/hosted-fields.min.js"></script>
@@ -216,7 +244,7 @@ cvv: {
 },
 expirationDate: {
   selector: '#expiration-date',
-  placeholder: '10/2019'
+  placeholder: '10/2023'
 }
 }
 }, function (hostedFieldsErr, hostedFieldsInstance) {
