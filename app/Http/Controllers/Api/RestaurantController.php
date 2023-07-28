@@ -32,23 +32,4 @@ class RestaurantController extends Controller
     return response()->json($restaurant);
   }
 
-  //Add for Cart
-
-  public function cartDishes($id)
-  {
-      $idArray = [];
-      foreach (explode(',', $id) as $dish_id) {
-          $idArray[] = $dish_id;
-      }
-
-      $dishes = [];
-
-      foreach ($idArray as $id) {
-          $plates[] = Dish::where('id', $id)->first();
-      }
-      $restaurant = Restaurant::where('id', $dishes[0]->restaurant_id)->first();
-
-      return response()->json(compact('dishes', 'restaurant'));
-  }
-
 }

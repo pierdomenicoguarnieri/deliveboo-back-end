@@ -17,26 +17,32 @@ class DashboardController extends Controller
     $orders      = [];
     $orders_ids  = [];
     $order_pivot = [];
+    $sum = 0;
     $restaurant  = (new Restaurant())->restaurantUser();
-    $dishes      = $restaurant->dishes()->get();
-    foreach($dishes as $dish){
-      $order_pivot    = DishOrder::where('dish_id', $dish->id)->get();
-      foreach ($order_pivot as $order) {
-        if(!in_array($order->order_id, $orders_ids)){
-          $orders_ids[] = $order->order_id;
+    if($restaurant != null){
+      $dishes      = $restaurant->dishes()->get();
+      foreach($dishes as $dish){
+        $order_pivot    = DishOrder::where('dish_id', $dish->id)->get();
+        foreach ($order_pivot as $order) {
+          if(!in_array($order->order_id, $orders_ids)){
+            $orders_ids[] = $order->order_id;
+          }
         }
       }
-    }
+      asort($orders_ids);
 
-    asort($orders_ids);
+      foreach($orders_ids as $orderItem){
 
-    foreach($orders_ids as $orderItem){
-      $order = Order::where('id', $orderItem)->pluck('created_at')->first();
-      if($order != null && !in_array($order, $orders)){
-        $orders[] = $order->toDateString();
+        $order = Order::where('id', $orderItem)->pluck('created_at')->first();
+        $sum += Order::where('id', $orderItem)->pluck('tot_order')->first();
+        if($order != null && !in_array($order, $orders)){
+          $orders[] = $order->toDateString();
+        }
       }
+      return view('admin.dashboard', compact('restaurant', 'dishes', 'orders', 'sum'));
+    }else{
+      return view('admin.dashboard', compact('restaurant'));
     }
-    
-    return view('admin.dashboard', compact('restaurant', 'orders'));
+
   }
 }

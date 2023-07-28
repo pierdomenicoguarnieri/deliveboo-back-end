@@ -3,23 +3,30 @@
 @if (Auth::user()->restaurant_id != null && $restaurant != null)
 
   @section('content')
-    <div class="container">
-      <div id="seven">
-        <canvas id="lastSeven"></canvas>
+    <div class="container h-100 py-2">
+      <div class="d-flex justify-content-around">
+        <p><strong>Tot. ordini ricevuti: </strong>{{count($orders)}}</p>
+        <p><strong>Tot. piatti inseriti: </strong>{{count($dishes)}}</p>
+        <p><strong>Tot. incasso: </strong>&euro; {{number_format($sum,2,',')}}</p>
       </div>
-      <div id="thirty">
-        <canvas id="lastThirty"></canvas>
-      </div>
-      <div id="year">
-        <canvas id="lastYear"></canvas>
-      </div>
-      {{-- <button id="changeRange"></button> --}}
-      <div class="select-container mt-3 w-25">
-        <select id="changeRange" class="form-select" class="my-3">
-          <option value="1">Sette giorni</option>
-          <option value="2">Trenta giorni</option>
-          <option value="3">Ultimo anno</option>
-        </select>
+      <div class="statistics">
+        <div id="seven" class="h-100">
+          <canvas id="lastSeven"></canvas>
+        </div>
+        <div id="thirty" class="h-100">
+          <canvas id="lastThirty"></canvas>
+        </div>
+        <div id="year" class="h-100">
+          <canvas id="lastYear"></canvas>
+        </div>
+        {{-- <button id="changeRange"></button> --}}
+        <div class="select-container mt-3 w-25">
+          <select id="changeRange" class="form-select" class="my-3">
+            <option value="1">Sette giorni</option>
+            <option value="2">Trenta giorni</option>
+            <option value="3">Ultimo anno</option>
+          </select>
+        </div>
       </div>
     </div>
 
@@ -108,21 +115,21 @@
 
       const changeRange         = document.getElementById('changeRange');
                                   changeRange.addEventListener('change', function() {
-                                   if (changeRange.value == 1) {
-                                     seven.classList.remove('graphic-hide');
-                                     thirty.classList.add('graphic-hide');
-                                     year.classList.add('graphic-hide');
-                                   }
-                                   if (changeRange.value == 2) {
-                                     seven.classList.add('graphic-hide');
-                                     thirty.classList.remove('graphic-hide');
-                                     year.classList.add('graphic-hide');
-                                   }
-                                   if (changeRange.value == 3) {
-                                     seven.classList.add('graphic-hide');
-                                     thirty.classList.add('graphic-hide');
-                                     year.classList.remove('graphic-hide');
-                                   }
+                                    if (changeRange.value == 1) {
+                                      seven.classList.remove('graphic-hide');
+                                      thirty.classList.add('graphic-hide');
+                                      year.classList.add('graphic-hide');
+                                    }
+                                    if (changeRange.value == 2) {
+                                      seven.classList.add('graphic-hide');
+                                      thirty.classList.remove('graphic-hide');
+                                      year.classList.add('graphic-hide');
+                                    }
+                                    if (changeRange.value == 3) {
+                                      seven.classList.add('graphic-hide');
+                                      thirty.classList.add('graphic-hide');
+                                      year.classList.remove('graphic-hide');
+                                    }
                                   })
 
       // id, n, labels, dates, count
@@ -225,38 +232,6 @@
       }
     </script>
   @endsection
-
-  @elseif(Auth::user()->restaurant_id != null && $restaurant === null)
-    @section('content')
-    <div class="container">
-
-      <h2 class="fs-4 text-secondary my-4">
-          Attenzione!
-      </h2>
-      <div class="row justify-content-center">
-          <div class="col">
-              <div class="card boo-wrapper border-0">
-                  <div class="card-body">
-                      @if (session('status'))
-                      <div class="alert alert-success" role="alert">
-                          {{ session('status') }}
-                      </div>
-                      @endif
-                      <div>
-                        <span class="d-block mb-3">Attenzione <strong>{{Auth::user()->name}}</strong>, il tuo ristorante è disattivato, per usare la tua dashboard riattivalo!</span>
-                        <form action="{{ route('admin.restore.restaurant', Auth::user()->restaurant_id) }}" method="POST" enctype="multipart/form-data">
-                          @csrf
-                          <button class="btn btn-success" type="submit">
-                            Riattiva il tuo ristorante!
-                          </button>
-                        </form>
-                      </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-      </div>
-    @endsection
 
   @else
     @section('content')
