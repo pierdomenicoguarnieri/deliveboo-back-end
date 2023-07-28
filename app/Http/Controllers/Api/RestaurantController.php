@@ -21,7 +21,7 @@ class RestaurantController extends Controller
   }
 
   public function getRestaurant($slug){
-    $restaurant = Restaurant::where('slug', $slug)->with('dishes')->first();
+    $restaurant = Restaurant::where('slug', $slug)->with('dishes')->with('types')->first();
 
     $restaurant->image_path = asset('storage/' . $restaurant->image_path);
 
