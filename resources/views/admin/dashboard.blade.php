@@ -3,12 +3,29 @@
 @if (Auth::user()->restaurant_id != null && $restaurant != null)
 
   @section('content')
-    <div class="container h-100 py-2">
-      <div class="d-flex justify-content-around">
-        <p><strong>Tot. ordini ricevuti: </strong>{{count($orders)}}</p>
-        <p><strong>Tot. piatti inseriti: </strong>{{count($dishes)}}</p>
-        <p><strong>Tot. incasso: </strong>&euro; {{number_format($sum,2,',')}}</p>
-      </div>
+    <div class="container h-100 pb-3">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-6 d-flex justify-content-center">
+                <div class="orders">
+                    <p class="counter-count-animate">{{count($orders)}}</p>
+                    <p class="orders-p">Tot. Ordini ricevuti</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-6 d-flex justify-content-center">
+                <div class="dishes">
+                    <p class="counter-count-animate">{{count($dishes)}}</p>
+                    <p class="dishes-p">Tot. Piatti inseriti</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-12 d-flex justify-content-center">
+                <div class="totorder">
+                    <p class="counter-count">{{$sum_formatted}}</p>
+                    <p class="totorder-p">Tot. incasso <span>(&euro;)</span></p>
+                </div>
+            </div>
+        </div>
       <div class="statistics">
         <div id="seven" class="h-100">
           <canvas id="lastSeven"></canvas>
@@ -30,6 +47,8 @@
       </div>
     </div>
 
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/luxon/3.3.0/luxon.min.js'></script>
 
@@ -230,6 +249,17 @@
           }
         });
       }
+      $('.counter-count-animate').each(function () {
+          $(this).prop('Counter',0).animate({
+              Counter: $(this).text()
+          }, {
+              duration: 1000,
+              easing: 'swing',
+              step: function (now) {
+                  $(this).text(Math.ceil(now));
+              }
+          });
+      });
     </script>
   @endsection
 

@@ -6,11 +6,105 @@
   padding: 1.5rem 3rem;
   box-shadow:  0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
-.statistics{
-  height: 80%;
+.counter
+{
+    background-color: #eaecf0;
+    text-align: center;
 }
-@media screen and (max-width: 500px) {
-  .boo-wrapper{
-    padding: 1.5rem 0.4rem;
+.orders,.dishes,.totorder
+{
+    margin-bottom: 10px;
+    text-align: center;
+}
+.counter-count, .counter-count-animate
+{
+    font-size: 14px;
+    background-color: $tertiary_color;
+    border-radius: 50%;
+    position: relative;
+    color: #ffffff;
+    text-align: center;
+    line-height: 60px;
+    width: 60px;
+    height: 60px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    display: inline-block;
+}
+.counter-count{
+  font-size: 14px;
+}
+.orders-p,.dishes-p,.totorder-p
+{
+    font-size: 20px;
+    color: $custom_gray;
+    & span{
+      font-size: 14px;
+    }
+}
+.statistics{
+  height: 70%;
+}
+
+@media screen and (max-width: 1110px) {
+  .statistics{
+    height: 60%;
+  }
+}
+@media screen and (max-width: 1010px) {
+  .statistics{
+    height: 50%;
+  }
+}
+@media screen and (max-width: 874px) {
+  .statistics{
+    height: 40%;
+  }
+  .select-container{
+    width: 50% !important;
+  }
+}
+@media screen and (max-width: 767px) {
+  .statistics{
+    height: 50%;
+  }
+}
+@media screen and (max-width: 608px) {
+  .container{
+    overflow: scroll;
+  }
+  .counter-count, .counter-count-animate{
+    line-height: 40px;
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+  .orders-p,.dishes-p,.totorder-p
+{
+    font-size: 14px;
+}
+  .statistics{
+    height: 40%;
+  }
+}
+@media screen and (max-width: 519px) {
+  .row{
+    flex-direction: column;
+    .col-6{
+      width: 100%;
+    }
+  }
+  .statistics{
+    height: 30%;
+  }
+}
+@media screen and (max-width: 410px) {
+  .main-content-wrapper{
+    padding-left: 0 !important;
+  }
+  .statistics{
+    height: 25%;
   }
 }
