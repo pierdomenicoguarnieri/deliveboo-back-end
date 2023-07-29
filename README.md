@@ -18,6 +18,18 @@ Permette agli utenti di cercare i loro cibi preferiti, preparati dai loro ristor
 5. Avviare il progetto
 - npm run dev
 - php artisan serve
+6. Popolare il database
+- php artisan migrate
+- php artisan db:seed
+7. Installare braintree per gestione pagamento
+- composer require braintree/braintree_php
+8. Aggiungere nel file .env
+```
+BT_ENVIROMENT="sandbox"
+BT_MERCHANT_ID="n8xdsnzw7b8y6hx6"
+BT_PUBLIC_KEY="jr4vtgmzpb4wyqqs"
+BT_PRIVATE_KEY="82fabbba6dee3b83dd12f024d71cc04e"
+```
 
 ## Struttra del progetto
 - Dashboard per gli utenti registrati (ristoratori) accessibile tramite authentication login/register;
