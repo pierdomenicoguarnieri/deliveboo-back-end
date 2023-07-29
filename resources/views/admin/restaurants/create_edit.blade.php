@@ -142,14 +142,14 @@
       </div>
     </div>
 
-    <div class="accordion w-75" id="accordionExample">
+    <div class="accordion w-75" id="accordionType">
       <div class="accordion-item">
         <h2 class="accordion-header">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOnetype" aria-expanded="true" aria-controls="collapseOnetype">
             Tipi di ristorante
           </button>
         </h2>
-        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+        <div id="collapseOnetype" class="accordion-collapse collapse show" data-bs-parent="#accordionType">
           <div class="accordion-body">
             <div class="form-check d-flex flex-column">
               @foreach ($types as $type)

@@ -94,8 +94,6 @@ class PageController extends Controller
             $errorString .= 'Error: ' . $error->code . ": " . $error->message . "\n";
         }
         return back()->withErrors('An error occurred with the message: '.$result->message);
-        // $_SESSION["errors"] = $errorString;
-        // header("Location: index.php");
     }
   }
 
