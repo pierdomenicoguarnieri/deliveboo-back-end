@@ -58,8 +58,8 @@ class PageController extends Controller
 
     if ($result->success) {
       $errors = PageController::convalidaForm($request);
+      $transaction = $result->transaction;
       if(count($errors) == 0){
-        // header("Location: transaction.php?id=" . $transaction->id);
         $json = file_get_contents('data.json');
         $data = json_decode($json);
         $new_order = new Order();
@@ -78,9 +78,13 @@ class PageController extends Controller
           'token' => $data->token
         ];
 
+        $transaction_arr = [
+          'transaction_id' => $transaction->id
+        ];
+
         if(file_exists('data.json')){
-          unlink('data.json');
           file_put_contents("token.json", json_encode($data_arr, JSON_PRETTY_PRINT));
+          file_put_contents("transaction_id.json", json_encode($transaction_arr, JSON_PRETTY_PRINT));
         }
 
         return redirect('http://localhost:5174/payment-success');

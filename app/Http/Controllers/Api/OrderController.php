@@ -35,13 +35,20 @@ class OrderController extends Controller
     $data = $request->all();
 
     if(file_exists('token.json')){
-      $json = file_get_contents('token.json');
+      $json_token = file_get_contents('token.json');
+      $json_data = file_get_contents('data.json');
+      $json_transaction = file_get_contents('transaction_id.json');
 
-      $data_json = json_decode($json);
+      $token_json = json_decode($json_token);
+      $data_json = json_decode($json_data);
+      $transaction_json = json_decode($json_transaction);
 
-      if($data['token'] == $data_json->token){
+
+      if($data['token'] == $token_json->token){
         unlink('token.json');
-        return response()->json(['success' => true]);
+        unlink('data.json');
+        unlink('transaction_id.json');
+        return response()->json(['success' => true, 'data' => $data_json, 'transaction_id' => $transaction_json->transaction_id]);
       }else{
         return response()->json(['success' => false]);
       }
