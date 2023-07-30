@@ -191,7 +191,7 @@
         <div id="paypal-button"></div>
 
         <input id="nonce" name="payment_method_nonce" type="hidden" />
-        <button type="submit" class="custom-btn-checkout mt-3">Acquista ora</button>
+        <button type="submit" class="custom-btn-checkout my-3">Acquista ora</button>
     </form>
   </div>
 </div>

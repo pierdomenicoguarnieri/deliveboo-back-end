@@ -18,6 +18,7 @@ class DashboardController extends Controller
     $orders_ids  = [];
     $order_pivot = [];
     $sum = 0;
+    $sum_formatted = 0;
     $restaurant  = (new Restaurant())->restaurantUser();
     if($restaurant != null){
       $dishes      = $restaurant->dishes()->get();
@@ -35,11 +36,12 @@ class DashboardController extends Controller
 
         $order = Order::where('id', $orderItem)->pluck('created_at')->first();
         $sum += Order::where('id', $orderItem)->pluck('tot_order')->first();
+        $sum_formatted = number_format($sum,2,',');
         if($order != null && !in_array($order, $orders)){
           $orders[] = $order->toDateString();
         }
       }
-      return view('admin.dashboard', compact('restaurant', 'dishes', 'orders', 'sum'));
+      return view('admin.dashboard', compact('restaurant', 'dishes', 'orders', 'sum_formatted'));
     }else{
       return view('admin.dashboard', compact('restaurant'));
     }

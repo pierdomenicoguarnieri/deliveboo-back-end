@@ -21,13 +21,17 @@
       <div class="accordion mb-lg-4 mb-md-3 mb-2" id="accordionExample">
         <div class="accordion-item">
           <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <button class="accordion-button {{Route::currentRouteName() === 'admin.dishes.index' || str_contains(Route::currentRouteName(), 'admin.dishes.edit') || str_contains(Route::currentRouteName(), 'admin.dishes.show') || Route::currentRouteName() === 'admin.dishes.create' || Route::currentRouteName() === 'admin.deleted.dishes' ? '' : 'collapsed'}}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
               <div class="text">
                 <i class="fa-solid fa-bowl-food me-1"></i> <span class="d-none d-md-inline">Piatti</span>
               </div>
             </button>
           </h2>
-          <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+          <div
+          id="collapseOne"
+          class="accordion-collapse collapse {{Route::currentRouteName() === 'admin.dishes.index' || str_contains(Route::currentRouteName(), 'admin.dishes.edit') || str_contains(Route::currentRouteName(), 'admin.dishes.show') || Route::currentRouteName() === 'admin.dishes.create' || Route::currentRouteName() === 'admin.deleted.dishes' ? 'show' : ''}}"
+          data-bs-parent="#accordionExample">
+
             <div class="accordion-body w-100 px-0 px-sm px-md-4">
               <li class="nav-item mb-lg-4 mb-md-3 mb-2 {{Route::currentRouteName() === 'admin.dishes.index' || str_contains(Route::currentRouteName(), 'admin.dishes.edit') || str_contains(Route::currentRouteName(), 'admin.dishes.show')  ? 'active' : ''}}">
                 <a class="nav-link" href=" {{ route('admin.dishes.index') }}"><i class="fa-solid fa-list"></i> <span class="d-none d-md-inline">Lista Piatti</span></a>
