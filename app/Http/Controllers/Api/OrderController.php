@@ -9,22 +9,26 @@ class OrderController extends Controller
 {
   public function cartRequest(Request $request){
     $data = $request->all();
-    $data_arr = [
-      'token' => $data['token'],
-      'restaurant_name' => $data['restaurantcart'],
-      'total_price' => floatval($data['totalPrice']),
-      'total_quantity' => intval($data['totalQuantity']),
-      'dishes' => json_decode($data['arraydishes']),
-    ];
+    if($data != []){
+      $data_arr = [
+        'token' => $data['token'],
+        'restaurant_name' => $data['restaurantcart'],
+        'total_price' => floatval($data['totalPrice']),
+        'total_quantity' => intval($data['totalQuantity']),
+        'dishes' => json_decode($data['arraydishes']),
+      ];
 
-    if (!file_exists('data.json'))
-    {
-      file_put_contents("data.json", json_encode($data_arr, JSON_PRETTY_PRINT));
-    } else {
-      unlink('data.json');
-      file_put_contents("data.json", json_encode($data_arr, JSON_PRETTY_PRINT));
+      if (!file_exists('data.json'))
+      {
+        file_put_contents("data.json", json_encode($data_arr, JSON_PRETTY_PRINT));
+      } else {
+        unlink('data.json');
+        file_put_contents("data.json", json_encode($data_arr, JSON_PRETTY_PRINT));
+      }
+      return response()->json(['success' => true]);
     }
-    return response()->json(['success' => true]);
+
+    return response()->json(['success' => false]);
   }
 
   public function checkPayment(Request $request){
