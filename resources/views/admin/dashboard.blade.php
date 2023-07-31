@@ -3,7 +3,7 @@
 @if (Auth::user()->restaurant_id != null && $restaurant != null)
 
   @section('content')
-    <div class="container h-100 pb-3">
+    <div class="h-100 w-100 pb-3">
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-6 d-flex justify-content-center">
                 <div class="orders">
