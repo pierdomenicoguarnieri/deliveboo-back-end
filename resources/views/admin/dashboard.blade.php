@@ -66,67 +66,22 @@
                                   year.classList.add('graphic-hide');
       const lastYear            = document.getElementById('lastYear');
 
-      const SevenDaysLabels     = [];
-      const SevenDates          = {
-                                    0: [],
-                                    1: [],
-                                    2: [],
-                                    3: [],
-                                    4: [],
-                                    5: [],
-                                    6: [],
+      const sevenDates          = {};
+                                  for (let i = 0; i < 7; i++) {
+                                    sevenDates[i] = [];
                                   };
-      const SevenDatesCount     = [];
-      const ThirtyDaysLabels    = [];
-      const ThirtyDates         = {
-                                    0: [],
-                                    1: [],
-                                    2: [],
-                                    3: [],
-                                    4: [],
-                                    5: [],
-                                    6: [],
-                                    6: [],
-                                    7: [],
-                                    8: [],
-                                    9: [],
-                                    10: [],
-                                    11: [],
-                                    12: [],
-                                    13: [],
-                                    14: [],
-                                    15: [],
-                                    16: [],
-                                    17: [],
-                                    18: [],
-                                    19: [],
-                                    20: [],
-                                    21: [],
-                                    22: [],
-                                    23: [],
-                                    24: [],
-                                    25: [],
-                                    26: [],
-                                    27: [],
-                                    28: [],
-                                    29: [],
+      const sevenDaysLabels     = [];
+      const sevenDatesCount     = [];
+      const thirtyDaysLabels    = [];
+      const thirtyDates         = {}
+                                  for (let i = 0; i < 30; i++) {
+                                    thirtyDates[i] = [];
                                   };
-      const ThirtyDatesCount    = [];
-      const LastYearMonths      = [];
-      const lastYearDates       = {
-                                    0: [],
-                                    1: [],
-                                    2: [],
-                                    3: [],
-                                    4: [],
-                                    5: [],
-                                    6: [],
-                                    6: [],
-                                    7: [],
-                                    8: [],
-                                    9: [],
-                                    10: [],
-                                    11: [],
+      const thirtyDatesCount    = [];
+      const lastYearMonths      = [];
+      const lastYearDates       = {};
+                                  for (let i = 0; i < 13; i++) {
+                                    lastYearDates[i] = [];
                                   };
       const lastYearDatesCount  = [];
       const monthsLabels        = [];
@@ -152,15 +107,15 @@
                                   })
 
       // id, n, labels, dates, count
-      graphic(lastSeven, 6, SevenDaysLabels, SevenDates, SevenDatesCount);
-      graphic(lastThirty, 30, ThirtyDaysLabels, ThirtyDates, ThirtyDatesCount);
+      graphic(lastSeven, 6, sevenDaysLabels, sevenDates, sevenDatesCount);
+      graphic(lastThirty, 30, thirtyDaysLabels, thirtyDates, thirtyDatesCount);
 
       // graphic lastYear
 
       // array ultimo anno per le labels
       for (let i = 11; i >= 0; i--) {
         let month = dt.minus({months: i}).toISODate()
-        LastYearMonths.push(DateTime.fromISO(month).month)
+        lastYearMonths.push(DateTime.fromISO(month).month)
         let monthLabel = DateTime.fromISO(month).toLocaleString({ month: 'long'});
         monthsLabels.push(monthLabel);
       }
@@ -175,7 +130,7 @@
       // ordini dell'ultimo anno
       ordersMonth.forEach(order => {
         for (let i = 11; i >= 0; i--) {
-          if (order == LastYearMonths[i]) lastYearDates[i].push(order);
+          if (order == lastYearMonths[i]) lastYearDates[i].push(order);
         }
       })
 
