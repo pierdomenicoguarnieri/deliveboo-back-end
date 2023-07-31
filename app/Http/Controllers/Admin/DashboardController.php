@@ -36,7 +36,7 @@ class DashboardController extends Controller
 
         $order = Order::where('id', $orderItem)->pluck('created_at')->first();
         $sum += Order::where('id', $orderItem)->pluck('tot_order')->first();
-        $sum_formatted = number_format($sum,2,',');
+        $sum_formatted = number_format($sum,2,',', '.');
         if($order != null && !in_array($order, $orders)){
           $orders[] = $order->toDateString();
         }

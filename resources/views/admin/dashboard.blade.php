@@ -78,6 +78,7 @@
                                     thirtyDates[i] = [];
                                   };
       const thirtyDatesCount    = [];
+                                  
       const lastYearMonths      = [];
       const lastYearDates       = {};
                                   for (let i = 0; i < 13; i++) {
@@ -108,7 +109,7 @@
 
       // id, n, labels, dates, count
       graphic(lastSeven, 6, sevenDaysLabels, sevenDates, sevenDatesCount);
-      graphic(lastThirty, 30, thirtyDaysLabels, thirtyDates, thirtyDatesCount);
+      graphic(lastThirty, 29, thirtyDaysLabels, thirtyDates, thirtyDatesCount);
 
       // graphic lastYear
 
@@ -208,7 +209,7 @@
           $(this).prop('Counter',0).animate({
               Counter: $(this).text()
           }, {
-              duration: 1000,
+              duration: 1500,
               easing: 'swing',
               step: function (now) {
                   $(this).text(Math.ceil(now));

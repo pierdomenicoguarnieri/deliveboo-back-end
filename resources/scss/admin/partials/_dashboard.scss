@@ -24,9 +24,9 @@
     position: relative;
     color: #ffffff;
     text-align: center;
-    line-height: 60px;
-    width: 60px;
-    height: 60px;
+    line-height: 65px;
+    width: 65px;
+    height: 65px;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
@@ -34,7 +34,7 @@
     display: inline-block;
 }
 .counter-count{
-  font-size: 14px;
+  font-size: 12px;
 }
 .orders-p,.dishes-p,.totorder-p
 {
@@ -87,9 +87,9 @@
     overflow: scroll;
   }
   .counter-count, .counter-count-animate{
-    line-height: 40px;
-    width: 40px;
-    height: 40px;
+    line-height: 65px;
+    width: 65px;
+    height: 65px;
     font-size: 12px;
   }
   .orders-p,.dishes-p,.totorder-p
