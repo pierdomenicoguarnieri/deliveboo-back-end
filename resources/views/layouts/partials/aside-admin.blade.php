@@ -73,11 +73,11 @@
   @guest
   <ul class="list-unstyled">
     <li class="nav-item mb-lg-4 mb-md-3 mb-2 {{str_contains(Route::currentRouteName(), 'login')  ? 'active' : ''}}">
-      <a class="nav-link" href="{{ route('login') }}"><i class="fa-solid fa-right-to-bracket"></i> <span class="d-none d-md-inline">Login</span></a>
+      <a class="nav-link" href="{{ route('login') }}"><i class="fa-solid fa-right-to-bracket"></i> <span class="d-none d-md-inline">Accedi</span></a>
     </li>
     @if (Route::has('register'))
       <li class="nav-item mb-lg-4 mb-md-3 mb-2 {{str_contains(Route::currentRouteName(), 'register')  ? 'active' : ''}}">
-        <a class="nav-link" href="{{ route('register') }}"><i class="fa-solid fa-clipboard"></i> <span class="d-none d-md-inline">Register</span></a>
+        <a class="nav-link" href="{{ route('register') }}"><i class="fa-solid fa-clipboard"></i> <span class="d-none d-md-inline">Registrati</span></a>
       </li>
     @endif
   </ul>

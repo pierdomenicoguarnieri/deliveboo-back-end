@@ -25,14 +25,14 @@
       <div class="col-md-8">
 
         <div class="card boo-wrapper border-0">
-          <h4>{{ __('Register') }}</h4>
+          <h4>Registrati</h4>
 
           <div class="card-body">
             <form onsubmit="return convalidaForm(this)" method="POST" action="{{ route('register') }}">
               @csrf
 
               <div class="mb-4 row">
-                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                <label for="name" class="col-md-4 col-form-label text-md-right">Nome</label>
 
                 <div class="col-md-8">
                   <input onkeyup="valideInput(this)" id="name" type="text" class="form-control @error('name') is-invalid @enderror"
@@ -49,7 +49,7 @@
               </div>
 
               <div class="mb-4 row">
-                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
 
                 <div class="col-md-8">
                   <input onkeyup="valideInput(this)" id="email" type="email" class="form-control @error('email') is-invalid @enderror"
@@ -66,7 +66,7 @@
               </div>
 
               <div class="mb-4 row">
-                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
                 <div class="col-md-8">
                   <input onkeyup="valideInput(this)" id="password" type="password" class="form-control @error('password') is-invalid @enderror"
@@ -84,7 +84,7 @@
 
               <div class="mb-4 row">
                 <label for="password-confirm"
-                  class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                  class="col-md-4 col-form-label text-md-right">Conferma password</label>
 
                 <div class="col-md-8">
                   <input onkeyup="valideInput(this)"  id="password-confirm" type="password" class="form-control" name="password_confirmation"
@@ -94,7 +94,7 @@
 
               <div class="mb-4 row mb-0">
                 <div class="col-md-6 offset-md-4">
-                  <button type="submit" class="btn btn-primary">
+                  <button type="submit" class="btn btn-outline-primary boo-btn">
                     Registrati
                   </button>
                 </div>

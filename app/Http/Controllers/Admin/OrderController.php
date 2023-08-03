@@ -32,7 +32,7 @@ class OrderController extends Controller
         }
       }
 
-      asort($orders_ids);
+      rsort($orders_ids);
 
       foreach($orders_ids as $orderItem){
         $order = Order::where('id', $orderItem)->with('dishes')->first();

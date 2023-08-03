@@ -4,7 +4,7 @@
 
   @section('content')
     <div class="h-100 w-100 pb-3">
-        <div class="row">
+        <div class="row mb-3">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-6 d-flex justify-content-center">
                 <div class="orders">
                     <p class="counter-count-animate">{{count($orders)}}</p>
@@ -78,7 +78,7 @@
                                     thirtyDates[i] = [];
                                   };
       const thirtyDatesCount    = [];
-                                  
+
       const lastYearMonths      = [];
       const lastYearDates       = {};
                                   for (let i = 0; i < 13; i++) {
