@@ -22,8 +22,8 @@
               <p class="fw-bold">Cognome: <span class="fw-normal">{{ $order->user_lastname }}</span></p>
               <p class="fw-bold">Indirizzo: <span class="fw-normal">{{ $order->user_address }}</span></p>
               <p class="fw-bold">Numero di telefono <span class="fw-normal">{{ $order->user_telephone_number }}</span></p>
-              <p class="fw-bold">Totale: <span class="fw-normal">{{ number_format($order->tot_order, 2) }} &euro;</span></p>
-              <p class="fw-bold">Data dell'ordine: <span class="fw-normal">{{ $order->created_at }}</span></p>
+              <p class="fw-bold">Email: <span class="fw-normal">{{ $order->user_email }}</span></p>
+              <p class="fw-bold">Data ordine: <span class="fw-normal">{{ $order->created_at->format('d/m/Y H:i:s') }}</span></p>
               <p class="fw-bold">Totale: <span class="fw-normal">{{ number_format($order->tot_order, 2) }} &euro;</span></p>
 
               <table class="table mt-4">

@@ -23,7 +23,7 @@
               <th scope="col">Id. Ordine</th>
               <th scope="col" class="d-none d-sm-table-cell">Nome</th>
               <th scope="col" class="d-none d-sm-table-cell">Cognome</th>
-              <th scope="col" class="d-none d-md-table-cell">Tel.</th>
+              <th scope="col" class="d-none d-md-table-cell">Data ordine</th>
               <th scope="col">Totale</th>
               <th scope="col">Info</th>
             </tr>
@@ -34,7 +34,7 @@
                 <th scope="row">{{ $order->id }}</th>
                 <td class="d-none d-sm-table-cell">{{ $order->user_name }}</td>
                 <td class="d-none d-sm-table-cell">{{ $order->user_lastname }}</td>
-                <td class="d-none d-md-table-cell">{{ $order->user_telephone_number }}</td>
+                <td class="d-none d-md-table-cell">{{ $order->created_at->format('d/m/Y') }}</td>
                 <td>{{ $order->tot_order }} &euro;</td>
                 <td>
                   <a href="{{ route('admin.orders.show', $order) }}" class="btn btn-primary d-none d-lg-inline-block">

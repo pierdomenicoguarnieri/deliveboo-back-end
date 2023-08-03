@@ -81,10 +81,14 @@ class PageController extends Controller
         $transaction_arr = [
           'transaction_id' => $transaction->id
         ];
+        $neworder_arr = [
+          'neworder_id' => $new_order->id
+        ];
 
         if(file_exists('data.json')){
           file_put_contents("token.json", json_encode($data_arr, JSON_PRETTY_PRINT));
           file_put_contents("transaction_id.json", json_encode($transaction_arr, JSON_PRETTY_PRINT));
+          file_put_contents("neworder_id.json", json_encode($neworder_arr, JSON_PRETTY_PRINT));
         }
 
         return redirect('http://localhost:5174/payment-success');
