@@ -95,7 +95,7 @@
         </div>
       @endif
     </div>
-    <div>
+    <div class="mt-3">
       {{ $dishes->links() }}
     </div>
   </div>

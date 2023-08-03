@@ -23,6 +23,10 @@ main{
   }
 }
 
+.text-orange{
+  color: $tertiary_color !important;
+  font-weight: 800;
+}
 
 .search_dishes{
   border: 2px solid grey;
