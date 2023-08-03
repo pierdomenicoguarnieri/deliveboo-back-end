@@ -23,7 +23,7 @@
                 <span class="me-2 fw-bold">ingredienti:</span>
                 <span class="fw-normal">{{ $dish->ingredients }}</span>
               </div>
-              <p class="fw-bold">Tipo: <span class="fw-normal">{{ $dish->type }}</span></p>
+              <p class="{{$dish->is_vegan || $dish->is_frozen || $dish->is_gluten_free || $dish->is_lactose_free ? '' : 'd-none' }}" class="fw-bold">Tipo: <span class="fw-normal">{{ $dish->type }}</span></p>
               <div class="dish-flags d-flex mb-4">
                 <span class="btn btn-outline-primary boo-btn me-2 {{ $dish->is_vegan ? 'active' : 'd-none' }}">
                   <i class="fa-solid fa-seedling"></i>
