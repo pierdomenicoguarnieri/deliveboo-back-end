@@ -38,17 +38,19 @@ class OrderController extends Controller
       $json_token = file_get_contents('token.json');
       $json_data = file_get_contents('data.json');
       $json_transaction = file_get_contents('transaction_id.json');
+      $json_neworder = file_get_contents('neworder_id.json');
 
       $token_json = json_decode($json_token);
       $data_json = json_decode($json_data);
       $transaction_json = json_decode($json_transaction);
-
+      $neworder_json = json_decode($json_neworder);
 
       if($data['token'] == $token_json->token){
         unlink('token.json');
         unlink('data.json');
         unlink('transaction_id.json');
-        return response()->json(['success' => true, 'data' => $data_json, 'transaction_id' => $transaction_json->transaction_id]);
+        unlink('neworder_id.json');
+        return response()->json(['success' => true, 'data' => $data_json, 'transaction_id' => $transaction_json->transaction_id, 'neworder_id' => $neworder_json->neworder_id]);
       }else{
         return response()->json(['success' => false]);
       }
