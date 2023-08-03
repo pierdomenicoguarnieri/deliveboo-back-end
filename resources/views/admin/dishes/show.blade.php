@@ -25,10 +25,13 @@
               </div>
               <p class="fw-bold">Tipo: <span class="fw-normal">{{ $dish->type }}</span></p>
               <div class="dish-flags d-flex mb-4">
-                <span class="btn btn-outline-primary boo-btn me-2 {{ $dish->is_vegan ? 'active' : 'disabled' }}"><i class="fa-solid fa-seedling"></i> <span class="d-none d-xl-inline">Vegano</span></span>
-                <span class="btn btn-outline-primary boo-btn me-2 {{ $dish->is_frozen ? 'active' : 'disabled' }}"><i class="fa-solid fa-snowflake"></i> <span class="d-none d-xl-inline">Surgelato</span></span>
-                <span class="btn btn-outline-primary boo-btn me-2 {{ $dish->is_gluten_free ? 'active' : 'disabled' }}"><i class="fa-solid fa-wheat-awn-circle-exclamation"></i> <span class="d-none d-xl-inline">Senza glutine</span></span>
-                <span class="btn btn-outline-primary boo-btn me-2 {{ $dish->is_lactose_free ? 'active' : 'disabled' }}"><i class="fa-solid fa-cow"></i> <span class="d-none d-xl-inline">Senza Lattosio</span></span>
+                <span class="btn btn-outline-primary boo-btn me-2 {{ $dish->is_vegan ? 'active' : 'd-none' }}">
+                  <i class="fa-solid fa-seedling"></i>
+                  <span class="d-none d-xl-inline">Vegano</span>
+                </span>
+                <span class="btn btn-outline-primary boo-btn me-2 {{ $dish->is_frozen ? 'active' : 'd-none' }}"><i class="fa-solid fa-snowflake"></i> <span class="d-none d-xl-inline">Surgelato</span></span>
+                <span class="btn btn-outline-primary boo-btn me-2 {{ $dish->is_gluten_free ? 'active' : 'd-none' }}"><i class="fa-solid fa-wheat-awn-circle-exclamation"></i> <span class="d-none d-xl-inline">Senza glutine</span></span>
+                <span class="btn btn-outline-primary boo-btn me-2 {{ $dish->is_lactose_free ? 'active' : 'd-none' }}"><i class="fa-solid fa-cow"></i> <span class="d-none d-xl-inline">Senza Lattosio</span></span>
               </div>
             </div>
 
